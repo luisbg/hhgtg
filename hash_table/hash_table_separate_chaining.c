@@ -13,7 +13,7 @@ typedef enum
 
 
 int hash(char * key) {
-  return 5;
+  return key[0] % 16;
 }
 
 void insert_list (linked_list *l, char key[], char word[]) {
@@ -73,15 +73,31 @@ int main () {
 
   insert_hash_table (table, "first", "work it");
   insert_hash_table (table, "second", "make it");
+  /* skip third for testing getting onstored keys */
   insert_hash_table (table, "fourth", "make us");
   insert_hash_table (table, "fifth", "harder");
+  insert_hash_table (table, "sixth", "better");
+  insert_hash_table (table, "seventh", "faster");
+  insert_hash_table (table, "eighth", "stronger");
+  insert_hash_table (table, "ninth", "more than");
+  insert_hash_table (table, "tenth", "hour");
 
   char *k = "first";
   printf("the key: %s -> has word: %s \n", k, get_from_table (table, k));
   k = "second";
   printf("the key: %s -> has word: %s \n", k, get_from_table (table, k));
   k = "third";
+  if (get_from_table (table, k) == "")
+    printf("the key: %s -> isn't stored\n", k);
+  k = "sixth";  /* sixth collides with second */
   printf("the key: %s -> has word: %s \n", k, get_from_table (table, k));
-  k = "fifth";
+  k = "seventh"; /* seventh collides with second and sixth */
   printf("the key: %s -> has word: %s \n", k, get_from_table (table, k));
+
+  int c;
+  for (c = 0; c < 32; c++) {
+    if (strcmp(table[c].key, "") != 0) {
+      printf("table head records %d: %s->%s\n", c, table[c].key, table[c].word);
+    }
+  }
 }
