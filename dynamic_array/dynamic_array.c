@@ -17,10 +17,7 @@ push (dyn_arr * da, int i)
 {
   printf ("push: %d\n", i);
 
-  if (da->len < da->size) {
-    da->array[da->len] = i;
-    da->len++;
-  } else {
+  if (da->len == da->size) {
     int new_size = da->size * 2;
     int *new_s = (int *) malloc (new_size * sizeof (int));
     int c;
@@ -31,11 +28,13 @@ push (dyn_arr * da, int i)
         new_s[c] = 0;
     }
 
+    free (da->array);
     da->array = new_s;
     da->size = new_size;
-
-    push (da, i);
   }
+
+  da->array[da->len] = i;
+  da->len++;
 
 /*    printf("current state ");
     int a;
@@ -43,6 +42,16 @@ push (dyn_arr * da, int i)
         printf("%d ", da->array[a]);
     }
     printf("\n"); */
+}
+
+void
+push_realloc (dyn_arr * da, int i)
+{
+  if (da->len == da->size) {
+    da->size *= 2;
+    da->array = (int *) realloc (da->array, da->size * sizeof (int));
+  }
+  da->array[da->len++] = i;
 }
 
 bool
@@ -63,11 +72,20 @@ stack_pop (dyn_arr * da, int *ret)
       new_s[c] = da->array[c];
     }
 
+    free (da->array);
     da->array = new_s;
     da->size = new_size;
   }
 
   return TRUE;
+}
+
+void
+free_array (dyn_arr * da)
+{
+  free (da->array);
+  da->array = NULL;
+  da->size = da->len = 0;
 }
 
 void
@@ -89,7 +107,10 @@ main ()
 
   int c;
   for (c = 2; c <= 37; c++) {
-    push (&a, c);
+    if (c % 2 == 0)
+      push (&a, c);
+    else
+      push_realloc (&a, c * 10);
   }
 
   int t;
@@ -99,4 +120,6 @@ main ()
     else
       printf ("stack empty\n");
   }
+
+  free_array (&a);
 }
