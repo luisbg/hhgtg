@@ -1,1 +1,2 @@
 gcc hash_table_separate_chaining.c -o htsc
+gcc hash_table_wraparound.c -o htwa
