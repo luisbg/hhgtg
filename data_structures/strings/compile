@@ -1,0 +1,1 @@
+gcc all_unique_characters.c -o all_unique
