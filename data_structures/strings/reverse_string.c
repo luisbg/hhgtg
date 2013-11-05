@@ -10,7 +10,7 @@ char* reverse (char * str) {
   for (len = 0; str[len]; len++) {
   }
 
-  char * new = (char *) malloc (len * sizeof(char *));
+  char * new = (char *) malloc (len * sizeof(char));
   new[len] = 0;
 
   int c = 0;
@@ -38,7 +38,6 @@ void reverse_in_place (char * str) {
       tmp = *str;
       *str++ = *end;
       *end-- = tmp;
-      str++;
     }
   }
 }
@@ -52,4 +51,10 @@ int main ()
 
   char * empty = "";
   printf("%s\n", reverse(empty));
+
+  char * test_mutable = (char *) malloc (14 * sizeof(char));
+  strcpy(test_mutable, "more testing!");
+  printf("%s ", test_mutable);
+  reverse_in_place(test_mutable);
+  printf(":: %s\n", test_mutable);
 }
