@@ -57,8 +57,10 @@ permutation_by_sort (char *first, char *second)
   return TRUE;
 }
 
-int * letter_counter (char * str, int len) {
-  int * ret = (int *) malloc (ASCII_SIZE * sizeof(int));
+int *
+letter_counter (char *str, int len)
+{
+  int *ret = (int *) malloc (ASCII_SIZE * sizeof (int));
   int c;
   for (c = 0; c < ASCII_SIZE; c++) {
     ret[c] = 0;
@@ -71,13 +73,14 @@ int * letter_counter (char * str, int len) {
   return ret;
 }
 
-bool permutation_by_count (char *first, char *second)
+bool
+permutation_by_count (char *first, char *second)
 {
-  int len = strlen(first);
-  if (len != strlen(second))
+  int len = strlen (first);
+  if (len != strlen (second))
     return FALSE;
 
-  int * first_count;
+  int *first_count;
   first_count = letter_counter (first, len);
   int *second_count;
   second_count = letter_counter (second, len);
@@ -97,13 +100,15 @@ bool permutation_by_count (char *first, char *second)
     }
   }
 
-  free(first_count);
-  free(second_count);
+  free (first_count);
+  free (second_count);
 
   return TRUE;
 }
 
-bool permutation (char * first, char *second) {
+bool
+permutation (char *first, char *second)
+{
   count++;
 
   if (count % 2 == 0)

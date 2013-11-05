@@ -1,9 +1,11 @@
 #include <stdio.h>
 
 typedef enum
-{FALSE, TRUE} bool;
+{ FALSE, TRUE } bool;
 
-bool all_unique_characters (char * str) {
+bool
+all_unique_characters (char *str)
+{
   if (str == NULL)
     return TRUE;
 
@@ -20,15 +22,16 @@ bool all_unique_characters (char * str) {
   return TRUE;
 }
 
-int main ()
+int
+main ()
 {
-  char * test = "";
-  printf("%s :: unique characters: %s\n", test,
-    all_unique_characters(test)? "yes": "no");
+  char *test = "";
+  printf ("%s :: unique characters: %s\n", test,
+      all_unique_characters (test) ? "yes" : "no");
   test = "hello";
-  printf("%s :: unique characters: %s\n", test,
-    all_unique_characters(test)? "yes": "no");
+  printf ("%s :: unique characters: %s\n", test,
+      all_unique_characters (test) ? "yes" : "no");
   test = "world";
-  printf("%s :: unique characters: %s\n", test,
-    all_unique_characters(test)? "yes": "no");
+  printf ("%s :: unique characters: %s\n", test,
+      all_unique_characters (test) ? "yes" : "no");
 }
