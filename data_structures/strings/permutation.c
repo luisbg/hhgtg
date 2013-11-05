@@ -83,9 +83,18 @@ bool permutation_by_count (char *first, char *second)
   second_count = letter_counter (second, len);
 
   int c;
-  for (c = 0; c < ASCII_SIZE; c++) {
-    if (first_count[c] != second_count[c])
-      return FALSE;
+  if (len > ASCII_SIZE) {
+    for (c = 0; c < ASCII_SIZE; c++) {
+      if (first_count[c] != second_count[c])
+        return FALSE;
+    }
+  } else {
+    int l;
+    for (c = 0; c < len; c++) {
+      l = first[c];
+      if (first_count[l] != second_count[l])
+        return FALSE;
+    }
   }
 
   free(first_count);
