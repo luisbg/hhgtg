@@ -1,3 +1,4 @@
-gcc all_unique_characters.c -o all_unique
-gcc reverse_string.c -o reverse_string
-gcc contained.c -o contained
+gcc -O0 -ggdb all_unique_characters.c -o all_unique
+gcc -O0 -ggdb reverse_string.c -o reverse_string
+gcc -O0 -ggdb contained.c -o contained
+gcc -O0 -ggdb permutation.c -o permutation
