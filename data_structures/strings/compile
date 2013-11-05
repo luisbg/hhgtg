@@ -1,2 +1,3 @@
 gcc all_unique_characters.c -o all_unique
 gcc reverse_string.c -o reverse_string
+gcc permutation.c -o permutation
