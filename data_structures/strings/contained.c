@@ -3,7 +3,7 @@
 typedef enum
 {FALSE, TRUE} bool;
 
-bool permutation (char * first, char * second) {
+bool contained (char * first, char * second) {
   if (!first || !second)
     return FALSE;
 
@@ -40,20 +40,20 @@ int main() {
   char * first = "first";
   char * second = "we should find the first inside the second";
 
-  printf("%s :: %s\npermutated %s\n", first, second,
-         permutation(first, second)? "yes": "no");
+  printf("%s :: %s\ncontained %s\n", first, second,
+         contained(first, second)? "yes": "no");
 
   first = "first";
   second = "we shouldn't find it inside the second";
 
-  printf("%s :: %s\npermutated %s\n", first, second,
-         permutation(first, second)? "yes": "no");
+  printf("%s :: %s\ncontained %s\n", first, second,
+         contained(first, second)? "yes": "no");
 
   first = NULL;
-  printf("%s :: %s\npermutated %s\n", first, second,
-         permutation(first, second)? "yes": "no");
+  printf("%s :: %s\ncontained %s\n", first, second,
+         contained(first, second)? "yes": "no");
 
   first = "";
-  printf("%s :: %s\npermutated %s\n", first, second,
-         permutation(first, second)? "yes": "no");
+  printf("%s :: %s\ncontained %s\n", first, second,
+         contained(first, second)? "yes": "no");
 }
