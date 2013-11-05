@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 
+#define ASCII_SIZE 256
+
+static int count;
+
 typedef enum
 { FALSE, TRUE } bool;
 
@@ -23,7 +27,7 @@ string_sort (char *s, int length)
 }
 
 bool
-permutation (char *first, char *second)
+permutation_by_sort (char *first, char *second)
 {
   int c;
   for (c = 0; first[c]; c++) {
@@ -53,24 +57,79 @@ permutation (char *first, char *second)
   return TRUE;
 }
 
+int * letter_counter (char * str, int len) {
+  int * ret = (int *) malloc (ASCII_SIZE * sizeof(int));
+  int c;
+  for (c = 0; c < ASCII_SIZE; c++) {
+    ret[c] = 0;
+  }
+
+  for (c = 0; c < len; c++) {
+    ret[str[c]]++;
+  }
+
+  return ret;
+}
+
+bool permutation_by_count (char *first, char *second)
+{
+  int len = strlen(first);
+  if (len != strlen(second))
+    return FALSE;
+
+  int * first_count;
+  first_count = letter_counter (first, len);
+  int *second_count;
+  second_count = letter_counter (second, len);
+
+  int c;
+  for (c = 0; c < ASCII_SIZE; c++) {
+    if (first_count[c] != second_count[c])
+      return FALSE;
+  }
+
+  free(first_count);
+  free(second_count);
+
+  return TRUE;
+}
+
+bool permutation (char * first, char *second) {
+  count++;
+
+  if (count % 2 == 0)
+    return permutation_by_sort (first, second);
+  else
+    return permutation_by_count (first, second);
+}
 
 int
 main ()
 {
+  count = 0;
+
   char *a = "dad ";
   char *b = " add";
+  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+          b) ? "yes" : "no");
   printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
           b) ? "yes" : "no");
   a = "troll";
   b = "hunter";
   printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
           b) ? "yes" : "no");
+  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+          b) ? "yes" : "no");
   a = "same length ";
   b = "not the same";
   printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
           b) ? "yes" : "no");
+  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+          b) ? "yes" : "no");
   a = "radar";
   b = "radar";
+  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+          b) ? "yes" : "no");
   printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
           b) ? "yes" : "no");
 }
