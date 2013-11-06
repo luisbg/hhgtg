@@ -1,1 +1,0 @@
-gcc dynamic_array.c -o dynarr

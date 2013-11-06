@@ -10,6 +10,8 @@ void show_array (int size, int arr[size][size]) {
     }
     printf("\n");
   }
+
+  printf("\n");
 }
 
 void rotate_90_degrees (int size, int arr[size][size], int new[size][size]) {
@@ -28,9 +30,7 @@ void rotate_90_degrees (int size, int arr[size][size], int new[size][size]) {
     }
   }
 
-  printf("\n");
   show_array(4, new);
-  printf("\n");
 }
 
 
@@ -41,5 +41,4 @@ int main () {
   show_array(4, arr);
 
   rotate_90_degrees (4, arr, rot);
-  show_array(4, rot);
 }

@@ -1,0 +1,2 @@
+gcc dynamic_array.c -o dynamic_array
+gcc rotate_90_degrees.c -o rotate
