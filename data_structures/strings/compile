@@ -3,3 +3,4 @@ gcc -O0 -ggdb reverse_string.c -o reverse_string
 gcc -O0 -ggdb contained.c -o contained
 gcc -O0 -ggdb permutation.c -o permutation
 gcc -O0 -ggdb replace_spaces.c -o replace_spaces
+gcc -O0 -ggdb compression_repeated_characters.c -o compression_repeated_characters
