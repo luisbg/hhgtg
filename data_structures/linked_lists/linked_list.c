@@ -96,7 +96,7 @@ travel (node * l)
 {
   node *tmp = l;
 
-  printf ("the list contains: ", tmp->n);
+  printf ("the list contains: ");
   while (tmp != NULL) {
     printf ("%d ", tmp->n);
 
@@ -110,6 +110,7 @@ main ()
 {
   // start with an empty list
   node *list = NULL;
+  travel (list);
 
   // add a few elements to the list
   insert_append (&list, 2);
