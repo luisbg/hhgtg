@@ -1,3 +1,5 @@
+/* Replace all spaces with '%20'.                                             */
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>

@@ -1,3 +1,5 @@
+/* Check if a string is contained in an other.                                */
+
 #include <stdio.h>
 
 typedef enum

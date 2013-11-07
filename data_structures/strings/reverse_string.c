@@ -1,3 +1,5 @@
+/* A function which reverses a null-terminated string                         */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

@@ -1,3 +1,6 @@
+/* Given an NxN matrix, rotate it by 90 degrees.                              */
+/* Can it be done in place?                                                   */
+
 #include <stdlib.h>
 #include <stdio.h>
 

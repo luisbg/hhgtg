@@ -1,3 +1,8 @@
+/* Basic string compression using the counts of repeated characters.          */
+/* For example the string aabccccaaa would become a5b1c4.                     */
+/* If the 'compressed' string would not become smaller than the original      */
+/* string, return the original string.                                        */
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
