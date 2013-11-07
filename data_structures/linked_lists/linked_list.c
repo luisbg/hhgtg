@@ -102,7 +102,32 @@ travel (node * l)
 
     tmp = tmp->next;
   }
-  printf ("\n");
+  printf ("\n\n");
+}
+
+void
+remove_node (node ** l, int n)
+{
+  node *head = (node *) malloc (sizeof (node));
+
+  if (*l != NULL) {             // not an empty list
+    head = *l;
+
+    if (head->n == n) {         // if first node
+      *l = head->next;          // list points to the second
+      free (head);
+    } else {
+      while (head->next->n != n) {      // find node
+        if (head->next->next == NULL)   // node isn't in the list
+          return;
+
+        head = head->next;
+      }
+      node *tmp = head->next->next;
+      free (head->next);
+      head->next = tmp;         // make previous node point to next
+    }
+  }
 }
 
 int
@@ -119,6 +144,7 @@ main ()
   insert_prepend (&list, 0);
   insert_append (&list, 4);
   insert_append (&list, 5);
+  insert_append (&list, 6);
 
   // travel the list
   travel (list);
@@ -126,7 +152,20 @@ main ()
   // remove all elements
   printf ("remove first item: %d\n", dequeue (&list));
   printf ("remove first item: %d\n", dequeue (&list));
-  printf ("remove last item: %d\n", pop (&list));
+  travel (list);
+
+  printf ("remove item with value 3\n");
+  remove_node (&list, 3);
+  travel (list);
+
+  printf ("remove item with value 2\n");
+  remove_node (&list, 2);
+  travel (list);
+
+  printf ("remove item with value 7\n");
+  remove_node (&list, 7);
+  travel (list);
+
   printf ("remove last item: %d\n", pop (&list));
   printf ("remove last item: %d\n", pop (&list));
   printf ("remove first item: %d\n", dequeue (&list));
