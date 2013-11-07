@@ -1,2 +1,3 @@
 gcc dynamic_array.c -o dynamic_array
 gcc rotate_90_degrees.c -o rotate
+gcc zero_out.c -o zero_out
