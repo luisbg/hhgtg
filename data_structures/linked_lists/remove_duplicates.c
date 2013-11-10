@@ -10,6 +10,9 @@ typedef struct node
   struct node *prev;
 } node;
 
+typedef enum
+{ FALSE, TRUE } bool;
+
 
 void
 sort_list (node ** l)
@@ -33,9 +36,6 @@ sort_list (node ** l)
     head = head->next;
   }
 }
-
-// void remove_duplicates (node **l) {
-// }
 
 void
 prepend (node ** l, int n)
@@ -88,6 +88,48 @@ remove_duplicates (node ** l)
   }
 }
 
+bool
+have_we_seen_it_before (node ** l, int n)
+{
+  node *head = (node *) malloc (sizeof (node));
+  head = *l;
+  while (head != NULL) {
+    if (head->n == n)
+      return TRUE;
+
+    head = head->next;
+  }
+
+  node *new = (node *) malloc (sizeof (node));  // if we haven't seen it, add
+  new->n = n;                                   // it to the buffer
+  new->next = *l;
+  *l = new;
+
+  free (head);
+  return FALSE;
+}
+
+void
+remove_duplicates_with_buffer (node ** l)
+{
+  node *head = (node *) malloc (sizeof (node));
+  node *buffer = (node *) malloc (sizeof (node));       // preferably a hash table
+  node *tmp = (node *) malloc (sizeof (node));
+  buffer = NULL;
+
+  head = *l;
+  while (head != NULL) {
+    if (have_we_seen_it_before (&buffer, head->n)) {
+      tmp = head;
+      head->prev->next = head->next;
+      head->next->prev = head->prev;
+      free (tmp);
+    }
+
+    head = head->next;
+  }
+}
+
 int
 main ()
 {
@@ -123,4 +165,34 @@ main ()
 
   remove_duplicates (&l);
   travel (l);
+
+  node *m = (node *) malloc (sizeof (node));
+  m = NULL;
+
+  prepend (&m, 1);
+  prepend (&m, 4);
+  prepend (&m, 5);
+  prepend (&m, 8);
+  prepend (&m, 5);
+  prepend (&m, 8);
+  prepend (&m, 4);
+  prepend (&m, 3);
+  prepend (&m, 6);
+  prepend (&m, 10);
+  prepend (&m, 8);
+  prepend (&m, 9);
+  prepend (&m, 8);
+  prepend (&m, 7);
+  prepend (&m, 2);
+  prepend (&m, 2);
+  prepend (&m, 5);
+  prepend (&m, 2);
+  prepend (&m, 10);
+
+  printf ("new original linked list: ");
+  travel (m);
+
+  printf ("removed duplicates: ");
+  remove_duplicates_with_buffer (&m);
+  travel (m);
 }
