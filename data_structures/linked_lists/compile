@@ -1,2 +1,3 @@
 gcc -O0 -ggdb linked_list.c -o linked_list
 gcc -O0 -ggdb remove_duplicates.c -o remove_duplicates
+gcc -O0 -ggdb find_kth_element.c -o find_kth_element
