@@ -1,1 +1,2 @@
 gcc hello_world.c -o hello_world
+gcc fahrenheit_to_celcius.c -o fahrenheit_to_celcius
