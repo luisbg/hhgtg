@@ -9,3 +9,4 @@ gcc print_longest_char_array.c -o print_longest_char_array
 gcc print_longest_extern.c -o print_longest_extern
 gcc switch.c -o switch
 gcc binary_search.c -o binary_search
+gcc atoi.c -o atoi
