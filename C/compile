@@ -4,3 +4,4 @@ gcc file_copy.c -o file_copy
 gcc character_counting.c -o character_counting
 gcc line_counting.c -o line_counting
 gcc word_counting.c -o word_counting
+gcc power_function.c -o power_function
