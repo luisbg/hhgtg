@@ -1,2 +1,6 @@
 gcc hello_world.c -o hello_world
 gcc fahrenheit_to_celcius.c -o fahrenheit_to_celcius
+gcc file_copy.c -o file_copy
+gcc character_counting.c -o character_counting
+gcc line_counting.c -o line_counting
+gcc word_counting.c -o word_counting
