@@ -5,3 +5,5 @@ gcc character_counting.c -o character_counting
 gcc line_counting.c -o line_counting
 gcc word_counting.c -o word_counting
 gcc power_function.c -o power_function
+gcc print_longest_char_array.c -o print_longest_char_array
+gcc print_longest_extern.c -o print_longest_extern
