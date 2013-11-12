@@ -1,2 +1,3 @@
 gcc -O0 -ggdb stack.c -o stack
 gcc -O0 -ggdb queue.c -o queue
+gcc -O0 -ggdb split_array_stack.c -o split_array_stack

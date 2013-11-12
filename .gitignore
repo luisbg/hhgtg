@@ -28,6 +28,8 @@ data_structures/linked_lists/partition
 data_structures/linked_lists/remove_duplicates
 data_structures/linked_lists/remove_node
 data_structures/stack_n_queues/stack
+data_structures/stack_n_queues/queue
+data_structures/stack_n_queues/split_array_stack
 data_structures/strings/all_unique
 data_structures/strings/compression_repeated_characters
 data_structures/strings/contained
