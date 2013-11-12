@@ -4,3 +4,4 @@ gcc -O0 -ggdb find_kth_element.c -o find_kth_element
 gcc -O0 -ggdb remove_node.c -o remove_node
 gcc -O0 -ggdb partition.c -o partition
 gcc -O0 -ggdb adding.c -o adding
+gcc -O0 -ggdb cyclical.c -o cyclical
