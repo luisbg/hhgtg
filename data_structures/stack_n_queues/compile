@@ -1,1 +1,2 @@
 gcc -O0 -ggdb stack.c -o stack
+gcc -O0 -ggdb queue.c -o queue
