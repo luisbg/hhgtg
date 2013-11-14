@@ -1,0 +1,2 @@
+gcc -O0 -ggdb recursion.c -o recursion
+gcc -O0 -ggdb hanoi_towers.c -o hanoi_towers
