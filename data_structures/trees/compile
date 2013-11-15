@@ -1,1 +1,2 @@
 gcc -O0 -ggdb binary_tree.c -o binary_tree
+gcc -O0 -ggdb depth_first_search.c -o depth_first_search
