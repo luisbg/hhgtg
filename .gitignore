@@ -41,3 +41,5 @@ data_structures/strings/permutation
 data_structures/strings/replace_spaces
 data_structures/strings/reverse_string
 data_structures/trees/binary_tree
+data_structures/trees/depth_first_search
+data_structures/graph/adjacency_list
