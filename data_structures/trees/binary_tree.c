@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define TRUE 1
-#define FALSE 0
+typedef enum
+{
+  FALSE, TRUE
+} bool;
 
 typedef struct node
 {
@@ -42,22 +44,20 @@ insert (node ** leaf, int key)
 
 /* returns the address of the node to be deleted, address of its parent and */
 /* whether the node is found or not                                         */
-void
+static bool
 search_parent (struct node **root, int num, struct node **parent, struct
-    node **x, int *found)
+    node **x)
 {
   struct node *head;
 
   head = *root;
-  *found = FALSE;
   *parent = NULL;
 
   while (head != NULL) {
     /* if the node to be deleted is found */
     if (head->key == num) {
       *x = head;
-      *found = TRUE;
-      return;
+      return TRUE;
     }
 
     *parent = head;
@@ -67,6 +67,8 @@ search_parent (struct node **root, int num, struct node **parent, struct
     else
       head = head->right;
   }
+
+  return FALSE;
 }
 
 /* delete the specified node from the binary tree */
@@ -79,9 +81,9 @@ delete_node (node ** leaf, int key)
   if (*leaf == NULL)
     return;
 
-  search_parent (leaf, key, &parent, &head, &found);
+  search_parent (leaf, key, &parent, &head);
 
-  if (found == FALSE) {
+  if (!search_parent (leaf, key, &parent, &head)) {
     printf("ERROR: %d isn't in the tree", key);
     return;
   }
@@ -98,10 +100,10 @@ delete_node (node ** leaf, int key)
     head->key = succesor->key;
     head = succesor;
   }
-  if (head->left == NULL && head->left != NULL) {  // only has left child
-    if (parent->left == head)                      // link past the node
-      parent->left = head->left;                   // can also be previous case
-    else                                           // after we switched values
+  if (head->right == NULL && head->left != NULL) {  // only has left child
+    if (parent->left == head)                       // link past the node
+      parent->left = head->left;                    // can also be previous case
+    else                                            // after we switched values
       parent->right = head->left;
 
     free (head);
