@@ -18,6 +18,7 @@ node *search_key (node * leaf, int key);
 void destroy_tree (struct node *leaf);
 void traverse (struct node *leaf);
 
+/* insert a key into the tree */
 void
 insert (node ** leaf, int key)
 {
@@ -45,43 +46,45 @@ void
 search_parent (struct node **root, int num, struct node **parent, struct
     node **x, int *found)
 {
-  struct node *q;
+  struct node *head;
 
-  q = *root;
+  head = *root;
   *found = FALSE;
   *parent = NULL;
 
-  while (q != NULL) {
+  while (head != NULL) {
     /* if the node to be deleted is found */
-    if (q->key == num) {
-      *x = q;
+    if (head->key == num) {
+      *x = head;
       *found = TRUE;
       return;
     }
 
-    *parent = q;
+    *parent = head;
 
-    if (q->key > num)
-      q = q->left;
+    if (head->key > num)
+      head = head->left;
     else
-      q = q->right;
+      head = head->right;
   }
 }
 
+/* delete the specified node from the binary tree */
 void
 delete_node (node ** leaf, int key)
 {
-  node *root, *parent, *head, *succesor = NULL;
+  node *parent, *head, *succesor = NULL;
   int found = 0;
-  root = *leaf;
 
   if (*leaf == NULL)
     return;
 
-  search_parent (&root, key, &parent, &head, &found);
+  search_parent (leaf, key, &parent, &head, &found);
 
-  if (found == FALSE)
+  if (found == FALSE) {
+    printf("ERROR: %d isn't in the tree", key);
     return;
+  }
 
   if (head->right && head->left) {  //have both childs
     parent = head;           // replace with left child's tree biggest
@@ -126,6 +129,7 @@ delete_node (node ** leaf, int key)
   }
 }
 
+/* search for a key in the tree */
 node *
 search_key (node * leaf, int key)
 {
@@ -145,6 +149,7 @@ search_key (node * leaf, int key)
   }
 }
 
+/* destroy the tree and release all memory */
 void
 destroy_tree (struct node *leaf)
 {
@@ -155,6 +160,7 @@ destroy_tree (struct node *leaf)
   }
 }
 
+/* traverse the tree in order */
 void
 traverse (struct node *leaf)
 {
