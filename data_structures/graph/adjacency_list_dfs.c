@@ -100,22 +100,26 @@ display_graph (graph_t graph)
   }
 }
 
-void depth_first_search (graph_t *graph, adj_node_t *curr, int v) {
+void
+depth_first_search (graph_t * graph, adj_node_t * curr, int v)
+{
   printf ("visited: %d\n", v);
 
   if (curr != NULL) {
-    graph->list[v].visited = TRUE; // mark the node visited to avoid infinite loops
+    graph->list[v].visited = TRUE;      // mark the node visited to avoid infinite loops
 
-    while (curr != NULL) { // search all adjacent nodes
+    while (curr != NULL) {      // search all adjacent nodes
       if (!graph->list[curr->vertex].visited) {
-        depth_first_search (graph, graph->list[curr->vertex].head, curr->vertex);
+        depth_first_search (graph, graph->list[curr->vertex].head,
+            curr->vertex);
       }
       curr = curr->next;
     }
   }
 }
 
-void unset_visited (graph_t * graph)
+void
+unset_visited (graph_t * graph)
 {
   int c;
   for (c = 0; c < graph->num_vertices; c++) {
