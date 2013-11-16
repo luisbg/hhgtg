@@ -14,11 +14,13 @@ typedef struct trie_node
 } trie_node_t;
 
 trie_node_t *create_node (char key, int data);
-void add_trie (trie_node_t **root, char *key, int data);
-trie_node_t *search (trie_node_t *root, const char *key);
+void add_trie (trie_node_t ** root, char *key, int data);
+trie_node_t *search (trie_node_t * root, const char *key);
 
 
-trie_node_t *create_node (char key, int data) {
+trie_node_t *
+create_node (char key, int data)
+{
   trie_node_t *node = (trie_node_t *) malloc (sizeof (trie_node_t));
 
   if (node == NULL) {
@@ -38,26 +40,27 @@ trie_node_t *create_node (char key, int data) {
   return node;
 }
 
-void add_trie (trie_node_t **root, char *key, int data)
+void
+add_trie (trie_node_t ** root, char *key, int data)
 {
   trie_node_t *head;
 
 #ifdef DEBUG
   printf ("Inserting key: %s\n", key);
 #endif
-  if  (*root == NULL) {
-    #ifdef DEBUG
-    printf("Empty trie\n");
-    #endif
+  if (*root == NULL) {
+#ifdef DEBUG
+    printf ("Empty trie\n");
+#endif
     return;
   }
   head = (*root)->children;
 
-  if (head == NULL) { /* first node */
+  if (head == NULL) {           /* first node */
     for (head = *root; *key; head = head->children) {
       head->children = create_node (*key, 0);
 #ifdef DEBUG
-      printf("Inserting first node: %c\n", *key);
+      printf ("Inserting first node: %c\n", *key);
 #endif
       head->children->parent = head;
       key++;
@@ -67,22 +70,22 @@ void add_trie (trie_node_t **root, char *key, int data)
     head->children->parent = head;
   }
 
-  if(search (head, key)) {
+  if (search (head, key)) {
 #ifdef DEBUG
-    printf("Duplicate!\n");
+    printf ("Duplicate!\n");
 #endif
     return;
   }
 
-  while (*key != '\0') { /* for strings with the beginning already stored */
+  while (*key != '\0') {        /* for strings with the beginning already stored */
     if (*key == head->key) {
       head = head->children;
       key++;
     } else
       break;
   }
-  
-  while (head->next) { /* find if the beginning is already stored */
+
+  while (head->next) {          /* find if the beginning is already stored */
     if (*key == head->next->key) {
       key++;
       add_trie (&head->next, key, data);
@@ -91,9 +94,10 @@ void add_trie (trie_node_t **root, char *key, int data)
     head = head->next;
   }
 
-  head->next = create_node (*key, 0); /* start new branch */
+  head->next = create_node (*key, 0);   /* start new branch */
   head->next->parent = head->parent;
-  head->next->prev; head;
+  head->next->prev;
+  head;
 
 #ifdef DEBUG
   printf ("Inserting %c as neighbour of %c \n", head->next->key, head->key);
@@ -102,8 +106,8 @@ void add_trie (trie_node_t **root, char *key, int data)
   key++;
 
   for (head = head->next; *key; head = head->children) {
-    head->children = create_node (*key, 0);    /* populate children of new */
-    head->children->parent = head;             /* branch */
+    head->children = create_node (*key, 0);     /* populate children of new */
+    head->children->parent = head;      /* branch */
     key++;
 #ifdef DEBUG
     printf ("Inserting: %c\n", head->children->key);
@@ -116,7 +120,8 @@ void add_trie (trie_node_t **root, char *key, int data)
   return;
 }
 
-trie_node_t *search (trie_node_t *root, const char *key)
+trie_node_t *
+search (trie_node_t * root, const char *key)
 {
   trie_node_t *level = root->children;
   trie_node_t *curr = NULL;
@@ -144,7 +149,8 @@ trie_node_t *search (trie_node_t *root, const char *key)
   }
 }
 
-int main ()
+int
+main ()
 {
   trie_node_t *root = NULL;
   trie_node_t *tmp = NULL;
@@ -157,11 +163,12 @@ int main ()
   add_trie (&root, "bar", 14);
   add_trie (&root, "batman", 15);
 
-  char *names[4] = {"alice", "alfred", "batman", "negan"};
+  char *names[4] = { "alice", "alfred", "batman", "negan" };
   int c;
   for (c = 0; c < 4; c++) {
     tmp = search (root, names[c]);
-    printf ("is %s there? %s\n", names[c], tmp? "yes" : "no");
-    if (tmp) printf ("%s is: %d\n", names[c], tmp->value);
+    printf ("is %s there? %s\n", names[c], tmp ? "yes" : "no");
+    if (tmp)
+      printf ("%s is: %d\n", names[c], tmp->value);
   }
 }
