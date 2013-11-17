@@ -3,3 +3,4 @@ gcc -O0 -ggdb depth_first_search.c -o depth_first_search
 gcc -O0 -ggdb -D DEBUG trie.c -o trie
 gcc -O0 -ggdb breadth_first_search.c -o breadth_first_search
 gcc -O0 -ggdb binary_tree_measure_height.c -o binary_tree_measure_height
+gcc -O0 -ggdb balanced_from_sorted.c -o balanced_from_sorted
