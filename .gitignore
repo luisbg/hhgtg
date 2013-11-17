@@ -46,3 +46,4 @@ data_structures/trees/depth_first_search
 data_structures/trees/trie
 data_structures/graph/adjacency_list
 data_structures/graph/adjacency_list_dfs
+data_structures/graph/adjacency_list_connected_nodes
