@@ -1,0 +1,1 @@
+gcc -O0 -ggdb prime_numbers.c -o prime_numbers -lm

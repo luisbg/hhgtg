@@ -17,6 +17,7 @@ C/trim_break
 C/word_counting
 algorithms/recursion/hanoi_towers
 algorithms/recursion/recursion
+algorithms/mathn/prime_numbers
 bit_manipulation/bit_manipulation
 bit_manipulation/contain_m_n
 data_structures/arrays/dynamic_array
