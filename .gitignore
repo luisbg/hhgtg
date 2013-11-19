@@ -20,6 +20,7 @@ algorithms/recursion/recursion
 algorithms/math/prime_numbers
 algorithms/math/fibonacci
 algorithms/math/running_upstairs
+algorithms/math/factorial
 bit_manipulation/bit_manipulation
 bit_manipulation/contain_m_n
 data_structures/arrays/dynamic_array
