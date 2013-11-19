@@ -1,2 +1,3 @@
 gcc -O0 -ggdb prime_numbers.c -o prime_numbers -lm
 gcc -O0 -ggdb fibonacci.c -o fibonacci
+gcc -O0 -ggdb running_upstairs.c -o running_upstairs
