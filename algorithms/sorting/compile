@@ -1,0 +1,2 @@
+gcc -O0 -ggdb mergesort.c -o mergesort
+gcc -O0 -ggdb quicksort.c -o quicksort
