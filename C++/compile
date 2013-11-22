@@ -1,1 +1,2 @@
 g++ class_and_inheritance.c -o class_and_inheritance
+g++ virtual_functions.c -o virtual_functions
