@@ -1,0 +1,1 @@
+g++ class_and_inheritance.c -o class_and_inheritance
