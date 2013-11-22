@@ -1,64 +1,74 @@
 #include <iostream>
 using namespace std;
 
-class Person {
-  int id; // all members are private by default
+class Person
+{
+  int id;                       // all members are private by default
   int age;
   char *name;
 
-  public:
-    Person (int a) {  // constructor
-      age = a;
-    }
+public:
+  Person (int a)
+  {                             // constructor
+    age = a;
+  }
 
-    void about_me () {
-      cout << "I am a person, " << age << " years old.\n";
-    }
+  void about_me ()
+  {
+    cout << "I am a person, " << age << " years old.\n";
+  }
 
-    int get_age () {
-      return age;
-    }
+  int get_age ()
+  {
+    return age;
+  }
 
-    int get_id () {
-      return id;
-    }
+  int get_id ()
+  {
+    return id;
+  }
 
-    ~Person() {
-      delete name; // free any memory allocated within the class
-    }
+  ~Person () {
+    delete name;                // free any memory allocated within the class
+  }
 };
 
-class Student : public Person {
-  int course; // private members
+class Student:public Person
+{
+  int course;                   // private members
 
-  public:
-    Student (int a, int c) // constructor with parent constructor
-    : Person (a)
-    {
-      course = c;
-    }
+public:
+  Student (int a, int c)        // constructor with parent constructor
+  : Person (a)
+  {
+    course = c;
+  }
 
-    void about_me () { // override parent's function
-      cout << "I am a student in grade " << course << " with age "
-          << get_age() << ".\n";  // Person::get_age()
-    }
+  void about_me ()
+  {                             // override parent's function
+    cout << "I am a student in grade " << course << " with age " << get_age ()
+        << ".\n";        // Person::get_age()
+  }
 
-    int get_course () {
-      return course;
-    }
+  int get_course ()
+  {
+    return course;
+  }
 
-    int set_course (int c) {
-      course = c;
-    }
+  int set_course (int c)
+  {
+    course = c;
+  }
 };
 
 
-int main ()
+int
+main ()
 {
   Student *p = new Student (16, 10);
-  p->about_me(); // prints "I am a student."
-  cout << "id: " << p->get_id() << "\n";
-  delete p;  // Important! Make sure to delete the allocated memory
+  p->about_me ();               // prints "I am a student."
+  cout << "id: " << p->get_id () << "\n";
+  delete p;                     // Important! Make sure to delete the allocated memory
 
   return 0;
 }
