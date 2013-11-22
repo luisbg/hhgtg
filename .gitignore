@@ -16,6 +16,7 @@ C/switch
 C/trim_break
 C/word_counting
 algorithms/search/binary
+algorithms/search/two_dimensions
 algorithms/sorting/mergesort
 algorithms/sorting/quicksort
 algorithms/recursion/hanoi_towers
