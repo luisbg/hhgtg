@@ -1,2 +1,3 @@
 gcc array_powers_without_threads.c -o array_powers_without_threads -Wall -lpthread
 gcc array_powers_with_threads.c -o array_powers_with_threads -Wall -lpthread
+gcc create_threads.c -o create_threads -Wall -lpthread
