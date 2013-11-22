@@ -40,5 +40,5 @@ print_message_function (void *ptr)
   message = (char *) ptr;
   printf ("%s \n", message);
 
-  return 0;
+  return NULL;
 }
