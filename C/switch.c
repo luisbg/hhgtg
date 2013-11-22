@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+int
 main ()
 {                               /* count digits, white space, others */
   int c, i, nwhite, nother, ndigit[10];
@@ -35,5 +36,6 @@ main ()
   for (i = 0; i < 10; i++)
     printf (" %d", ndigit[i]);
   printf (", white space = %d, other = %d\n", nwhite, nother);
+
   return 0;
 }

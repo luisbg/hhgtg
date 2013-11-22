@@ -9,6 +9,7 @@ void copy (void);
 
 
 /* print longest input line; specialized version */
+int
 main ()
 {
   int len;
@@ -22,6 +23,7 @@ main ()
     }
   if (max > 0)                  /* there was a line */
     printf ("%s", longest);
+
   return 0;
 }
 
