@@ -43,11 +43,11 @@ data_structures/linked_lists/linked_list
 data_structures/linked_lists/partition
 data_structures/linked_lists/remove_duplicates
 data_structures/linked_lists/remove_node
-data_structures/stack_n_queues/stack
-data_structures/stack_n_queues/queue
-data_structures/stack_n_queues/several_stacks
-data_structures/stack_n_queues/stack_min
-data_structures/stack_n_queues/split_array_stack
+data_structures/stacks/stack
+data_structures/stacks/several_stacks
+data_structures/stacks/stack_min
+data_structures/stacks/split_array_stack
+data_structures/queues/queue
 data_structures/strings/all_unique
 data_structures/strings/compression_repeated_characters
 data_structures/strings/contained
@@ -69,3 +69,4 @@ threads/array_powers_without_threads
 threads/create_threads
 threads/mutex
 threads/join
+*~
