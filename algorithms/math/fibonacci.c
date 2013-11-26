@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 
 int
@@ -12,10 +13,9 @@ fibonacci_recursive (int i)     // O(n^2)
   return fibonacci_recursive (i - 1) + fibonacci_recursive (i - 2);
 }
 
-int fib[50] = { 0 };
-
-int
-fibonacci_dynamic (int i)       // O(n)
+unsigned long long
+fibonacci_dynamic (unsigned long long i, int size,
+    unsigned long long fib[size])       // O(n)
 {
   if (i == 0)
     return 0;
@@ -27,17 +27,22 @@ fibonacci_dynamic (int i)       // O(n)
     return fib[i];
 
   // cache result
-  fib[i] = fibonacci_dynamic (i - 1) + fibonacci_dynamic (i - 2);
+  fib[i] = fibonacci_dynamic (i - 1, size, fib) +
+      fibonacci_dynamic (i - 2, size, fib);
   return fib[i];
 }
 
 int
 main ()
 {
-  int seq[10] = { 1, 2, 3, 4, 5, 10, 20, 40, 42, 48 };
+  int seq[10] = { 1, 2, 3, 4, 5, 10, 25, 50, 75, 100 };
 
   int c;
   for (c = 0; c < 10; c++) {
-    printf ("fibonnaci number %d: %d\n", seq[c], fibonacci_dynamic (seq[c]));
+    unsigned long long *fib = (unsigned long long *) calloc (seq[c] + 1,
+        sizeof (unsigned long long));
+    printf ("fibonnaci number %d: %lld\n", seq[c],
+        fibonacci_dynamic (seq[c], seq[c], fib));
+    free (fib);
   }
 }
