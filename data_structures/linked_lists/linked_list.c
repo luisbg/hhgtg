@@ -5,8 +5,8 @@
 
 typedef struct node
 {
-  int n;
   struct node *next;
+  int n;
 } node;
 
 void
@@ -61,34 +61,29 @@ dequeue (node ** l)
 int
 pop (node ** l)
 {                               /* retrieve and remove the last item */
-  if (*l != NULL) {
-    int value;
-    node *current = (node *) malloc (sizeof (node));
-    node *prev = (node *) malloc (sizeof (node));
-    current = *l;
-    prev = *l;
-
-    while (current->next != NULL) {
-      current = current->next;
-    }
-
-    value = current->n;
-
-    if (current != *l) {        // more than one element in the list
-      while (prev->next != current) {
-        prev = prev->next;
-      }
-
-      prev->next = NULL;
-    } else {
-      *l = NULL;
-    }
-    free (current);
-    return value;
-  } else {
+  if (*l == NULL) {
     printf ("list is empty\n");
-    return 0;
+    return -1;
   }
+
+  int value;
+  node *runner = *l;
+
+  if (runner->next == NULL) { // only one element in the list
+    value = runner->n;
+    free (runner);
+    *l = NULL;
+  } else {
+    while (runner->next->next != NULL) { // make runner second to last element
+      runner = runner->next;
+    }
+
+    value = runner->next->n;
+    free (runner->next);
+    runner->next = NULL;
+  }
+
+  return value;
 }
 
 void
