@@ -130,6 +130,21 @@ remove_node (node ** l, int n)
   }
 }
 
+node *
+reverse_order (struct node *head)
+{
+  struct node *new_head = NULL;
+
+  while (head) {
+    struct node *tmp = head;
+    head = head->next;
+    tmp->next = new_head;
+    new_head = tmp;
+  }
+
+  return new_head;
+}
+
 int
 main ()
 {
@@ -152,6 +167,11 @@ main ()
   // remove all elements
   printf ("remove first item: %d\n", dequeue (&list));
   printf ("remove first item: %d\n", dequeue (&list));
+  travel (list);
+
+  // reverse order of list
+  printf ("reverse order of list\n");
+  list = reverse_order (list);
   travel (list);
 
   printf ("remove item with value 3\n");
