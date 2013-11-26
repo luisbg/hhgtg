@@ -9,23 +9,36 @@ typedef struct node
   int n;
 } node;
 
-void
-insert_prepend (node ** l, int n)
+typedef enum
+{
+  FALSE, TRUE
+} bool;
+
+bool
+insert_prepend (node ** l, int n) /* Insert at beginning of the list */
 {
   printf ("insert prepend %d\n", n);
 
   node *new_node = (node *) malloc (sizeof (node));
+  if (!new_node)
+    return FALSE;
+
   new_node->n = n;
   new_node->next = *l;
   *l = new_node;
+
+  return TRUE;
 }
 
-void
-insert_append (node ** l, int n)
+bool
+insert_append (node ** l, int n) /* Insert at end of the list */
 {
   printf ("insert append %d\n", n);
 
   node *new_node = (node *) malloc (sizeof (node));
+  if (!new_node)
+    return FALSE;
+
   new_node->n = n;
   new_node->next = NULL;
 
@@ -38,39 +51,39 @@ insert_append (node ** l, int n)
   } else {
     *l = new_node;
   }
+
+  return TRUE;
 }
 
-int
-dequeue (node ** l)
+bool
+dequeue (node ** l, int *value)
 {                               /* retrieve and remove the first item */
   if (*l != NULL) {
-    int value = (*l)->n;
-    node *tmp = (node *) malloc (sizeof (node));        // pointer to first node
+    *value = (*l)->n;
 
-    tmp = *l;
+    node *tmp = *l;        // pointer to first node
     *l = tmp->next;
     free (tmp);
 
-    return value;
+    return TRUE;
   } else {
     printf ("list is empty\n");
-    return 0;
+    return FALSE;
   }
 }
 
-int
-pop (node ** l)
+bool
+pop (node ** l, int *value)
 {                               /* retrieve and remove the last item */
   if (*l == NULL) {
     printf ("list is empty\n");
-    return -1;
+    return FALSE;
   }
 
-  int value;
   node *runner = *l;
 
   if (runner->next == NULL) { // only one element in the list
-    value = runner->n;
+    *value = runner->n;
     free (runner);
     *l = NULL;
   } else {
@@ -78,15 +91,15 @@ pop (node ** l)
       runner = runner->next;
     }
 
-    value = runner->next->n;
+    *value = runner->next->n;
     free (runner->next);
     runner->next = NULL;
   }
 
-  return value;
+  return TRUE;
 }
 
-void
+bool
 travel (node * l)
 {
   node *tmp = l;
@@ -98,12 +111,16 @@ travel (node * l)
     tmp = tmp->next;
   }
   printf ("\n\n");
+
+  return TRUE;
 }
 
-void
+bool
 remove_node (node ** l, int n)
 {
   node *head = (node *) malloc (sizeof (node));
+  if (!head)
+    return FALSE;
 
   if (*l != NULL) {             // not an empty list
     head = *l;
@@ -114,7 +131,7 @@ remove_node (node ** l, int n)
     } else {
       while (head->next->n != n) {      // find node
         if (head->next->next == NULL)   // node isn't in the list
-          return;
+          return FALSE;
 
         head = head->next;
       }
@@ -123,21 +140,25 @@ remove_node (node ** l, int n)
       head->next = tmp;         // make previous node point to next
     }
   }
+
+  return TRUE;
 }
 
-node *
-reverse_order (struct node *head)
+bool
+reverse_order (struct node **head)
 {
   struct node *new_head = NULL;
 
-  while (head) {
-    struct node *tmp = head;
-    head = head->next;
+  while (*head) {
+    struct node *tmp = *head;
+    *head = (*head)->next;
     tmp->next = new_head;
     new_head = tmp;
   }
 
-  return new_head;
+  *head = new_head;
+
+  return TRUE;
 }
 
 int
@@ -145,6 +166,7 @@ main ()
 {
   // start with an empty list
   node *list = NULL;
+  int n;
   travel (list);
 
   // add a few elements to the list
@@ -160,13 +182,15 @@ main ()
   travel (list);
 
   // remove all elements
-  printf ("remove first item: %d\n", dequeue (&list));
-  printf ("remove first item: %d\n", dequeue (&list));
+  dequeue (&list, &n);
+  printf ("remove first item: %d\n", n);
+  dequeue (&list, &n);
+  printf ("remove first item: %d\n", n);
   travel (list);
 
   // reverse order of list
   printf ("reverse order of list\n");
-  list = reverse_order (list);
+  reverse_order (&list);
   travel (list);
 
   printf ("remove item with value 3\n");
@@ -181,8 +205,13 @@ main ()
   remove_node (&list, 7);
   travel (list);
 
-  printf ("remove last item: %d\n", pop (&list));
-  printf ("remove last item: %d\n", pop (&list));
-  printf ("remove first item: %d\n", dequeue (&list));
-  printf ("remove last item: %d\n", pop (&list));
+  pop (&list, &n);
+  printf ("remove last item: %d\n", n);
+  pop (&list, &n);
+  printf ("remove last item: %d\n", n);
+  dequeue (&list, &n);
+  printf ("remove first item: %d\n", n);
+
+  if (pop (&list, &n))
+    printf ("remove last item: %d\n", n);
 }
