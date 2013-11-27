@@ -21,7 +21,7 @@ void push (l_stacks * ls, int data)
 {
   printf("push: %d\n", data);
   stack *head = ls->stack;
-  while (head->used == 4 && head->next != NULL)
+  while (head->used == 4 && head->next)
     head = head->next;
 
   if (head->used != 4) {
@@ -42,7 +42,7 @@ void travel (l_stacks ls) {
   printf("t: %d %d %d %d\n", head->data[0], head->data[1], head->data[2],
          head->data[3]);
 
-  while (head->next != NULL) {
+  while (head->next) {
     head = head->next;
     printf("t: %d %d %d %d\n", head->data[0], head->data[1], head->data[2],
            head->data[3]);
@@ -53,7 +53,7 @@ int pop (l_stacks * ls) {
   int value;
 
   stack *head = ls->stack;
-  while (head->used == 4 && head->next != NULL)
+  while (head->used == 4 && head->next)
     head = head->next;
 
   if (head->used == 0)
@@ -68,7 +68,7 @@ int pop (l_stacks * ls) {
   } else {
     head = ls->stack;
 
-    while (head->next->next != NULL) {
+    while (head->next->next) {
       head = head->next;
     }
     value = head->next->data[0];

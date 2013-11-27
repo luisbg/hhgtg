@@ -32,7 +32,7 @@ pop (stack * s)
   int ret = -1;
   node *tmp = NULL;
 
-  if (s->top != NULL) {
+  if (s->top) {
     ret = s->top->data;
     tmp = s->top;
     s->top = s->top->next;
@@ -45,7 +45,7 @@ pop (stack * s)
 int
 peek (stack s)
 {
-  if (s.top != NULL)
+  if (s.top)
     return s.top->data;
   else
     return -1;

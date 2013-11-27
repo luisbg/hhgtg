@@ -41,7 +41,7 @@ pop (stack * s)
   int value = -1;
   node *tmp = NULL;
 
-  if (s->top != NULL) {
+  if (s->top) {
     value = s->top->data;
     tmp = s->top;
     s->top = s->top->next;
@@ -60,7 +60,7 @@ pop (stack * s)
 int
 min (stack s)
 {
-  if (s.min == NULL) {
+  if (!s.min) {
     return 10000;
   } else {
     return s.min->data;
@@ -70,7 +70,7 @@ min (stack s)
 int
 peek (stack s)
 {
-  if (s.top != NULL)
+  if (s.top)
     return s.top->data;
   else
     return -1;

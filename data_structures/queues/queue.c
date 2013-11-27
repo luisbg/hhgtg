@@ -23,7 +23,7 @@ enqueue (queue * q, int data)
   new->data = data;
   new->next = NULL;
 
-  if (q->head != NULL) {
+  if (q->head) {
     q->last->next = new;
     q->last = new;
   } else {
@@ -38,7 +38,7 @@ dequeue (queue * q)
   int d = -1;
   node *tmp = NULL;
 
-  if (q->head != NULL) {
+  if (q->head) {
     d = q->head->data;
     tmp = q->head;
     q->head = q->head->next;
