@@ -73,6 +73,27 @@ lowest_common_ancestor (tree * t, int val_a, int val_b, tree ** ancestor)
 }
 
 bool
+lowest_common_ancestor_bts (tree * t, int val_a, int val_b, tree ** ancestor)
+{
+  int tree_val;
+
+  while (t) {
+    tree_val = t->value;
+
+    if (tree_val > val_a && tree_val > val_b) {
+      t = t->left;
+    } else if (tree_val < val_a && tree_val < val_b) {
+      t = t->right;
+    } else {
+      *ancestor = t;
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+bool
 common_path (queue_t * pa, queue_t * pb, tree ** common)
 {
   tree *tmp_a, *tmp_b;
@@ -168,21 +189,34 @@ int
 main ()
 {
   tree *t = NULL;
-  tree *anc = NULL;
+  tree *anc_f = NULL;
+  tree *anc_s = NULL;
+  int a, b;
+
   add_to_tree (&t, 20);
 
-  add_to_tree (&t, 8);
-  add_to_tree (&t, 22);
-
-  add_to_tree (&t, 4);
-  add_to_tree (&t, 12);
-
-
   add_to_tree (&t, 10);
+  add_to_tree (&t, 30);
+
+  add_to_tree (&t, 5);
+  add_to_tree (&t, 15);
+
+
+  add_to_tree (&t, 12);
+  add_to_tree (&t, 13);
   add_to_tree (&t, 14);
 
-  if (lowest_common_ancestor (t, 4, 14, &anc))
-    printf ("lowest common ancestor: %d\n", anc->value);
+  a = 5;
+  b = 14;
+  if (lowest_common_ancestor (t, 5, 14, &anc_f))
+    printf ("lowest common ancestor of %d and %d: %d\n", a, b, anc_f->value);
+  else
+    printf ("values not found\n");
+
+  a = 5;
+  b = 30;
+  if (lowest_common_ancestor_bts (t, 5, 30, &anc_s))
+    printf ("lowest common ancestor of %d and %d: %d\n", a, b, anc_s->value);
   else
     printf ("values not found\n");
 
