@@ -27,7 +27,7 @@ insert_list (linked_list * l, char key[], char word[])
     strcpy (l->word, word);
     l->next = NULL;
   } else {
-    while (l->next != NULL) {
+    while (l->next) {
       l = l->next;
     }
 
@@ -50,13 +50,13 @@ get_list (linked_list l, char *key)
   if (strcmp (l.key, key) == 0) {
     return l.word;
   } else {
-    linked_list *pl = l.next;
-    while (pl != NULL) {
-      if (strcmp (pl->key, key) == 0) {
-        return pl->word;
+    linked_list *run = l.next;
+    while (run) {
+      if (strcmp (run->key, key) == 0) {
+        return run->word;
       }
 
-      pl = pl->next;
+      run = run->next;
     }
   }
 
