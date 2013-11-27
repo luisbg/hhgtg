@@ -83,7 +83,7 @@ display_graph (graph_t graph)
     adj_node_t *head = graph.list[c].head;
 
     printf ("%d: ", c);
-    while (head != NULL) {
+    while (head) {
       printf ("%d ", head->vertex);
       head = head->next;
     }
@@ -98,12 +98,12 @@ destroy_graph (graph_t * graph)
 {
   int c;
 
-  if (graph != NULL) {
-    if (graph->list != NULL) {
+  if (graph) {
+    if (graph->list) {
       /*Free up the nodes */
       for (c = 0; c < graph->num_vertices; c++) {
         adj_node_t *node = graph->list[c].head;
-        while (node != NULL) {
+        while (node) {
           adj_node_t *tmp = node;
           node = node->next;
           free (tmp);

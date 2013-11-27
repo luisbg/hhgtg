@@ -91,7 +91,7 @@ display_graph (graph_t graph)
     adj_node_t *head = graph.list[c].head;
 
     printf ("%d: ", c);
-    while (head != NULL) {
+    while (head) {
       printf ("%d ", head->vertex);
       head = head->next;
     }
@@ -114,10 +114,10 @@ depth_first_search (graph_t * graph, adj_node_t * curr, int v)
 {
   printf ("visited: %d\n", v);
 
-  if (curr != NULL) {
+  if (curr) {
     graph->list[v].visited = TRUE;      // mark the node visited to avoid infinite loops
 
-    while (curr != NULL) {      // search all adjacent nodes
+    while (curr) {      // search all adjacent nodes
       if (!graph->list[curr->vertex].visited) {
         depth_first_search (graph, graph->list[curr->vertex].head,
             curr->vertex);
@@ -135,10 +135,10 @@ route_to_vertex (graph_t * graph, adj_node_t * curr, int *v, int dest)
 #ifdef DEBUG
   printf (":: %d %d\n", *v, dest);
 #endif
-  if (curr != NULL && *v != dest) {
+  if (curr && *v != dest) {
     graph->list[*v].visited = TRUE;
 
-    while (curr != NULL) {
+    while (curr) {
       *v = curr->vertex;
       if (!graph->list[curr->vertex].visited) {
         route_to_vertex (graph, graph->list[curr->vertex].head, v, dest);
@@ -161,7 +161,7 @@ direct_connection (graph_t * graph, int v, int dest)
   bool found = FALSE;
   adj_node_t *curr = graph->list[v].head;
 
-  while (curr != NULL) {
+  while (curr) {
     if (curr->vertex != dest)
       curr = curr->next;
     else {

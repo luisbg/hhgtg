@@ -17,11 +17,10 @@ unsigned long lattice_paths (int size, unsigned long grid[size][size]) {
 
   grid[0][0] = 0;
 
-  for (c = 1; c < size; c++)
+  for (c = 1; c < size; c++) {
     grid[c][0] = 1;
-
-  for (r = 1; r < size; r++)
-    grid[0][r] = 1;
+    grid[0][c] = 1;
+  }
 
   for (r = 1; r < size; r++) {
     for (c = 1; c < size; c++) {
