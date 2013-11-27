@@ -23,7 +23,7 @@ create_node (char key, int data)
 {
   trie_node_t *node = (trie_node_t *) malloc (sizeof (trie_node_t));
 
-  if (node == NULL) {
+  if (!node) {
 #ifdef DEBUG
     printf ("ERROR: malloc failed\n");
 #endif
@@ -48,7 +48,7 @@ add_trie (trie_node_t ** root, char *key, int data)
 #ifdef DEBUG
   printf ("Inserting key: %s\n", key);
 #endif
-  if (*root == NULL) {
+  if (!*root) {
 #ifdef DEBUG
     printf ("Empty trie\n");
 #endif
@@ -56,7 +56,7 @@ add_trie (trie_node_t ** root, char *key, int data)
   }
   head = (*root)->children;
 
-  if (head == NULL) {           /* first node */
+  if (!head) {           /* first node */
     for (head = *root; *key; head = head->children) {
       head->children = create_node (*key, 0);
 #ifdef DEBUG
@@ -130,14 +130,14 @@ search (trie_node_t * root, const char *key)
   while (1) {
     found = NULL;
 
-    for (curr = level; curr != NULL; curr = curr->next) {
+    for (curr = level; curr; curr = curr->next) {
       if (curr->key == *key) {
         found = curr;
         break;
       }
     }
 
-    if (found == NULL)
+    if (!found)
       return NULL;
 
     if (*key == '\0') {

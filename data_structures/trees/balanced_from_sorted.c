@@ -20,7 +20,7 @@ node *create_tree_selfcontained (int arr[], int start, int end);
 void
 tree_insert (node ** leaf, int key)
 {
-  if (*leaf == NULL) {
+  if (!*leaf) {
     *leaf = (node *) malloc (sizeof (node));
     (*leaf)->key = key;
 
@@ -41,7 +41,7 @@ tree_insert (node ** leaf, int key)
 static int
 check_balanced_height (struct node *leaf)
 {
-  if (leaf == NULL)
+  if (!leaf)
     return 0;                   // height of 0
 
   /* Check if left is balanced */

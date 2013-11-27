@@ -24,21 +24,27 @@ void traverse (struct node *leaf);
 void
 insert (node ** leaf, int key)
 {
-  if (*leaf == NULL) {
-    *leaf = (node *) malloc (sizeof (node));
-    (*leaf)->key = key;
-
+  node *run = NULL;
+  if (!*leaf) {
+    node *new_node = (node *) malloc (sizeof (node));
+    if (!new_node)
+      return;
+    new_node->key = key;
     /* initialize the children to null */
-    (*leaf)->left = NULL;
-    (*leaf)->right = NULL;
+    new_node->left = NULL;
+    new_node->right = NULL;
+    *leaf = new_node;
 
-  } else if (key <= (*leaf)->key) {
+    return;
+  }
+
+  run = *leaf;
+  if (key <= run->key) {
     /* if smaller recurse to the left branch */
-    insert (&(*leaf)->left, key);
-
-  } else if (key > (*leaf)->key) {
+    insert (&run->left, key);
+  } else {
     /* if bigger recurse to the right branch */
-    insert (&(*leaf)->right, key);
+    insert (&run->right, key);
   }
 }
 
@@ -53,7 +59,7 @@ search_parent (struct node **root, int num, struct node **parent, struct
   head = *root;
   *parent = NULL;
 
-  while (head != NULL) {
+  while (head) {
     /* if the node to be deleted is found */
     if (head->key == num) {
       *x = head;
@@ -78,7 +84,7 @@ delete_node (node ** leaf, int key)
   node *parent, *head, *succesor = NULL;
   int found = 0;
 
-  if (*leaf == NULL)
+  if (!*leaf)
     return;
 
   search_parent (leaf, key, &parent, &head);
@@ -92,7 +98,7 @@ delete_node (node ** leaf, int key)
     parent = head;           // replace with left child's tree biggest
     succesor = head->right;  // then remove the old locatoin of that value below
                              // (that location had no childs, or just left child)
-    while (succesor->left != NULL) {
+    while (succesor->left) {
       parent = succesor;
       succesor = succesor->left;
     }
@@ -100,7 +106,7 @@ delete_node (node ** leaf, int key)
     head->key = succesor->key;
     head = succesor;
   }
-  if (head->right == NULL && head->left != NULL) {  // only has left child
+  if (!head->right && head->left) {  // only has left child
     if (parent->left == head)                       // link past the node
       parent->left = head->left;                    // can also be previous case
     else                                            // after we switched values
@@ -110,7 +116,7 @@ delete_node (node ** leaf, int key)
     return;
 
   }
-  if (head->right != NULL && head->left == NULL) {  // only has right child
+  if (head->right && !head->left) {  // only has right child
     if (parent->left == head)                       // link past the node
       parent->left = head->right;
     else
@@ -120,7 +126,7 @@ delete_node (node ** leaf, int key)
     return;
 
   }
-  if (head->right == NULL && head->left == NULL) {  // no children
+  if (!head->right && !head->left) {  // no children
     if (parent->right == head)
       parent->right = NULL;
     else
@@ -135,7 +141,7 @@ delete_node (node ** leaf, int key)
 node *
 search_key (node * leaf, int key)
 {
-  if (leaf != NULL) {
+  if (leaf) {
     printf ("%d ->", leaf->key);
 
     if (key == leaf->key) {
@@ -155,7 +161,7 @@ search_key (node * leaf, int key)
 void
 destroy_tree (struct node *leaf)
 {
-  if (leaf != NULL) {
+  if (leaf) {
     destroy_tree (leaf->left);
     destroy_tree (leaf->right);
     free (leaf);
@@ -166,7 +172,7 @@ destroy_tree (struct node *leaf)
 void
 traverse (struct node *leaf)
 {
-  if (leaf != NULL) {
+  if (leaf) {
     traverse (leaf->left);
     printf ("%d ", leaf->key);
     traverse (leaf->right);

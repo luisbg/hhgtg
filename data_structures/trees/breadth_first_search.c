@@ -38,7 +38,7 @@ tree_node *breadth_first_search (tree_node * leaf, int key);
 void
 tree_insert (tree_node ** leaf, int key)
 {
-  if (*leaf == NULL) {
+  if (!*leaf) {
     *leaf = (tree_node *) malloc (sizeof (tree_node));
     (*leaf)->key = key;
 
@@ -56,7 +56,7 @@ tree_insert (tree_node ** leaf, int key)
 void
 tree_traverse (tree_node * leaf)
 {
-  if (leaf != NULL) {
+  if (leaf) {
     tree_traverse (leaf->left);
     printf ("%d .", leaf->key);
     tree_traverse (leaf->right);
@@ -70,7 +70,7 @@ enqueue (queue * q, tree_node * data)
   new->data = data;
   new->next = NULL;
 
-  if (q->head != NULL) {
+  if (q->head) {
     q->last->next = new;
     q->last = new;
   } else {
@@ -84,7 +84,7 @@ dequeue (queue * q)
 {
   tree_node *dq = NULL;
 
-  if (q->head != NULL) {
+  if (q->head) {
     dq = q->head->data;
     q->head = q->head->next;
   }
@@ -100,18 +100,18 @@ breadth_first_traverse (tree_node * leaf)
   tmp_q.last = NULL;
   tree_node *traverse = NULL;   // points to node we are processing
 
-  if (leaf == NULL)
+  if (!leaf)
     return;                     // nothing to traverse
 
   enqueue (&tmp_q, leaf);       // put something in the queue initially
 
-  while (tmp_q.head != NULL) {
+  while (tmp_q.head) {
     traverse = dequeue (&tmp_q);
     printf ("%d ", traverse->key);
 
-    if (traverse->left != NULL)
+    if (traverse->left)
       enqueue (&tmp_q, traverse->left);
-    if (traverse->right != NULL)
+    if (traverse->right)
       enqueue (&tmp_q, traverse->right);
   }
 
@@ -126,19 +126,19 @@ breadth_first_search (tree_node * leaf, int key)
   tmp_q.last = NULL;
   tree_node *traverse = NULL;
 
-  if (leaf == NULL)
+  if (!leaf)
     return;
 
   enqueue (&tmp_q, leaf);
 
-  while (tmp_q.head != NULL) {
+  while (tmp_q.head) {
     traverse = dequeue (&tmp_q);
     if (traverse->key == key)
       return traverse;
 
-    if (traverse->left != NULL)
+    if (traverse->left)
       enqueue (&tmp_q, traverse->left);
-    if (traverse->right != NULL)
+    if (traverse->right)
       enqueue (&tmp_q, traverse->right);
   }
 
