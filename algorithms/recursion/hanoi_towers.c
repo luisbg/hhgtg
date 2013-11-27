@@ -35,7 +35,7 @@ pop (tower * t)
   int value = -1;
   stack *tmp = NULL;
 
-  if (t->disks != NULL) {
+  if (t->disks) {
     value = t->disks->n;
     tmp = t->disks;
     t->disks = tmp->next;
@@ -74,7 +74,7 @@ travel_towers (tower t[])
   for (; c < 3; c++) {
     head = t[c].disks;
     printf ("%d: ", c);
-    while (head != NULL) {
+    while (head) {
       printf ("%d ", head->n);
       head = head->next;
     }

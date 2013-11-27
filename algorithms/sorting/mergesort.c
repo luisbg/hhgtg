@@ -20,7 +20,7 @@ enqueue (queue ** q, int value)
   node->value = value;
   node->next = NULL;
 
-  if (*q == NULL) {
+  if (!*q) {
     *q = node;
 
   } else {
@@ -36,7 +36,7 @@ enqueue (queue ** q, int value)
 int
 dequeue (queue ** q)
 {
-  if (*q != NULL) {
+  if (*q) {
     queue *node = *q;
     int value = node->value;
     *q = node->next;
@@ -57,7 +57,7 @@ headq (queue * q)
 bool
 empty_queue (queue * q)
 {
-  if (q == NULL)
+  if (!q)
     return TRUE;
   else
     return FALSE;

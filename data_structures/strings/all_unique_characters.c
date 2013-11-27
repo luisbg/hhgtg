@@ -9,7 +9,7 @@ typedef enum
 bool
 all_unique_characters (char *str)
 {
-  if (str == NULL)
+  if (!str)
     return TRUE;
 
   int c;
