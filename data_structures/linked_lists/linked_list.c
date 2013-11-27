@@ -42,9 +42,9 @@ insert_append (node ** l, int n) /* Insert at end of the list */
   new_node->n = n;
   new_node->next = NULL;
 
-  if (*l != NULL) {
+  if (*l) {
     node *current = *l;
-    while (current->next != NULL) {
+    while (current->next) {
       current = current->next;
     }
     current->next = new_node;
@@ -58,7 +58,7 @@ insert_append (node ** l, int n) /* Insert at end of the list */
 bool
 dequeue (node ** l, int *value)
 {                               /* retrieve and remove the first item */
-  if (*l != NULL) {
+  if (*l) {
     *value = (*l)->n;
 
     node *tmp = *l;        // pointer to first node
@@ -75,19 +75,19 @@ dequeue (node ** l, int *value)
 bool
 pop (node ** l, int *value)
 {                               /* retrieve and remove the last item */
-  if (*l == NULL) {
+  if (!*l) {
     printf ("list is empty\n");
     return FALSE;
   }
 
   node *runner = *l;
 
-  if (runner->next == NULL) { // only one element in the list
+  if (!runner->next) { // only one element in the list
     *value = runner->n;
     free (runner);
     *l = NULL;
   } else {
-    while (runner->next->next != NULL) { // make runner second to last element
+    while (runner->next->next) { // make runner second to last element
       runner = runner->next;
     }
 
@@ -105,7 +105,7 @@ travel (node * l)
   node *tmp = l;
 
   printf ("the list contains: ");
-  while (tmp != NULL) {
+  while (tmp) {
     printf ("%d ", tmp->n);
 
     tmp = tmp->next;
@@ -118,23 +118,20 @@ travel (node * l)
 bool
 remove_node (node ** l, int n)
 {
-  node *head = (node *) malloc (sizeof (node));
-  if (!head)
-    return FALSE;
-
-  if (*l != NULL) {             // not an empty list
-    head = *l;
+  if (*l) {             // not an empty list
+    node *head = *l;
 
     if (head->n == n) {         // if first node
       *l = head->next;          // list points to the second
       free (head);
     } else {
       while (head->next->n != n) {      // find node
-        if (head->next->next == NULL)   // node isn't in the list
+        if (!head->next->next)   // node isn't in the list
           return FALSE;
 
         head = head->next;
       }
+
       node *tmp = head->next->next;
       free (head->next);
       head->next = tmp;         // make previous node point to next

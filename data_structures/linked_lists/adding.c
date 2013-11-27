@@ -15,7 +15,7 @@ typedef struct node
 void
 travel (node * l)
 {
-  while (l != NULL) {
+  while (l) {
     printf ("%d ", l->d);
     l = l->next;
   }
@@ -39,10 +39,10 @@ append (node ** l, int d)
 
   new->d = d;
 
-  if (head == NULL)
+  if (!head)
     *l = new;
   else {
-    while (head->next != NULL) {
+    while (head->next) {
       head = head->next;
     }
     head->next = new;
@@ -54,7 +54,7 @@ list_to_number (node * l)
 {
   int base = 1;
   int sum = 0;
-  while (l != NULL) {
+  while (l) {
     sum += l->d * base;
     l = l->next;
     base *= 10;

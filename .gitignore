@@ -70,4 +70,5 @@ threads/array_powers_without_threads
 threads/create_threads
 threads/mutex
 threads/join
+threads/condition
 *~

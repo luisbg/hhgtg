@@ -22,10 +22,10 @@ sort_list (node ** l)
   int tmp;
   head = *l;
 
-  while (head->next != NULL) {
+  while (head->next) {
     if (head->n > head->next->n) {
       move = head->next;
-      while ((head->prev != NULL) && head->prev->n > move->n) {
+      while ((head->prev) && head->prev->n > move->n) {
         head = head->prev;
       }
       tmp = head->n;
@@ -44,7 +44,7 @@ prepend (node ** l, int n)
 
   new->n = n;
   new->next = *l;
-  if (*l != NULL)
+  if (*l)
     (*l)->prev = new;
   new->prev = NULL;
   *l = new;
@@ -54,7 +54,7 @@ void
 travel (node * l)
 {
   printf ("\n");
-  while (l != NULL) {
+  while (l) {
     printf ("%d ", l->n);
     l = l->next;
   }
@@ -68,22 +68,20 @@ remove_duplicates (node ** l)
   node *tmp = (node *) malloc (sizeof (node));
   head = *l;
 
-  if (head == NULL) {
+  if (!head) {
     printf ("list empty\n");
     return;
   }
 
-  while (head->next != NULL) {
-    if (head->next != NULL) {
-      if (head->n == head->next->n) {
-        tmp = head->next;
-        if (head->next->next != NULL)
-          head->next->next->prev = head;
-        head->next = head->next->next;
-        free (tmp);
-      } else {
-        head = head->next;
-      }
+  while (head->next) {
+    if (head->n == head->next->n) {
+      tmp = head->next;
+      if (head->next->next)
+        head->next->next->prev = head;
+      head->next = head->next->next;
+      free (tmp);
+    } else {
+      head = head->next;
     }
   }
 }
@@ -93,7 +91,7 @@ have_we_seen_it_before (node ** l, int n)
 {
   node *head = (node *) malloc (sizeof (node));
   head = *l;
-  while (head != NULL) {
+  while (head) {
     if (head->n == n)
       return TRUE;
 
@@ -118,7 +116,7 @@ remove_duplicates_with_buffer (node ** l)
   buffer = NULL;
 
   head = *l;
-  while (head != NULL) {
+  while (head) {
     if (have_we_seen_it_before (&buffer, head->n)) {
       tmp = head;
       head->prev->next = head->next;

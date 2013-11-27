@@ -14,7 +14,7 @@ typedef struct node
 void
 travel (node * l)
 {
-  while (l != NULL) {
+  while (l) {
     printf ("%d ", l->d);
     l = l->next;
   }
@@ -38,7 +38,7 @@ partition (node ** l, int middle)
   node *tmp = NULL;
   node *head = *l;
 
-  while (head != NULL) {
+  while (head) {
     if (head->d < middle)
       prepend (&lower, head->d);
     else
@@ -50,10 +50,10 @@ partition (node ** l, int middle)
   }
 
   head = lower;
-  if (head == NULL)
+  if (!head)
     *l = higher;
   else {
-    while (head->next != NULL) {
+    while (head->next) {
       head = head->next;
     }
     head->next = higher;
@@ -71,7 +71,7 @@ partition_directly (node ** l, int middle)
   node *next = NULL;
 
   /* Partition list */
-  while (head != NULL) {
+  while (head) {
     next = head->next;
     if (head->d < middle) {
       /* Insert node into start of lower list */
@@ -86,11 +86,11 @@ partition_directly (node ** l, int middle)
   }
 
   /* Merge lower and higher lists */
-  if (lower == NULL)
+  if (!lower)
     *l = higher;
   else {
     *l = lower;
-    while (lower->next != NULL) {
+    while (lower->next) {
       lower = lower->next;
     }
     lower->next = higher;

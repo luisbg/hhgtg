@@ -28,7 +28,7 @@ make_circular (node ** l)
   node *first = *l;
   node *head = *l;
 
-  while (head->next != NULL) {
+  while (head->next) {
     head = head->next;
   }
 

@@ -26,7 +26,7 @@ find_kth_element_brute (node ** l, int pos)
   node *head = (node *) malloc (sizeof (node));
   int c = 0;
   head = *l;
-  while (head != NULL) {
+  while (head) {
     c++;
     head = head->next;
   }
@@ -49,14 +49,14 @@ find_kth_element_iteratively (node ** l, int pos)
   p2 = *l;
   int c;
   for (c = 0; c < pos; c++) {
-    if (p2 == NULL)
+    if (!p2)
       return 0;                 // error check
     p2 = p2->next;
   }
 
   // now have p1 moving behind
   p1 = *l;
-  while (p2 != NULL) {
+  while (p2) {
     p1 = p1->next;
     p2 = p2->next;
   }
