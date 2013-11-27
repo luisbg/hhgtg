@@ -25,7 +25,7 @@ static bool visited (node * leaf);
 void
 insert (node ** leaf, int key)
 {
-  if (*leaf == NULL) {
+  if (!*leaf) {
     *leaf = (node *) malloc (sizeof (node));
     (*leaf)->key = key;
 
@@ -43,7 +43,7 @@ insert (node ** leaf, int key)
 void
 traverse (node * leaf)
 {
-  if (leaf != NULL) {
+  if (leaf) {
     traverse (leaf->left);
     printf ("%d .", leaf->key);
     traverse (leaf->right);
@@ -75,7 +75,7 @@ depth_first_search (node * leaf, int key)
 static bool
 visited (node * leaf)
 {
-  if (leaf != NULL) {
+  if (leaf) {
     int c = leaf->key;
 
     if (!visit[c]) {
