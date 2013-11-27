@@ -8,11 +8,11 @@ typedef struct tree
   struct tree *right;
 } tree;
 
-typedef struct queue
+typedef struct stack
 {
-  struct queue *next;
+  struct stack *next;
   struct tree *data;
-} queue;
+} stack;
 
 typedef enum
 {
@@ -22,27 +22,27 @@ typedef enum
 
 void insert (tree ** leaf, int key);
 bool preorder_traverse (tree *t);
-bool enqueue (queue **q, tree *node);
-bool dequeue (queue **q, tree **node);
+bool push (stack **q, tree *node);
+bool pop (stack **q, tree **node);
 
 
 bool preorder_traverse (tree *t) {
   if (!t)
     return TRUE;
   
-  queue *q = (queue *) malloc (sizeof (queue));
+  stack *q = (stack *) malloc (sizeof (stack));
   tree *tmp = NULL;
   
-  enqueue (&q, t);
+  push (&q, t);
   while (q) {
-    dequeue (&q, &tmp);
+    pop (&q, &tmp);
     if (tmp) {
       printf ("%d -> ", tmp->key);
       if (tmp->right) {
-        enqueue (&q, tmp->right);
+        push (&q, tmp->right);
       }
       if (tmp->left) {
-        enqueue (&q, tmp->left);
+        push (&q, tmp->left);
       }
     }
   }
@@ -52,9 +52,9 @@ bool preorder_traverse (tree *t) {
   return TRUE;
 }
 
-bool enqueue (queue **t, tree *node)
+bool push (stack **t, tree *node)
 {
-  queue *new_element = (queue *) malloc (sizeof (queue));
+  stack *new_element = (stack *) malloc (sizeof (stack));
   if (!new_element)
     return FALSE;
   new_element->data = node;
@@ -67,7 +67,7 @@ bool enqueue (queue **t, tree *node)
   return TRUE;
 }
 
-bool dequeue (queue **t, tree **node)
+bool pop (stack **t, tree **node)
 {
   *node = (*t)->data;
   *t = (*t)->next;
