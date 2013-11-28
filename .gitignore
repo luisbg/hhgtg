@@ -55,6 +55,7 @@ data_structures/strings/contained
 data_structures/strings/permutation
 data_structures/strings/replace_spaces
 data_structures/strings/reverse_string
+data_structures/strings/remove_characters
 data_structures/trees/balanced_from_sorted
 data_structures/trees/binary_tree
 data_structures/trees/binary_tree_measure_height
