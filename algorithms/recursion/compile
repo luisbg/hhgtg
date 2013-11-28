@@ -1,2 +1,3 @@
 gcc -O0 -ggdb recursion.c -o recursion
 gcc -O0 -ggdb hanoi_towers.c -o hanoi_towers
+gcc -O0 -ggdb binary_search.c -o binary_search
