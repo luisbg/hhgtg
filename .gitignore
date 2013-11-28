@@ -26,6 +26,7 @@ algorithms/sorting/quicksort
 algorithms/recursion/hanoi_towers
 algorithms/recursion/recursion
 algorithms/recursion/binary_search
+algorithms/recursion/permutations
 algorithms/math/prime_numbers
 algorithms/math/fibonacci
 algorithms/math/running_upstairs
