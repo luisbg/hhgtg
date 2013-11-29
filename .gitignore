@@ -79,4 +79,5 @@ threads/mutex
 threads/join
 threads/condition
 threads/glib_threads
+threads/buffer_sharing
 *~
