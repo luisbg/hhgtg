@@ -78,4 +78,5 @@ threads/create_threads
 threads/mutex
 threads/join
 threads/condition
+threads/glib_threads
 *~

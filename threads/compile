@@ -4,3 +4,4 @@ gcc create_threads.c -o create_threads -Wall -lpthread
 gcc mutex.c -o mutex -Wall -lpthread
 gcc join.c -o join -Wall -lpthread
 gcc condition.c -o condition -Wall -lpthread
+gcc -O0 -ggdb `pkg-config --libs --cflags glib-2.0` glib_threads.c -o glib_threads
