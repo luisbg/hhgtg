@@ -14,3 +14,4 @@ gcc shellsort.c -o shellsort
 gcc reverse_string.c -o reverse_string
 gcc itoa.c -o itoa
 gcc trim_break.c -o trim_break
+gcc endianness.c -o endianness
