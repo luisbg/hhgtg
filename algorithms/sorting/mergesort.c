@@ -76,7 +76,7 @@ merge (int *l, int low, int middle, int high)
     enqueue (&buffer2, l[i]);
 
   i = low;                      // run through the buffers getting the lowest number in either head
-  while (!(empty_queue (buffer1) || empty_queue (buffer2))) {
+  while (!empty_queue (buffer1) && !empty_queue (buffer2)) {
     if (headq (buffer1) <= headq (buffer2))
       l[i++] = dequeue (&buffer1);
     else
