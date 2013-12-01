@@ -90,14 +90,14 @@ delete_node (node ** leaf, int key)
   search_parent (leaf, key, &parent, &head);
 
   if (!search_parent (leaf, key, &parent, &head)) {
-    printf("ERROR: %d isn't in the tree", key);
+    printf ("ERROR: %d isn't in the tree", key);
     return;
   }
 
-  if (head->right && head->left) {  //have both childs
-    parent = head;           // replace with left child's tree biggest
-    succesor = head->right;  // then remove the old locatoin of that value below
-                             // (that location had no childs, or just left child)
+  if (head->right && head->left) {      //have both childs
+    parent = head;              // replace with left child's tree biggest
+    succesor = head->right;     // then remove the old locatoin of that value below
+                                // (that location had no childs, or just left child)
     while (succesor->left) {
       parent = succesor;
       succesor = succesor->left;
@@ -106,18 +106,18 @@ delete_node (node ** leaf, int key)
     head->key = succesor->key;
     head = succesor;
   }
-  if (!head->right && head->left) {  // only has left child
-    if (parent->left == head)                       // link past the node
-      parent->left = head->left;                    // can also be previous case
-    else                                            // after we switched values
+  if (!head->right && head->left) {     // only has left child
+    if (parent->left == head)   // link past the node
+      parent->left = head->left;        // can also be previous case
+    else                        // after we switched values
       parent->right = head->left;
 
     free (head);
     return;
 
   }
-  if (head->right && !head->left) {  // only has right child
-    if (parent->left == head)                       // link past the node
+  if (head->right && !head->left) {     // only has right child
+    if (parent->left == head)   // link past the node
       parent->left = head->right;
     else
       parent->right = head->right;
@@ -126,7 +126,7 @@ delete_node (node ** leaf, int key)
     return;
 
   }
-  if (!head->right && !head->left) {  // no children
+  if (!head->right && !head->left) {    // no children
     if (parent->right == head)
       parent->right = NULL;
     else
@@ -179,6 +179,26 @@ traverse (struct node *leaf)
   }
 }
 
+bool
+validate_tree (struct node *leaf)
+{
+  if (leaf) {
+    if (leaf->left)
+      if (leaf->key < leaf->left->key)
+        return FALSE;
+    if (leaf->right)
+      if (leaf->key > leaf->right->key)
+        return FALSE;
+
+    if (!validate_tree (leaf->left))
+      return FALSE;
+    if (!validate_tree (leaf->right))
+      return FALSE;
+  }
+
+  return TRUE;
+}
+
 int
 main ()
 {
@@ -217,4 +237,6 @@ main ()
   delete_node (&root, 4);
   traverse (root);
   printf ("\n");
+
+  printf ("validated?: %s\n", validate_tree (root) ? "yes" : "no");
 }
