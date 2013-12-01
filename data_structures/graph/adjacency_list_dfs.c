@@ -133,15 +133,15 @@ main ()
   printf ("Creating a directed graph: \n");
   graph_t *graph = create_graph (10, DIRECTED);
   add_edge (graph, 0, 2);
+  add_edge (graph, 0, 5);
+  add_edge (graph, 0, 8);
   add_edge (graph, 1, 6);
   add_edge (graph, 1, 5);
   add_edge (graph, 2, 1);
   add_edge (graph, 2, 3);
   add_edge (graph, 2, 4);
-  add_edge (graph, 6, 7);
-  add_edge (graph, 7, 8);
-  add_edge (graph, 8, 9);
-  add_edge (graph, 9, 0);
+  add_edge (graph, 5, 7);
+  add_edge (graph, 5, 9);
 
   display_graph (*graph);
 
