@@ -53,7 +53,7 @@ traverse (node * leaf)
 void
 depth_first_traverse (node * leaf)
 {
-  if (!visited (leaf)) {
+  if (leaf) {
     printf ("%d .", leaf->key);
     depth_first_traverse (leaf->left);
     depth_first_traverse (leaf->right);
@@ -63,12 +63,16 @@ depth_first_traverse (node * leaf)
 bool
 depth_first_search (node * leaf, int key)
 {
-  if (!visited (leaf)) {
+  if (leaf) {
     if (leaf->key == key)
       return TRUE;
 
-    depth_first_search (leaf->left, key);
-    depth_first_search (leaf->right, key);
+    if (key < leaf->key)
+      depth_first_search (leaf->left, key);
+    else
+      depth_first_search (leaf->right, key);
+  } else {
+    return FALSE;
   }
 }
 
@@ -118,4 +122,7 @@ main ()
 
   printf ("depth first search: ");
   printf ("%d %s\n", 5, depth_first_search (root, 5) ? "found" : "not found");
+
+  printf ("depth first search: ");
+  printf ("%d %s\n", 12, depth_first_search (root, 12) ? "found" : "not found");
 }
