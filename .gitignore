@@ -33,7 +33,9 @@ algorithms/math/prime_numbers
 algorithms/math/fibonacci
 algorithms/math/running_upstairs
 algorithms/math/factorial
+algorithms/math/prime_factors
 algorithms/dynamic_programming/min_num_steps
+algorithms/other/months_starting_on_weekday
 bit_manipulation/bit_manipulation
 bit_manipulation/contain_m_n
 data_structures/arrays/dynamic_array

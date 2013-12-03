@@ -1,0 +1,1 @@
+gcc -O0 -ggdb months_starting_on_weekday.c -o months_starting_on_weekday
