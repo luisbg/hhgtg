@@ -24,6 +24,7 @@ algorithms/search/binary
 algorithms/search/two_dimensions
 algorithms/sorting/mergesort
 algorithms/sorting/quicksort
+algorithms/sorting/heapsort
 algorithms/recursion/hanoi_towers
 algorithms/recursion/recursion
 algorithms/recursion/binary_search
