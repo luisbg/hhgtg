@@ -52,6 +52,7 @@ data_structures/linked_lists/linked_list
 data_structures/linked_lists/partition
 data_structures/linked_lists/remove_duplicates
 data_structures/linked_lists/remove_node
+data_structures/linked_lists/merge_sorted
 data_structures/stacks/stack
 data_structures/stacks/several_stacks
 data_structures/stacks/stack_min
