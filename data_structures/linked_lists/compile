@@ -6,3 +6,4 @@ gcc -O0 -ggdb partition.c -o partition
 gcc -O0 -ggdb adding.c -o adding
 gcc -O0 -ggdb cyclical.c -o cyclical
 gcc -O0 -ggdb merge_sorted.c -o merge_sorted
+gcc -O0 -ggdb reverse_double_linked.c -o reverse_double_linked
