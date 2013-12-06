@@ -2,3 +2,4 @@ gcc -O0 -ggdb mergesort.c -o mergesort
 gcc -O0 -ggdb quicksort.c -o quicksort
 gcc -O0 -ggdb heapsort.c -o heapsort
 gcc -O0 -ggdb insertionsort.c -o insertionsort
+gcc -O0 -ggdb slice_array.c -o slice_array
