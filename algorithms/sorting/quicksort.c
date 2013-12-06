@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void swap (int *a, int *b);
-int get_pivot (int low, int high);
+static void swap (int *a, int *b);
+static int get_pivot (int low, int high);
+static int partition (int *l, int low, int high);
 void quicksort (int *l, int low, int high);
 
 
@@ -16,7 +17,7 @@ print_list (int *l, int len)
   printf ("\n");
 }
 
-void
+static void
 swap (int *a, int *b)
 {
   int tmp = *a;
@@ -24,18 +25,15 @@ swap (int *a, int *b)
   *b = tmp;
 }
 
-int
+static int
 get_pivot (int low, int high)
 {
   return (low + high) / 2;
 }
 
-void
-quicksort (int *l, int low, int high)
+static int
+partition (int *l, int low, int high)
 {
-  if (low >= high)
-    return;
-
   int c;
   int middle;
 
@@ -57,6 +55,18 @@ quicksort (int *l, int low, int high)
 
   swap (&l[low], &l[middle]);   // bring the pivot to its place
 
+  return middle;
+}
+
+void
+quicksort (int *l, int low, int high)
+{
+  if (low >= high)
+    return;
+
+  int middle;
+
+  middle = partition (l, low, high);
   quicksort (l, low, middle - 1);
   quicksort (l, middle + 1, high);
 }
