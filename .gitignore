@@ -28,6 +28,7 @@ algorithms/sorting/heapsort
 algorithms/sorting/insertionsort
 algorithms/sorting/slice_array
 algorithms/sorting/countingsort
+algorithms/sorting/buying_toys
 algorithms/recursion/hanoi_towers
 algorithms/recursion/recursion
 algorithms/recursion/binary_search
