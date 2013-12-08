@@ -1,3 +1,4 @@
 gcc -O0 -ggdb binary.c -o binary
 gcc -O0 -ggdb two_dimensions.c -o two_dimensions
 gcc -O0 -ggdb median.c -o median
+gcc -O0 -ggdb closest_numbers.c -o closest_numbers

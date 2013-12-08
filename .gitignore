@@ -23,6 +23,7 @@ C++/templates
 algorithms/search/binary
 algorithms/search/two_dimensions
 algorithms/search/median
+algorithms/search/closest_numbers
 algorithms/sorting/mergesort
 algorithms/sorting/quicksort
 algorithms/sorting/heapsort
