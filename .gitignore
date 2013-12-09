@@ -82,6 +82,7 @@ data_structures/trees/depth_first_search
 data_structures/trees/trie
 data_structures/trees/preorder_traversal_nonrecursive
 data_structures/trees/lowest_common_ancestor
+data_structures/trees/fenwick_bit
 data_structures/graph/adjacency_list
 data_structures/graph/adjacency_list_dfs
 data_structures/graph/adjacency_list_connected_nodes
