@@ -46,6 +46,7 @@ algorithms/math/prime_factors
 algorithms/dynamic_programming/min_num_steps
 algorithms/other/months_starting_on_weekday
 algorithms/other/date_from_epoch
+algorithms/other/lakes
 bit_manipulation/bit_manipulation
 bit_manipulation/contain_m_n
 bit_manipulation/sign

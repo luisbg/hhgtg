@@ -1,2 +1,3 @@
 gcc -O0 -ggdb months_starting_on_weekday.c -o months_starting_on_weekday
 gcc -O0 -ggdb date_from_epoch.c -o date_from_epoch
+gcc -O0 -ggdb lakes.c -o lakes
