@@ -48,6 +48,7 @@ algorithms/other/months_starting_on_weekday
 algorithms/other/date_from_epoch
 bit_manipulation/bit_manipulation
 bit_manipulation/contain_m_n
+bit_manipulation/sign
 data_structures/arrays/dynamic_array
 data_structures/arrays/rotate
 data_structures/arrays/zero_out

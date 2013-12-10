@@ -1,2 +1,3 @@
 gcc bit_manipulation.c -o bit_manipulation
 gcc contain_m_n.c -o contain_m_n
+gcc sign.c -o sign
