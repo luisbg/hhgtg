@@ -16,6 +16,11 @@ sign_bitwise (int v)
   return v >> (sizeof (int) * CHAR_BIT - 1);
 }
 
+int
+opposite_sign_numbers (int x, int y)
+{
+  return (x ^ y) < 0;           // true iff x and y have opposite signs
+}
 
 int
 main ()
@@ -31,5 +36,9 @@ main ()
     printf ("bitwise: sign of %d: %d\n", nums[i], sign_bitwise (nums[i]));
   }
 
+  for (i = 1; i < 8; i++) {
+    printf ("do %d and %d have opposite signs?: %d\n", nums[0], nums[i],
+        opposite_sign_numbers (nums[0], nums[i]));
+  }
   return 0;
 }
