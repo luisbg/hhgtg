@@ -3,3 +3,4 @@ gcc -O0 -ggdb adjacency_list_dfs.c -o adjacency_list_dfs
 gcc -O0 -ggdb adjacency_list_connected_nodes.c -o adjacency_list_connected_nodes
 gcc -O0 -ggdb lattice_paths.c -o lattice_paths -Wall
 gcc -O0 -ggdb bucket_fill.c -o bucket_fill -Wall
+gcc -O0 -ggdb min_number_steps.c -o min_number_steps -Wall
