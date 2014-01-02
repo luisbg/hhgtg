@@ -43,6 +43,7 @@ algorithms/math/fibonacci
 algorithms/math/running_upstairs
 algorithms/math/factorial
 algorithms/math/prime_factors
+algorithms/math/coin_flipping
 algorithms/dynamic_programming/min_num_steps
 algorithms/other/months_starting_on_weekday
 algorithms/other/date_from_epoch
