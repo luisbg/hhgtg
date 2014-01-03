@@ -67,6 +67,27 @@ print_list (Node * head)
   printf ("%d\n", head->data);
 }
 
+void
+remove_node (Node * head, int data)
+{
+  if (head == NULL)
+    return;
+
+  while (head->next) {
+    if (head->data == data)
+      break;
+    head = head->next;
+  }
+
+  if (head->next) {             // node was found
+    Node *tmp = head;
+
+    head->next->prev = head->prev;
+    head->prev->next = head->next;
+
+    free (tmp);
+  }
+}
 
 int
 main ()
@@ -92,6 +113,9 @@ main ()
   }
 
   print_list (head);
+
+  printf ("remove node 5 and reverse\n");
+  remove_node (head, 5);
 
   head = reverse_list (head);
   print_list (head);
