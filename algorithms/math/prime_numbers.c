@@ -24,7 +24,7 @@ bool is_it_prime_naive (int n)
   return TRUE;
 }
 
-bool is_it_prime_erastothenes (int n)
+bool is_it_prime_eratosthenes (int n)
 {
   int c, d; // counters
   if (n < 2)
@@ -41,8 +41,8 @@ bool is_it_prime_erastothenes (int n)
     primes[c] = FALSE;
   }
 
-  for (c = 2; c <= sqr; c++) {
-    if (primes[c]) {
+  for (c = 2; c <= sqr; c++) { // run through primes and multiples of them.
+    if (primes[c]) {           // mark the multiples as not primes.
       if (n % c == 0)
         return FALSE;
       else {
@@ -65,7 +65,7 @@ int main ()
   printf ("list %d first primes:\n", max);
   for (n = 1; found < max; n++) {
     if (is_it_prime_naive (n)) {
-    // if (is_it_prime_erastothenes (n)) {
+    // if (is_it_prime_eratosthenes (n)) {
       printf ("%d ", n);
       found++;
     }
