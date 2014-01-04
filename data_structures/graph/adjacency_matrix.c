@@ -4,55 +4,65 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define V 7
+
 typedef enum
 {
   DISCONNECTED, CONNECTED
 } bool;
 
-#define V 7
+typedef struct graph_t
+{
+  int num_vertices;
+  bool ** adj;
+} graph_t;
 
-bool **
+
+graph_t
 create_graph (int vertices)
 {
   int i, j;
 
+  graph_t *graph = (graph_t *) malloc (sizeof (graph_t));;
+  graph->num_vertices = vertices;
+
   //int graph[V][V];
-  bool ** adj = malloc (V * sizeof (bool *));
+  graph->adj = malloc (vertices * sizeof (bool *));
   for (i = 0; i < V; i++)
-    adj[i] = malloc (V * sizeof(bool));
+    graph->adj[i] = malloc (V * sizeof(bool));
 
   // Set all edges to disconnected
   for (i = 0; i < vertices; i++)
     for (j = 0; j < vertices; j++)
-      adj[i][j] = 0;
+      graph->adj[i][j] = 0;
 
   // All vertixes are connected with themselves
   for (i = 0; i < vertices; i++)
-    adj[i][i] = 1;
+    graph->adj[i][i] = 1;
 
-  return adj;
+  return *graph;
 }
 
 void
-add_edge (bool **graph, int src, int dest)
+add_edge (graph_t graph, int src, int dest)
 {
-  graph[src][dest] = CONNECTED;
+  graph.adj[src][dest] = CONNECTED;
 }
 
 void
-remove_edge (bool **graph, int src, int dest)
+remove_edge (graph_t graph, int src, int dest)
 {
-  graph[src][dest] = DISCONNECTED;
+  graph.adj[src][dest] = DISCONNECTED;
 }
 
 void
-display_graph (bool **graph, int vertices)
+display_graph (graph_t graph)
 {
   int v, e;
-  for (v = 0; v < vertices; v++) {
+  for (v = 0; v < graph.num_vertices; v++) {
     printf ("%d: ", v);
-    for (e = 0; e < vertices; e++)
-      if (graph[v][e])
+    for (e = 0; e < graph.num_vertices; e++)
+      if (graph.adj[v][e])
         printf ("%d ", e);
 
     printf ("\n");
@@ -64,7 +74,7 @@ int
 main ()
 {
   printf ("Creating a directed graph: \n");
-  bool ** graph = create_graph (V);
+  graph_t graph = create_graph (V);
 
   add_edge (graph, 0, 1);
   add_edge (graph, 0, 4);
@@ -73,15 +83,18 @@ main ()
   add_edge (graph, 1, 4);
   add_edge (graph, 2, 3);
   add_edge (graph, 3, 4);
+  add_edge (graph, 4, 0);
+  add_edge (graph, 5, 0);
+  add_edge (graph, 6, 0);
 
-  display_graph (graph, V);
+  display_graph (graph);
 
   printf ("Removing edges from vertix 1:\n");
   remove_edge (graph, 1, 2);
   remove_edge (graph, 1, 3);
   remove_edge (graph, 1, 4);
 
-  display_graph (graph, V);
+  display_graph (graph);
 
   return 0;
 }
