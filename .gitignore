@@ -95,6 +95,7 @@ data_structures/graph/adjacency_list_connected_nodes
 data_structures/graph/lattice_paths
 data_structures/graph/bucket_fill
 data_structures/graph/min_number_steps
+data_structures/graph/adjacency_matrix
 threads/array_powers_with_threads
 threads/array_powers_without_threads
 threads/create_threads
