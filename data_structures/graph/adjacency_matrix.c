@@ -11,13 +11,14 @@ typedef enum
   DISCONNECTED, CONNECTED
 } bool;
 
-typedef struct graph_t
+typedef struct graph
 {
-  int num_vertices;
-  bool ** adj;
+  int num_vertices;             // number of vertices
+  bool **adj;                   // adjacency matrix
 } graph_t;
 
 
+/* Create a new graph with given number of vertices */
 graph_t
 create_graph (int vertices)
 {
@@ -29,7 +30,7 @@ create_graph (int vertices)
   //int graph[V][V];
   graph->adj = malloc (vertices * sizeof (bool *));
   for (i = 0; i < V; i++)
-    graph->adj[i] = malloc (V * sizeof(bool));
+    graph->adj[i] = malloc (vertices * sizeof (bool));
 
   // Set all edges to disconnected
   for (i = 0; i < vertices; i++)
@@ -43,18 +44,21 @@ create_graph (int vertices)
   return *graph;
 }
 
+/* Add an edge from src to dest in the adjacency matrix */
 void
 add_edge (graph_t graph, int src, int dest)
 {
   graph.adj[src][dest] = CONNECTED;
 }
 
+/* Remove an edge from src to dest in the adjacency matrix */
 void
 remove_edge (graph_t graph, int src, int dest)
 {
   graph.adj[src][dest] = DISCONNECTED;
 }
 
+/* Print the adjacency list of the graph */
 void
 display_graph (graph_t graph)
 {
@@ -69,6 +73,15 @@ display_graph (graph_t graph)
   }
 }
 
+/* Destroys the graph */
+void
+destroy_graph (graph_t graph)
+{
+  int i;
+  for (i = 0; i < graph.num_vertices; i++)
+    free (graph.adj[i]);
+  free (graph.adj);
+}
 
 int
 main ()
@@ -95,6 +108,8 @@ main ()
   remove_edge (graph, 1, 4);
 
   display_graph (graph);
+
+  destroy_graph (graph);
 
   return 0;
 }
