@@ -2,3 +2,4 @@ gcc -O0 -ggdb stack.c -o stack
 gcc -O0 -ggdb split_array_stack.c -o split_array_stack
 gcc -O0 -ggdb stack_min.c -o stack_min
 gcc -O0 -ggdb several_stacks.c -o several_stacks
+gcc -O0 -ggdb infix_postfix_calculations.c -o infix_postfix_calculations
