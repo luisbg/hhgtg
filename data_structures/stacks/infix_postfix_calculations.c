@@ -8,104 +8,71 @@
 #include <stdio.h>
 #include <string.h>
 
-
-typedef struct int_stack
+typedef struct stack
 {
   int *s;
   int n;
-} int_stack_t;
+} stack_t;
 
-typedef struct char_stack
+
+/* Initialize stack type */
+stack_t *
+stack_init (int size)
 {
-  char *s;
-  int n;
-} char_stack_t;
+  // printf ("int init: %d\n", size);
 
-
-int_stack_t *
-int_stack_init (int size)
-{
-  printf ("int init: %d\n", size);
-
-  int_stack_t *stack = malloc (sizeof (int_stack_t));;
+  stack_t *stack = malloc (sizeof (stack_t));;
   stack->n = -1;
   stack->s = (int *) malloc (size * sizeof (int));
 
   return stack;
 } 
 
+/* Push num to last element of the stack */
 void
-int_stack_push (int_stack_t *stack, int num)
+stack_push (stack_t *stack, int num)
 {
-  printf ("int push: %d\n", num);
+  // printf ("int push: %d\n", num);
 
   stack->n++;
   stack->s[stack->n] = num;
 }
 
+/* Pop the last element of the stack */
 int
-int_stack_pop (int_stack_t *stack)
+stack_pop (stack_t *stack)
 {
   int r = stack->s[stack->n];
   stack->n--;
 
-  printf ("int pop: %d\n", r);
+  // printf ("int pop: %d\n", r);
 
   return r;
 }
 
-char_stack_t *
-char_stack_init (int size)
-{
-  printf ("char init: %d\n", size);
-
-  char_stack_t *stack = malloc (sizeof (char_stack_t));
-  stack->n = -1;
-  stack->s = (char *) malloc (size * sizeof (char));
-
-  return stack;
-} 
-
-void
-char_stack_push (char_stack_t * stack, char c)
-{
-  printf ("char push: %c\n", c);
-  stack->n++;
-  stack->s[stack->n] = c;
-}
-
-char
-char_stack_pop (char_stack_t * stack)
-{
-  char r = stack->s[stack->n];
-  stack->n--;
-
-  printf ("char pop: %c\n", r);
-
-  return r;
-}
-
+/* Evaluate the postfix expression */
 int postfix_evaluation (char *postfix)
 {
   int i;
   int N = strlen (postfix);
 
-  int_stack_t *stack = int_stack_init (N);
+  stack_t *stack = stack_init (N);
 
   for (i = 0; i < N; i++) {
     if (postfix[i] == '+')
-      int_stack_push (stack, int_stack_pop (stack) + int_stack_pop (stack));
+      stack_push (stack, stack_pop (stack) + stack_pop (stack));
     if (postfix[i] == '*')
-      int_stack_push (stack, int_stack_pop (stack) * int_stack_pop (stack));
+      stack_push (stack, stack_pop (stack) * stack_pop (stack));
     if ((postfix[i] >= '0') && (postfix[i] <= '9'))
-      int_stack_push (stack, postfix[i++] - '0');
+      stack_push (stack, postfix[i++] - '0');
     while ((postfix[i] >= '0') && (postfix[i] <= '9'))
-      int_stack_push (stack, 10 * int_stack_pop (stack) + (postfix[i++]-'0'));
+      stack_push (stack, 10 * stack_pop (stack) + (postfix[i++]-'0'));
   }
 
-  return int_stack_pop (stack);
+  return stack_pop (stack);
 }
 
+/* Convert the infix expression into a postfix expression */
 char * infix_to_postfix (int argc, char *argv[])
 {
   char *a = argv[1];
@@ -115,18 +82,16 @@ char * infix_to_postfix (int argc, char *argv[])
 
   printf ("operation: %s\n", argv[1]);
 
-  char_stack_t *stack = char_stack_init (N);
+  stack_t *stack = stack_init (N);
 
   for (i = 0; i < N; i++) {
     if (a[i] == ')') {
-      //printf ("%c ", char_stack_pop (stack));
-      postfix[p++] = char_stack_pop (stack);
+      postfix[p++] = stack_pop (stack);
       postfix[p++] = ' ';
     }
     if ((a[i] == '+') || (a[i] == '*'))
-      char_stack_push (stack, a[i]);
+      stack_push (stack, a[i]);
     if ((a[i] >= '0') && (a[i] <= '9')) {
-      // printf ("%c ", a[i]);
       postfix[p++] = a[i];
       postfix[p++] = ' ';
     }
@@ -135,6 +100,7 @@ char * infix_to_postfix (int argc, char *argv[])
 
   return postfix;
 }
+
 
 int main (int argc, char *argv[])
 {
