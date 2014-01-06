@@ -1,1 +1,2 @@
 gcc -O0 -ggdb queue.c -o queue
+gcc -O0 -ggdb array_implemented_queue.c -o array_implemented_queue
