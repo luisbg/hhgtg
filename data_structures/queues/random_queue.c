@@ -12,14 +12,15 @@ typedef enum
 
 typedef struct queue
 {
-  int *elements;
-  int *used;
+  int *elements;     // array of elements
+  int *used;         // array of which positions are used
 
-  int size;
-  int num_elements;
+  int size;          // max size of the queue
+  int num_elements;  // number of stored elements
 } queue_t;
 
 
+/* Initialize queue */
 queue_t *
 queue_init (int max_num)
 {
@@ -30,6 +31,7 @@ queue_init (int max_num)
   q->used = malloc (max_num * sizeof (bool));
 }
 
+/* Check if the queue is empty */
 int
 queue_is_empty (queue_t *q)
 {
@@ -39,6 +41,7 @@ queue_is_empty (queue_t *q)
     return 0;
 }
 
+/* Check if the queue is full */
 int
 queue_is_full (queue_t *q)
 {
@@ -48,12 +51,14 @@ queue_is_full (queue_t *q)
     return 0;
 }
 
+/* Insert a number in the first empty position of the queue */
 void
 queue_put (queue_t *q, int num)
 {
   int pos;
   if (!queue_is_full (q)) {
-    for (pos = 0; (q->used[pos] == USED) && pos < q->size; pos++);
+    // loop until empty position
+    for (pos = 0; (q->used[pos] == USED) && (pos < q->size); pos++);
     q->elements[pos] = num;
 
     q->num_elements++; 
@@ -61,6 +66,7 @@ queue_put (queue_t *q, int num)
   }
 }
 
+/* Get an element from a random used position of the queue */
 int
 queue_get (queue_t *q)
 {
@@ -72,9 +78,10 @@ queue_get (queue_t *q)
   //   else printf (">> -1\n");
 
   if (!queue_is_empty (q)) {
-    pos = rand() % q->num_elements;
-    while (q->used[pos] == UNUSED)
+    // loop until a random used position
+    do {
       pos = rand() % q->size;
+    } while (q->used[pos] == UNUSED);
 
     num = q->elements[pos];
 
@@ -86,12 +93,14 @@ queue_get (queue_t *q)
   return num;
 }
 
+/* Delete the queue from memory */
 void
 queue_destroy (queue_t *q)
 {
   free(q->elements);
   free(q->used);
 }
+
 
 int
 main ()
