@@ -11,6 +11,7 @@
 #include <stdio.h>
 
 
+/* Recursive function to find the maximum number of the set */
 int
 max (int a[], int l, int r)
 {
@@ -30,10 +31,12 @@ max (int a[], int l, int r)
     return v;
 }
 
+/* Wrapper function to have a cleaner interface */
 int find_max (int a[], int size)
 {
   return max (a, 0, size - 1);
 }
+
 
 int
 main (int argc, char *argv[])
@@ -42,9 +45,9 @@ main (int argc, char *argv[])
   int fixed_array[12] = {0, 2, 12, 5, 7, 3, 19, 9, 1, 8, 15, 11};
   int *arg_array = NULL;
 
-  if (argc == 1)
+  if (argc == 1) {
     printf ("max: %d\n", find_max (fixed_array, 12));
-  else {
+  } else {
     arg_array = (int *) malloc ((argc - 1) * sizeof (int));
 
     for (c = 1; c < argc; c++) {
@@ -53,8 +56,6 @@ main (int argc, char *argv[])
 
     printf ("max: %d\n", find_max (arg_array, argc - 1));
   }
-  // else
-  //   int *num_array = malloc (sizeof (int));
 
   return 0;
 }
