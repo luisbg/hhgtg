@@ -170,12 +170,33 @@ destroy_tree (struct node *leaf)
 
 /* traverse the tree in order */
 void
-traverse (struct node *leaf)
+traverse_in_order (struct node *leaf)
 {
   if (leaf) {
-    traverse (leaf->left);
+    traverse_in_order (leaf->left);
     printf ("%d ", leaf->key);
-    traverse (leaf->right);
+    traverse_in_order (leaf->right);
+  }
+}
+
+/* traverse the tree in pre-order */
+void
+traverse_in_preorder (struct node * leaf)
+{
+  if (leaf) {
+    printf ("%d ", leaf->key);
+    traverse_in_preorder (leaf->left);
+    traverse_in_preorder (leaf->right);
+  }
+}
+
+/* traverse the tree in post-order */
+traverse_in_postorder (struct node * leaf)
+{
+  if (leaf) {
+    traverse_in_postorder (leaf->left);
+    traverse_in_postorder (leaf->right);
+    printf ("%d ", leaf->key);
   }
 }
 
@@ -225,18 +246,31 @@ main ()
   search_key (root, 9);
 
   printf ("\n");
-  traverse (root);
+  traverse_in_order (root);
   printf ("\n\n");
 
   printf ("deleting 5\n");
   delete_node (&root, 5);
-  traverse (root);
+  traverse_in_order (root);
   printf ("\n");
 
   printf ("deleting 4\n");
   delete_node (&root, 4);
-  traverse (root);
+  traverse_in_order (root);
   printf ("\n");
 
   printf ("validated?: %s\n", validate_tree (root) ? "yes" : "no");
+  printf ("\n");
+
+  printf ("traverse tree in order:\n");
+  traverse_in_order (root);
+  printf ("\n");
+
+  printf ("traverse tree in pre-order:\n");
+  traverse_in_preorder (root);
+  printf ("\n");
+
+  printf ("traverse tree in post-order:\n");
+  traverse_in_postorder (root);
+  printf ("\n");
 }
