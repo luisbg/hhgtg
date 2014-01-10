@@ -14,15 +14,18 @@ typedef struct node
 } node;
 
 
-void insert (node ** leaf, int key);
-void delete (node ** leaf, int key);
+void insert_node (node ** leaf, int key);
+void delete_node (node ** leaf, int key);
+int count (struct node *leaf);
 node *search_key (node * leaf, int key);
 void destroy_tree (struct node *leaf);
-void traverse (struct node *leaf);
+void traverse_in_order (struct node *leaf);
+void traverse_in_postorder (struct node *leaf);
+void traverse_in_preorder (struct node *leaf);
 
 /* insert a key into the tree */
 void
-insert (node ** leaf, int key)
+insert_node (node ** leaf, int key)
 {
   node *run = NULL;
   if (!*leaf) {
@@ -41,10 +44,10 @@ insert (node ** leaf, int key)
   run = *leaf;
   if (key <= run->key) {
     /* if smaller recurse to the left branch */
-    insert (&run->left, key);
+    insert_node (&run->left, key);
   } else {
     /* if bigger recurse to the right branch */
-    insert (&run->right, key);
+    insert_node (&run->right, key);
   }
 }
 
@@ -191,6 +194,7 @@ traverse_in_preorder (struct node * leaf)
 }
 
 /* traverse the tree in post-order */
+void
 traverse_in_postorder (struct node * leaf)
 {
   if (leaf) {
@@ -225,16 +229,16 @@ main ()
 {
   node *root = NULL;
 
-  insert (&root, 8);
-  insert (&root, 10);
-  insert (&root, 4);
-  insert (&root, 6);
-  insert (&root, 7);
-  insert (&root, 9);
-  insert (&root, 5);
-  insert (&root, 3);
-  insert (&root, 1);
-  insert (&root, 2);
+  insert_node (&root, 8);
+  insert_node (&root, 10);
+  insert_node (&root, 4);
+  insert_node (&root, 6);
+  insert_node (&root, 7);
+  insert_node (&root, 9);
+  insert_node (&root, 5);
+  insert_node (&root, 3);
+  insert_node (&root, 1);
+  insert_node (&root, 2);
 
   printf ("search 10\n");
   search_key (root, 10);
