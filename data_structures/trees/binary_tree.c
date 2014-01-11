@@ -140,6 +140,16 @@ delete_node (node ** leaf, int key)
   }
 }
 
+/* count */
+int
+count (struct node *leaf)
+{
+  if (!leaf)
+    return 0;
+
+  return count (leaf->left) + count (leaf->right) + 1;
+}
+
 /* search for a key in the tree */
 node *
 search_key (node * leaf, int key)
@@ -277,4 +287,7 @@ main ()
   printf ("traverse tree in post-order:\n");
   traverse_in_postorder (root);
   printf ("\n");
+
+  printf ("\nnumber of nodes in the tree: ");
+  printf ("%d\n", count (root));
 }
