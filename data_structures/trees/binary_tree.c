@@ -140,7 +140,7 @@ delete_node (node ** leaf, int key)
   }
 }
 
-/* count */
+/* count the number of nodes in the tree */
 int
 count (struct node *leaf)
 {
@@ -148,6 +148,24 @@ count (struct node *leaf)
     return 0;
 
   return count (leaf->left) + count (leaf->right) + 1;
+}
+
+/* height of the tree */
+int
+height (struct node *leaf)
+{
+  int u, v;
+
+  if (!leaf)
+    return -1;
+
+  u = height (leaf->left);
+  v = height (leaf->right);
+
+  if (u > v)
+    return u + 1;
+  else
+    return v + 1;
 }
 
 /* search for a key in the tree */
@@ -286,8 +304,11 @@ main ()
 
   printf ("traverse tree in post-order:\n");
   traverse_in_postorder (root);
-  printf ("\n");
+  printf ("\n\n");
 
-  printf ("\nnumber of nodes in the tree: ");
-  printf ("%d\n", count (root));
+  printf ("number of nodes in the tree: ");
+  printf ("%d\n\n", count (root));
+
+  printf ("height of the tree: ");
+  printf ("%d\n", height (root));
 }
