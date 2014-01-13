@@ -233,7 +233,7 @@ traverse_in_postorder (struct node * leaf)
 }
 
 bool
-validate_tree (struct node *leaf)
+validate_tree (struct node * leaf)
 {
   if (leaf) {
     if (leaf->left)
@@ -252,6 +252,30 @@ validate_tree (struct node *leaf)
   return TRUE;
 }
 
+void
+print_node (int key, int h)
+{
+  int i;
+
+  for (i = 0; i < h; i++)
+    printf ("    ");
+
+  printf ("%d\n", key);
+}
+
+void
+show (node * leaf, int h)
+{
+  if (!leaf) {
+    // print_node ('*', h);
+    return;
+  }
+
+  show (leaf->right, h + 1);
+  print_node (leaf->key, h);
+  show (leaf->left, h + 1);
+}
+
 int
 main ()
 {
@@ -267,6 +291,9 @@ main ()
   insert_node (&root, 3);
   insert_node (&root, 1);
   insert_node (&root, 2);
+
+  printf ("show tree: (rotated 90 degrees)\n");
+  show (root, 0);
 
   printf ("search 10\n");
   search_key (root, 10);
