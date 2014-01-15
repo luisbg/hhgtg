@@ -6,3 +6,4 @@ gcc -O0 -ggdb slice_array.c -o slice_array
 gcc -O0 -ggdb countingsort.c -o countingsort
 gcc -O0 -ggdb buying_toys.c -o buying_toys
 gcc -O0 -ggdb selectionsort.c -o selectionsort
+gcc -O0 -ggdb bubblesort.c -o bubblesort

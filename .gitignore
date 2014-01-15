@@ -30,6 +30,8 @@ algorithms/sorting/mergesort
 algorithms/sorting/quicksort
 algorithms/sorting/heapsort
 algorithms/sorting/insertionsort
+algorithms/sorting/selectionsort
+algorithms/sorting/bubblesort
 algorithms/sorting/slice_array
 algorithms/sorting/countingsort
 algorithms/sorting/buying_toys
