@@ -100,8 +100,8 @@ display_graph (graph_t graph)
   }
 }
 
-void
-depth_first_search (graph_t * graph, adj_node_t * curr, int v)
+adj_node_t *
+depth_first_search (graph_t * graph, adj_node_t * curr, int v, int s)
 {
   printf ("visited: %d\n", v);
 
@@ -109,8 +109,11 @@ depth_first_search (graph_t * graph, adj_node_t * curr, int v)
 
   for (; curr != NULL; curr = curr->next) {    // search all adjacent nodes
     if (!graph->list[curr->vertex].visited) {
+      if (curr->vertex == s)
+        return;
+
       depth_first_search (graph, graph->list[curr->vertex].head,
-                          curr->vertex);
+                          curr->vertex, s);
     }
   }
 }
@@ -143,5 +146,11 @@ main ()
   display_graph (*graph);
 
   printf ("\n");
-  depth_first_search (graph, graph->list->head, 0);
+
+  printf ("search for %d\n", 6);
+  depth_first_search (graph, graph->list->head, 0, 6);
+  unset_visited (graph);
+
+  printf ("\nsearch for %d\n", 9);
+  depth_first_search (graph, graph->list->head, 0, 2);
 }
