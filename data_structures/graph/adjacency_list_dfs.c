@@ -105,15 +105,12 @@ depth_first_search (graph_t * graph, adj_node_t * curr, int v)
 {
   printf ("visited: %d\n", v);
 
-  if (curr) {
-    graph->list[v].visited = TRUE;      // mark the node visited to avoid infinite loops
+  graph->list[v].visited = TRUE;      // mark the node visited to avoid infinite loops
 
-    while (curr) {      // search all adjacent nodes
-      if (!graph->list[curr->vertex].visited) {
-        depth_first_search (graph, graph->list[curr->vertex].head,
-            curr->vertex);
-      }
-      curr = curr->next;
+  for (; curr != NULL; curr = curr->next) {    // search all adjacent nodes
+    if (!graph->list[curr->vertex].visited) {
+      depth_first_search (graph, graph->list[curr->vertex].head,
+                          curr->vertex);
     }
   }
 }
