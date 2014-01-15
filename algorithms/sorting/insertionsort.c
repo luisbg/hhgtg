@@ -19,16 +19,24 @@ insertion_sort (int *ar, int ar_size)
 {
   int c, j, tmp;
 
-  for (c = 1; c < ar_size; c++) {
+  for (c = ar_size - 1; c > 0; c--)
+    if (ar[c-1] > ar[c]) {
+      tmp = ar[c-1];
+      ar[c-1] = ar[c];
+      ar[c] = tmp;
+    }
+
+  for (c = 2; c < ar_size; c++) {
+    j = c;
     tmp = ar[c];
-    j = c - 1;
-    while (tmp < ar[j] && j >= 0) {
-      ar[j + 1] = ar[j];
+
+    while (tmp < ar[j - 1]) {
+      ar[j] = ar[j - 1];
 
       j--;
     }
 
-    ar[j + 1] = tmp;
+    ar[j] = tmp;
     // print_array (ar, ar_size);
   }
 
