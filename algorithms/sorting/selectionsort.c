@@ -14,9 +14,11 @@
 typedef int Item;
 #define less(A, B) (A < B)
 #define exch(A, B) { Item t = A; A = B; B = t; }
+#define print(A) {printf ("%3d ", A); }
 #define RANDMAX 100
 
 void selection_sort (Item a[], int l, int r);
+void print_list (Item a[], int len);
 
 
 void
@@ -30,8 +32,22 @@ selection_sort (Item a[], int l, int r)
     for (j = i + 1; j <= r; j++)
       if (less (a[j], a[min]))
         min = j;
-    exch (a[i], a[min]);
+    if (i != min) {
+      exch (a[i], a[min]);
+      // print_list (a, r - l + 1);
+    }
   }
+}
+
+void
+print_list (Item a[], int len)
+{
+  int i;
+
+  for (i = 0; i < len; i++)
+    print (a[i]);
+  printf ("\n");
+
 }
 
 
@@ -47,11 +63,11 @@ main (int argc, char *argv[])
   for (i = 0; i < N; i++)
     a[i] = rand () % RANDMAX;
 
+  print_list (a, N);
+
   selection_sort (a, 0, N - 1);
 
-  for (i = 0; i < N; i++)
-    printf ("%3d ", a[i]);
-  printf ("\n");
+  print_list (a, N);
 
   return 0;
 }
