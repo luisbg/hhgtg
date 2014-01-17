@@ -25,6 +25,19 @@ void find_kth_element_r (int *l, int low, int high, int k)
     find_kth_element_r (l, i + 1, high, k);
 }
 
+/* Non-recursive find kth element */
+void find_kth_element_nr (int *l, int low, int high, int k)
+{
+  int i;
+
+  while (high > low) {
+    i = partition (l, low, high);
+    if (i >= k)
+      high = i - 1;
+    if (i <= k)
+      low = i + 1;
+  }
+}
 
 static int
 get_middle_pivot (int low, int high)
@@ -89,10 +102,19 @@ main ()
   for (c = 0; c < size; c++)
     l[c] = rand () % 100;
 
-  printf ("list:\n");
+  printf ("first list (solve recursively):\n");
   print_list (l, size - 1);
 
   find_kth_element_r (l, 0, size - 1, k);
+  printf ("\nelement in position %d is: %d\n", k, l[k]);
+
+  for (c = 0; c < size; c++)
+    l[c] = rand () % 100;
+
+  printf ("second list (solve non-recursively):\n");
+  print_list (l, size - 1);
+
+  find_kth_element_nr (l, 0, size - 1, k);
   printf ("\nelement in position %d is: %d\n", k, l[k]);
 
   return 0;
