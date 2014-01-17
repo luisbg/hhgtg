@@ -28,9 +28,8 @@ void key_index_count (int a[], int len)
 
   // Run through range and place numbers in ordered list
   for (i = 0, j = 0; i < RANGE_MAX; i++)
-    while (cnt[i]) {
+    while (cnt[i]--) {
       a[j++] = i;
-      cnt[i]--;
     }
 
   return;
