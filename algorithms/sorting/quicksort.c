@@ -15,9 +15,11 @@ typedef struct stack
 
 
 static void swap (int *a, int *b);
-static int get_pivot (int low, int high);
+static int get_middle_pivot (int low, int high);
+static int get_best_of_three_pivot (int *l, int low, int high);
 static int partition (int *l, int low, int high);
 void quicksort (int *l, int low, int high);
+void quicksort_non_recursive (int *l, int low, int high);
 
 
 void
@@ -74,9 +76,42 @@ swap (int *a, int *b)
 }
 
 static int
-get_pivot (int low, int high)
+get_middle_pivot (int low, int high)
 {
   return (low + high) / 2;
+}
+
+static int
+get_best_of_three_pivot (int *l, int low, int high)
+{
+  int a, b, c;
+  int pivot = low;
+  int len = high - low;
+
+  if (len >= 3) {
+    a = (rand() % len) + low;
+    b = (rand() % len) + low;
+    c = (rand() % len) + low;
+
+    if (a <= b)
+      if (b <= c)
+        pivot = b;
+      else
+        if (a <= c)
+          pivot = c;
+        else
+          pivot = a;
+    else
+      if (c <= b)
+        pivot = b;
+      else
+        if (a <= c)
+          pivot = a;
+        else
+          pivot = c;
+  }
+
+  return pivot;
 }
 
 static int
@@ -85,7 +120,7 @@ partition (int *l, int low, int high)
   int c;
   int middle;
 
-  int k = get_pivot (low, high);
+  int k = get_best_of_three_pivot (l, low, high);
   int pivot = l[k];
   swap (&l[low], &l[k]);        // move pivot out of array to order
 
