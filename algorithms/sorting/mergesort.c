@@ -13,6 +13,15 @@ typedef struct queue
 } queue;
 
 
+void enqueue (queue ** q, int value);
+int dequeue (queue ** q);
+int headq (queue * q);
+bool empty_queue (queue * q);
+void merge (int *l, int low, int middle, int high);
+void mergesort (int *l, int low, int high);
+void mergesort_bottom_up (int *l, int low, int high);
+void print_list (int *l, int len);
+
 void
 enqueue (queue ** q, int value)
 {
@@ -103,6 +112,24 @@ mergesort (int *l, int low, int high)
 }
 
 void
+mergesort_bottom_up (int *l, int low, int high)
+{
+  int i, m;
+  int x, min;
+
+  for (m = 1; m <= high - low; m = m + m)
+    for (i = low; i <= high - m; i += m + m) {
+      x = i + m + m - 1;
+      if (x < high)
+        min = x;
+      else
+        min = high;
+
+      merge (l, i, i + m - 1, min);
+    }
+}
+
+void
 print_list (int *l, int len)
 {
   int c;
@@ -112,19 +139,30 @@ print_list (int *l, int len)
   printf ("\n");
 }
 
+
 int
 main ()
 {
-  int l[50];
-  int size = 50;
+  int l[42];
+  int size = 42;
   int c;
   for (c = 0; c < size; c++)
     l[c] = rand () % 100;
 
-  printf ("out of order: ");
+  printf ("out of order:\n");
   print_list (l, size);
 
   mergesort (l, 0, size - 1);
-  printf ("in order:     ");
+  printf ("in order mergesort:\n");
+  print_list (l, size);
+
+  for (c = 0; c < size; c++)
+    l[c] = rand () % 100;
+
+  printf ("\nout of order:\n");
+  print_list (l, size);
+
+  mergesort_bottom_up (l, 0, size - 1);
+  printf ("in order bottom-up mergesort:\n");
   print_list (l, size);
 }
