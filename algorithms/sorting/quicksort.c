@@ -1,6 +1,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+typedef struct node
+{
+  int data;
+  struct node *next;
+} node;
+
+typedef struct stack
+{
+  node *top;
+} stack;
+
+
 static void swap (int *a, int *b);
 static int get_pivot (int low, int high);
 static int partition (int *l, int low, int high);
@@ -15,6 +28,41 @@ print_list (int *l, int len)
     printf ("%d ", l[c]);
   }
   printf ("\n");
+}
+
+void
+push (stack * s, int data)
+{
+  node *new = (node *) malloc (sizeof (node));
+  new->data = data;
+
+  new->next = s->top;
+  s->top = new;
+}
+
+int
+pop (stack * s)
+{
+  int ret = -1;
+  node *tmp = NULL;
+
+  if (s->top) {
+    ret = s->top->data;
+    tmp = s->top;
+    s->top = s->top->next;
+    free (tmp);
+  }
+
+  return ret;
+}
+
+int
+stackempty (stack * s)
+{
+  if (s->top)
+    return 0;
+  else
+    return 1;
 }
 
 static void
@@ -71,6 +119,38 @@ quicksort (int *l, int low, int high)
   quicksort (l, middle + 1, high);
 }
 
+void
+quicksort_non_recursive (int *l, int low, int high)
+{
+  int middle;
+
+  stack s;
+  push (&s, high);
+  push (&s, low);
+
+  while (!stackempty (&s)) {
+    low = pop(&s);
+    high = pop(&s);
+
+    if (low >= high)
+      continue;
+
+    middle = partition (l, low, high);
+    if (middle - 1 > high - middle) {
+      push (&s, middle - 1);
+      push (&s, low);
+      push (&s, high);
+      push (&s, middle + 1);
+    } else {
+      push (&s, high);
+      push (&s, middle + 1);
+      push (&s, middle - 1);
+      push (&s, low);
+    }
+  }
+}
+
+
 int
 main ()
 {
@@ -83,7 +163,18 @@ main ()
   printf ("out of order:\n");
   print_list (l, size - 1);
 
-  printf ("in order:\n");
+  printf ("in order (recursive quicksort):\n");
   quicksort (l, 0, size - 1);
+  print_list (l, size - 1);
+
+  printf ("\n\n");
+  for (c = 0; c < size; c++)
+    l[c] = rand () % 100;
+
+  printf ("new out of order:\n");
+  print_list (l, size - 1);
+
+  printf ("in order (non-recursive quicksort):\n");
+  quicksort_non_recursive (l, 0, size - 1);
   print_list (l, size - 1);
 }
