@@ -1,3 +1,7 @@
+/* Priority queue. Keeps the items in an unordered array stack.
+ * Then biggest item is removed from the list
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 
