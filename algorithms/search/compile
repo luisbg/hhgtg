@@ -4,3 +4,4 @@ gcc -O0 -ggdb median.c -o median
 gcc -O0 -ggdb closest_numbers.c -o closest_numbers
 gcc -O0 -ggdb missing_numbers.c -o missing_numbers
 gcc -O0 -ggdb pairs.c -o pairs
+gcc -O0 -ggdb key_indexed_search.c -o key_indexed_search

@@ -26,6 +26,7 @@ algorithms/search/median
 algorithms/search/closest_numbers
 algorithms/search/missing_numbers
 algorithms/search/pairs
+algorithms/search/key_indexed_search
 algorithms/sorting/mergesort
 algorithms/sorting/quicksort
 algorithms/sorting/heapsort
