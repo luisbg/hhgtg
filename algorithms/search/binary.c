@@ -1,8 +1,26 @@
 #include <stdio.h>
 
+
+static int step = 0;
+
+
+int middle (int *l, int key, int low, int high)
+{
+  return (low + high) / 2;
+}
+
+int interpolation_search (int *l, int key, int low, int high)
+{
+  return low + (key - l[low]) * (high-low) / (l[high] - l[low]);
+}
+
 int search (int *l, int key, int low, int high)
 {
-  int p = (low + high) / 2;
+  // printf ("step: %d\n", step++);
+
+  // int p = middle (l, key, low, high);
+  int p = interpolation_search (l, key, low, high);
+
   if (l[p] == key)
     return p;
 
