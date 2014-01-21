@@ -14,62 +14,60 @@ typedef struct node
 } node;
 
 
-node * root_insert_node (node ** leaf, int key);
-static node * rotate_right (node **leaf);
-static node * rotate_left (node **leaf);
+node * root_insert_node (node * run, int key);
+static node * rotate_right (node * r);
+static node * rotate_left (node * r);
 bool validate_tree (struct node * leaf);
 void show (node * leaf, int h);
 
 
 /* insert a key into the tree */
 node *
-root_insert_node (node ** leaf, int key)
+root_insert_node (node * run, int key)
 {
-  printf ("node insert %d\n", key);
-  node *run = *leaf;
-
   if (!run) {
     node *new_node = (node *) malloc (sizeof (node));
+    if (!new_node)
+      return NULL;
 
     new_node->key = key;
     new_node->left = NULL;
     new_node->right = NULL;
 
-    *leaf = new_node;
-    return *leaf;
+    return new_node;
   }
 
   if (key < run->key) {
-    run->left = root_insert_node (&run->left, key);
-    run = rotate_right (&run);
+    run->left = root_insert_node (run->left, key);
+    run = rotate_right (run);
   } else {
-    run->right = root_insert_node (&run->right, key);
-    run = rotate_left (&run);
+    run->right = root_insert_node (run->right, key);
+    run = rotate_left (run);
   }
 
   return run;
 }
 
 static node *
-rotate_right (node **leaf)
+rotate_right (node * r)
 {
-  node *run = *leaf;
-
-  node *x = run->left;
-  run->left = x->right;
-  x->right = run;
+  node *x = r->left;
+  if (x) {
+    r->left = x->right;
+    x->right = r;
+  }
 
   return x;
 }
 
 static node *
-rotate_left (node **leaf)
+rotate_left (node * r)
 {
-  node *run = *leaf;
-
-  node *x = run->right;
-  run->right = x->left;
-  x->left = run;
+  node *x = r->right;
+  if (x) {
+    r->right = x->left;
+    x->left = r;
+  }
 
   return x;
 }
@@ -121,27 +119,28 @@ show (node * leaf, int h)
 int
 main ()
 {
-  node *root = NULL;
+  int i;
+  int sample_list[10] = {8, 10, 4, 6, 7, 9, 5, 3, 1, 2};
 
-  root_insert_node (&root, 8);
-  root_insert_node (&root, 10);
-  root_insert_node (&root, 4);
-  root_insert_node (&root, 6);
-  root_insert_node (&root, 7);
+  node *r = NULL;
 
-  printf ("show tree:\n");
-  show (root, 0);
-  printf ("validated?: %s\n", validate_tree (root) ? "yes\n" : "no\n");
+  for (i = 0; i < 5; i++) {
+    printf ("node insert %d\n", sample_list[i]);
+    r = root_insert_node (r, sample_list[i]);
+  }
 
-  root_insert_node (&root, 9);
-  root_insert_node (&root, 5);
-  root_insert_node (&root, 3);
-  root_insert_node (&root, 1);
-  root_insert_node (&root, 2);
+  printf ("\nshow tree:\n");
+  show (r, 0);
+  printf ("\nvalidated?: %s\n", validate_tree (r) ? "yes\n" : "no\n");
 
-  printf ("show tree:\n");
-  show (root, 0);
-  printf ("validated?: %s\n", validate_tree (root) ? "yes\n" : "no\n");
+  for (i = 5; i < 10; i++) {
+    printf ("node insert %d\n", sample_list[i]);
+    r = root_insert_node (r, sample_list[i]);
+  }
+
+  printf ("\nshow tree:\n");
+  show (r, 0);
+  printf ("\nvalidated?: %s\n", validate_tree (r) ? "yes\n" : "no\n");
 
   return 0;
 }
