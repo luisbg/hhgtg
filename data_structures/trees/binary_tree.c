@@ -1,3 +1,5 @@
+/* Binary Tree, base functions */
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -22,6 +24,9 @@ void destroy_tree (struct node *leaf);
 void traverse_in_order (struct node *leaf);
 void traverse_in_postorder (struct node *leaf);
 void traverse_in_preorder (struct node *leaf);
+bool validate_tree (struct node * leaf);
+void show (node * leaf, int h);
+
 
 /* insert a key into the tree */
 void
@@ -252,7 +257,7 @@ validate_tree (struct node * leaf)
   return TRUE;
 }
 
-void
+static void
 print_node (int key, int h)
 {
   int i;
@@ -275,6 +280,7 @@ show (node * leaf, int h)
   print_node (leaf->key, h);
   show (leaf->left, h + 1);
 }
+
 
 int
 main ()
