@@ -13,90 +13,15 @@ typedef struct queue
 } queue;
 
 
-void enqueue (queue ** q, int value);
-int dequeue (queue ** q);
-int headq (queue * q);
-bool empty_queue (queue * q);
-void merge (int *l, int low, int middle, int high);
 void mergesort (int *l, int low, int high);
 void mergesort_bottom_up (int *l, int low, int high);
-void print_list (int *l, int len);
+static void enqueue (queue ** q, int value);
+static int dequeue (queue ** q);
+static int headq (queue * q);
+static bool empty_queue (queue * q);
+static void merge (int *l, int low, int middle, int high);
+static void print_list (int *l, int len);
 
-void
-enqueue (queue ** q, int value)
-{
-  queue *node = (queue *) malloc (sizeof (queue));
-  node->value = value;
-  node->next = NULL;
-
-  if (!*q) {
-    *q = node;
-
-  } else {
-    queue *curr = *q;
-    while (curr->next != NULL) {
-      curr = curr->next;
-    }
-
-    curr->next = node;
-  }
-}
-
-int
-dequeue (queue ** q)
-{
-  if (*q) {
-    queue *node = *q;
-    int value = node->value;
-    *q = node->next;
-    free (node);
-
-    return value;
-  } else {
-    return -1;
-  }
-}
-
-int
-headq (queue * q)
-{
-  return q->value;
-}
-
-bool
-empty_queue (queue * q)
-{
-  if (!q)
-    return TRUE;
-  else
-    return FALSE;
-}
-
-void
-merge (int *l, int low, int middle, int high)
-{
-  int i;                        // counter
-  queue *buffer1 = NULL;
-  queue *buffer2 = NULL;        // buffers to hold elements for merging
-
-  for (i = low; i <= middle; i++)       // queue first half in buffer 1
-    enqueue (&buffer1, l[i]);
-  for (i = middle + 1; i <= high; i++)  // queue second half in buffer 2
-    enqueue (&buffer2, l[i]);
-
-  i = low;                      // run through the buffers getting the lowest number in either head
-  while (!empty_queue (buffer1) && !empty_queue (buffer2)) {
-    if (headq (buffer1) <= headq (buffer2))
-      l[i++] = dequeue (&buffer1);
-    else
-      l[i++] = dequeue (&buffer2);
-  }
-
-  while (!empty_queue (buffer1))        // one of the buffers still has elements
-    l[i++] = dequeue (&buffer1);
-  while (!empty_queue (buffer2))
-    l[i++] = dequeue (&buffer2);
-}
 
 void
 mergesort (int *l, int low, int high)
@@ -129,7 +54,83 @@ mergesort_bottom_up (int *l, int low, int high)
     }
 }
 
-void
+static void
+enqueue (queue ** q, int value)
+{
+  queue *node = (queue *) malloc (sizeof (queue));
+  node->value = value;
+  node->next = NULL;
+
+  if (!*q) {
+    *q = node;
+
+  } else {
+    queue *curr = *q;
+    while (curr->next != NULL) {
+      curr = curr->next;
+    }
+
+    curr->next = node;
+  }
+}
+
+static int
+dequeue (queue ** q)
+{
+  if (*q) {
+    queue *node = *q;
+    int value = node->value;
+    *q = node->next;
+    free (node);
+
+    return value;
+  } else {
+    return -1;
+  }
+}
+
+static int
+headq (queue * q)
+{
+  return q->value;
+}
+
+static bool
+empty_queue (queue * q)
+{
+  if (!q)
+    return TRUE;
+  else
+    return FALSE;
+}
+
+static void
+merge (int *l, int low, int middle, int high)
+{
+  int i;                        // counter
+  queue *buffer1 = NULL;
+  queue *buffer2 = NULL;        // buffers to hold elements for merging
+
+  for (i = low; i <= middle; i++)       // queue first half in buffer 1
+    enqueue (&buffer1, l[i]);
+  for (i = middle + 1; i <= high; i++)  // queue second half in buffer 2
+    enqueue (&buffer2, l[i]);
+
+  i = low;                      // run through the buffers getting the lowest number in either head
+  while (!empty_queue (buffer1) && !empty_queue (buffer2)) {
+    if (headq (buffer1) <= headq (buffer2))
+      l[i++] = dequeue (&buffer1);
+    else
+      l[i++] = dequeue (&buffer2);
+  }
+
+  while (!empty_queue (buffer1))        // one of the buffers still has elements
+    l[i++] = dequeue (&buffer1);
+  while (!empty_queue (buffer2))
+    l[i++] = dequeue (&buffer2);
+}
+
+static void
 print_list (int *l, int len)
 {
   int c;
