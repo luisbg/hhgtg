@@ -102,6 +102,7 @@ data_structures/trees/lowest_common_ancestor
 data_structures/trees/fenwick_bit
 data_structures/trees/root_insertion
 data_structures/trees/join_trees
+data_structures/trees/b_tree
 data_structures/graph/adjacency_list
 data_structures/graph/adjacency_list_dfs
 data_structures/graph/adjacency_list_connected_nodes
