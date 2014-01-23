@@ -56,20 +56,54 @@ heap_permute (char **str, int n, int size)
   }
 }
 
+void do_permute (char * in, char * out, int size, bool used[size], int level)
+{
+  if (level == size) {
+    out[size] = '\0';
+    printf ("%s\n", out);
+  }
+
+  int i;
+
+  for (i = 0; i < size; i++) {
+    if (used[i])
+      continue;
+
+    out[level] = in[i];
+    used[i] = TRUE;
+    do_permute (in, out, size, used, level + 1);
+
+    used[i] = FALSE;
+  }
+}
+
+void permute (char * str, int size)
+{
+  bool used[size];
+  char out[size];
+
+  int i;
+  for (i = 0; i < size; i++)
+    used[i] = FALSE;
+
+  do_permute (str, out, size, used, 0);
+}
+
 
 int
 main ()
 {
-  int size = 3;
+  int size = 4;
   char *str = (char *) malloc (size * sizeof (char));
   char *tmp = "hat";
   int c;
   for (c = 0; c < size; c++)
     str[c] = tmp[c];
 
+  printf ("heap permute:\n \n");
   heap_permute (&str, size, size);
 
-  printf ("\n");
+  printf (" \n");
 
   size = 4;
   tmp = "four";
@@ -77,4 +111,13 @@ main ()
     str[c] = tmp[c];
 
   heap_permute (&str, size, size);
+
+  printf (" \ndirect:\n \n");
+
+  size = 4;
+  tmp = "0123";
+  for (c = 0; c < size; c++)
+    str[c] = tmp[c];
+
+  permute (str, size);
 }
