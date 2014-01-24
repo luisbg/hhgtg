@@ -132,9 +132,9 @@ remove_node (node ** l, int n)
         head = head->next;
       }
 
-      node *tmp = head->next->next;
-      free (head->next);
-      head->next = tmp;         // make previous node point to next
+      node *tmp = head->next;
+      head->next = head->next->next;    // make previous node point to next
+      free (tmp);
     }
   }
 
