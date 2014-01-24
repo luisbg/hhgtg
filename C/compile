@@ -15,3 +15,4 @@ gcc reverse_string.c -o reverse_string
 gcc itoa.c -o itoa
 gcc trim_break.c -o trim_break
 gcc endianness.c -o endianness
+gcc file_io.c -o file_io

@@ -16,6 +16,7 @@ C/switch
 C/trim_break
 C/word_counting
 C/endianness
+C/file_io
 C++/class_and_inheritance
 C++/virtual_functions
 C++/operator_overloading
