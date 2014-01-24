@@ -15,8 +15,8 @@ typedef enum
 } bool;
 
 bool
-insert_prepend (node ** l, int n) /* Insert at beginning of the list */
-{
+insert_prepend (node ** l, int n)
+{                               /* Insert at beginning of the list */
   printf ("insert prepend %d\n", n);
 
   node *new_node = (node *) malloc (sizeof (node));
@@ -31,8 +31,8 @@ insert_prepend (node ** l, int n) /* Insert at beginning of the list */
 }
 
 bool
-insert_append (node ** l, int n) /* Insert at end of the list */
-{
+insert_append (node ** l, int n)
+{                               /* Insert at end of the list */
   printf ("insert append %d\n", n);
 
   node *new_node = (node *) malloc (sizeof (node));
@@ -61,7 +61,7 @@ dequeue (node ** l, int *value)
   if (*l) {
     *value = (*l)->n;
 
-    node *tmp = *l;        // pointer to first node
+    node *tmp = *l;             // pointer to first node
     *l = tmp->next;
     free (tmp);
 
@@ -82,16 +82,16 @@ pop (node ** l, int *value)
 
   node *run = *l;
 
-  if (!run->next) { // only one element in the list
+  if (!run->next) {             // only one element in the list
     *value = run->n;
     free (run);
     *l = NULL;
   } else {
-    while (run->next->next) { // make runner second to last element
+    while (run->next->next) {   // make runner second to last element
       run = run->next;
     }
 
-    *value = run->next->n;  // get value of last and remove
+    *value = run->next->n;      // get value of last and remove
     free (run->next);
     run->next = NULL;
   }
@@ -105,7 +105,7 @@ travel (node * l)
   node *run = l;
 
   printf ("the list contains: ");
-  while (run) {  // run through all elements
+  while (run) {                 // run through all elements
     printf ("%d ", run->n);
 
     run = run->next;
@@ -118,14 +118,14 @@ travel (node * l)
 bool
 remove_node (node ** l, int n)
 {
-  if (*l) {             // not an empty list
+  if (*l) {                     // not an empty list
     node *run = *l;
 
-    if (run->n == n) {         // if first node
-      *l = run->next;          // list points to the second
+    if (run->n == n) {          // if first node
+      *l = run->next;           // list points to the second
       free (run);
     } else {
-      while (run->next->n != n) {      // find node
+      while (run->next->n != n) {       // find node
         if (!run->next->next)   // node isn't in the list
           return FALSE;
 
@@ -133,7 +133,7 @@ remove_node (node ** l, int n)
       }
 
       node *tmp = run->next;
-      run->next = run->next->next;    // make previous node point to next
+      run->next = run->next->next;      // make previous node point to next
       free (tmp);
     }
   }
@@ -142,7 +142,7 @@ remove_node (node ** l, int n)
 }
 
 bool
-reverse_order (struct node **head)
+reverse_order (struct node ** head)
 {
   struct node *new_head = NULL;
 
