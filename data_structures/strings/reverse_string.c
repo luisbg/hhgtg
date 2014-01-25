@@ -37,7 +37,6 @@ reverse_in_place (char *str)
     }
     end--;                      /* set one char back, since last char is null */
 
-
     /* swap characters from start and end until pointers */
     /* meet in the middle */
     while (str < end) {
@@ -47,6 +46,28 @@ reverse_in_place (char *str)
     }
   }
 }
+
+void
+reverse_zero_additional_memory (char *str)
+{
+  char *end = str;
+  if (str) {
+    while (*end) {
+      end++;
+    }
+    end--;
+
+    while (str < end) {
+      *str = *str ^ *end;
+      *end = *str ^ *end;
+      *str = *str ^ *end;
+
+      str++;
+      end--;
+    }
+  }
+}
+
 
 int
 main ()
@@ -64,4 +85,10 @@ main ()
   printf ("%s ", test_mutable);
   reverse_in_place (test_mutable);
   printf (":: %s\n", test_mutable);
+
+  printf ("%s ", test_mutable);
+  reverse_zero_additional_memory (test_mutable);
+  printf (":: %s\n", test_mutable);
+
+  return 0;
 }
