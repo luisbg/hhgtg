@@ -40,6 +40,7 @@ algorithms/sorting/countingsort
 algorithms/sorting/buying_toys
 algorithms/sorting/find_kth_element
 algorithms/sorting/key_indexed_counting
+algorithms/sorting/stream_and_rank
 algorithms/recursion/hanoi_towers
 algorithms/recursion/recursion
 algorithms/recursion/binary_search
