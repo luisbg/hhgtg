@@ -65,6 +65,7 @@ data_structures/arrays/dynamic_array
 data_structures/arrays/rotate
 data_structures/arrays/zero_out
 data_structures/arrays/business_tasks
+data_structures/arrays/bit_vector
 data_structures/hash_table/htoa
 data_structures/hash_table/htsc
 data_structures/linked_lists/adding
