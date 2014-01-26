@@ -55,9 +55,9 @@ algorithms/math/prime_factors
 algorithms/math/coin_flipping
 algorithms/dynamic_programming/min_num_steps
 algorithms/dynamic_programming/number_of_paths
+algorithms/dynamic_programming/lakes
 algorithms/other/months_starting_on_weekday
 algorithms/other/date_from_epoch
-algorithms/other/lakes
 bit_manipulation/bit_manipulation
 bit_manipulation/contain_m_n
 bit_manipulation/sign
@@ -98,6 +98,7 @@ data_structures/strings/reverse_words
 data_structures/strings/remove_characters
 data_structures/strings/elementary_operations
 data_structures/strings/sorting_array_strings
+data_structures/strings/numbers_to_english
 data_structures/trees/balanced_from_sorted
 data_structures/trees/binary_tree
 data_structures/trees/binary_tree_measure_height

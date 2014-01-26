@@ -1,2 +1,3 @@
 gcc -O0 -ggdb min_num_steps.c -o min_num_steps
 gcc -O0 -ggdb number_of_paths.c -o number_of_paths
+gcc -O0 -ggdb lakes.c -o lakes
