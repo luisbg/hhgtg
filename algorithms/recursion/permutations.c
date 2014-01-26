@@ -15,8 +15,6 @@ typedef enum
   FALSE, TRUE
 } bool;
 
-// Based on Heap's Algorithm from
-// Introduction to the Design and Analysis of Algorithms by Levitin
 
 void
 print (char *v, int size)
@@ -39,6 +37,8 @@ swap (char *i, char *j)
   *j = t;
 }
 
+// Based on Heap's Algorithm from
+// Introduction to the Design and Analysis of Algorithms by Levitin
 void
 heap_permute (char **str, int n, int size)
 {
@@ -56,7 +56,8 @@ heap_permute (char **str, int n, int size)
   }
 }
 
-void do_permute (char * in, char * out, int size, bool used[size], int level)
+// Recursive solution
+void do_permute (char * orig, char * out, int size, bool used[size], int level)
 {
   if (level == size) {
     out[size] = '\0';
@@ -69,9 +70,9 @@ void do_permute (char * in, char * out, int size, bool used[size], int level)
     if (used[i])
       continue;
 
-    out[level] = in[i];
+    out[level] = orig[i];
     used[i] = TRUE;
-    do_permute (in, out, size, used, level + 1);
+    do_permute (orig, out, size, used, level + 1);
 
     used[i] = FALSE;
   }
