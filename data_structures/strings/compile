@@ -8,3 +8,4 @@ gcc -O0 -ggdb remove_characters.c -o remove_characters
 gcc -O0 -ggdb reverse_words.c -o reverse_words
 gcc -O0 -ggdb elementary_operations.c -o elementary_operations
 gcc -O0 -ggdb sorting_array_strings.c -o sorting_array_strings
+gcc -O0 -ggdb numbers_to_english.c -o numbers_to_english
