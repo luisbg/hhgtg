@@ -80,6 +80,7 @@ data_structures/stacks/several_stacks
 data_structures/stacks/stack_min
 data_structures/stacks/split_array_stack
 data_structures/stacks/infix_postfix_calculations
+data_structures/stacks/sorting_with_two_stacks
 data_structures/queues/queue
 data_structures/queues/array_implemented_queue
 data_structures/queues/random_queue
