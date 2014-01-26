@@ -58,6 +58,7 @@ algorithms/dynamic_programming/number_of_paths
 algorithms/dynamic_programming/lakes
 algorithms/other/months_starting_on_weekday
 algorithms/other/date_from_epoch
+algorithms/other/shuffle_cards
 bit_manipulation/bit_manipulation
 bit_manipulation/contain_m_n
 bit_manipulation/sign

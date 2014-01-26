@@ -42,6 +42,7 @@ algorithms:
     other:
         months_starting_on_weekday
         date_from_epoch
+        shuffle_cards
 
 bit manipulation:
     bit_manipulation
