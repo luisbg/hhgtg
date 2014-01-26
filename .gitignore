@@ -91,7 +91,7 @@ data_structures/queues/priority_queue
 data_structures/strings/all_unique
 data_structures/strings/compression_repeated_characters
 data_structures/strings/contained
-data_structures/strings/permutation
+data_structures/strings/anagram
 data_structures/strings/replace_spaces
 data_structures/strings/reverse_string
 data_structures/strings/reverse_words

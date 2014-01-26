@@ -1,4 +1,4 @@
-/* Given two strings, decide if one is a permutation of the other.            */
+/* Given two strings, decide if one is an anagram of the other. */
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -29,7 +29,7 @@ string_sort (char *s, int length)
 }
 
 bool
-permutation_by_sort (char *first, char *second)
+anagram_by_sort (char *first, char *second)
 {
   int c;
   for (c = 0; first[c]; c++) {
@@ -76,7 +76,7 @@ letter_counter (char *str, int len)
 }
 
 bool
-permutation_by_count (char *first, char *second)
+anagram_by_count (char *first, char *second)
 {
   int len = strlen (first);
   if (len != strlen (second))
@@ -109,14 +109,14 @@ permutation_by_count (char *first, char *second)
 }
 
 bool
-permutation (char *first, char *second)
+anagram (char *first, char *second)
 {
   count++;
 
   if (count % 2 == 0)
-    return permutation_by_sort (first, second);
+    return anagram_by_sort (first, second);
   else
-    return permutation_by_count (first, second);
+    return anagram_by_count (first, second);
 }
 
 int
@@ -126,26 +126,26 @@ main ()
 
   char *a = "dad ";
   char *b = " add";
-  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+  printf ("%s:%s :: anagram? %s\n", a, b, anagram (a,
           b) ? "yes" : "no");
-  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+  printf ("%s:%s :: anagram? %s\n", a, b, anagram (a,
           b) ? "yes" : "no");
   a = "troll";
   b = "hunter";
-  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+  printf ("%s:%s :: anagram? %s\n", a, b, anagram (a,
           b) ? "yes" : "no");
-  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+  printf ("%s:%s :: anagram? %s\n", a, b, anagram (a,
           b) ? "yes" : "no");
   a = "same length ";
   b = "not the same";
-  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+  printf ("%s:%s :: anagram? %s\n", a, b, anagram (a,
           b) ? "yes" : "no");
-  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+  printf ("%s:%s :: anagram? %s\n", a, b, anagram (a,
           b) ? "yes" : "no");
   a = "radar";
   b = "radar";
-  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+  printf ("%s:%s :: anagram? %s\n", a, b, anagram (a,
           b) ? "yes" : "no");
-  printf ("%s:%s :: permutation? %s\n", a, b, permutation (a,
+  printf ("%s:%s :: anagram? %s\n", a, b, anagram (a,
           b) ? "yes" : "no");
 }
