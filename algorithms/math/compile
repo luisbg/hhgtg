@@ -4,3 +4,4 @@ gcc -O0 -ggdb running_upstairs.c -o running_upstairs
 gcc -O0 -ggdb factorial.c -o factorial
 gcc -O0 -ggdb prime_factors.c -o prime_factors -lm
 gcc -O0 -ggdb coin_flipping.c -o coin_flipping -lm
+gcc -O0 -ggdb palindromes.c -o palindromes -lm
