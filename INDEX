@@ -28,6 +28,7 @@ algorithms:
         permutations
         telephone_words
         max_by_divide_and_conquer
+        max_pyramid_run
     math:
         prime_numbers
         fibonacci
