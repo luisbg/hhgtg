@@ -1,7 +1,12 @@
+/* Write a function that determines the number of 1 bits in the computer’s
+ * internal representation of a given integer.
+ */
+
 #include <stdio.h>
 
 
-int count_ones (int n)
+int
+count_ones (int n)
 {
   int ones = 0;
 
@@ -14,7 +19,8 @@ int count_ones (int n)
   return ones;
 }
 
-int count_ones_fast (int n)
+int
+count_ones_fast (int n)
 {
   int ones = 0;
 
@@ -26,7 +32,8 @@ int count_ones_fast (int n)
   return ones;
 }
 
-int main ()
+int
+main ()
 {
   int i = 55;
 
@@ -34,7 +41,7 @@ int main ()
 
   i = 57;
   printf ("number of 1's in bit representation of %d: %d\n", i,
-          count_ones_fast (i));
+      count_ones_fast (i));
 
   return 0;
 }
