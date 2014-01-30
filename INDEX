@@ -45,6 +45,7 @@ algorithms:
         months_starting_on_weekday
         date_from_epoch
         shuffle_cards
+        largest contiguous
 
 bit manipulation:
     bit_manipulation
