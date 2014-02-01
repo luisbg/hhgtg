@@ -37,6 +37,7 @@ algorithms:
         prime_factors
         coin_flipping
         palindromes
+        trailing zeros factorial
     dynamic programming:
         min_num_steps
         number_of_paths
