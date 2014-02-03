@@ -134,6 +134,7 @@ minimize_quicksort (int *arr, int len)
   int *tmp = (int *) malloc (len * sizeof (int));
   int *res = (int *) malloc (2 * sizeof (int));
   int c;
+
   for (c = 0; c < len; c++)
     tmp[c] = arr[c];
 
@@ -154,14 +155,19 @@ minimize_quicksort (int *arr, int len)
 int
 main ()
 {
+  int i;
   int len = 13;
   int input[13] = { 1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19 };
-
   int *output;
+
+  printf ("unsorted:");
+  for (i = 0; i < len; i++)
+    printf (" %d", input[i]);
+  printf ("\n");
+
   output = minimize_direct (input, len);
 
-  printf ("%d, %d\n", output[0], output[1]);
+  printf ("first unsorted: %d\nlast unsorted: %d\n", output[0], output[1]);
 
-  output = minimize_quicksort (input, len);
-  printf ("%d, %d\n", output[0], output[1]);
+  return 0;
 }
