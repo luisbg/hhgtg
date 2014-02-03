@@ -54,6 +54,7 @@ bit manipulation:
     contain_m_n
     sign
     count_ones
+    power_of_2
 
 C:
     atoi
