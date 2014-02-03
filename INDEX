@@ -21,6 +21,7 @@ algorithms:
         find_kth_element
         key_indexed_counting
         stream_and_rank
+        minimize_sorting
     recursion:
         hanoi_towers
         recursion

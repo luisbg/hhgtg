@@ -10,3 +10,4 @@ gcc -O0 -ggdb bubblesort.c -o bubblesort
 gcc -O0 -ggdb key_indexed_counting.c -o key_indexed_counting
 gcc -O0 -ggdb find_kth_element.c -o find_kth_element
 gcc -O0 -ggdb stream_and_rank.c -o stream_and_rank
+gcc -O0 -ggdb minimize_sorting.c -o minimize_sorting
