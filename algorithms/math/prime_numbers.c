@@ -53,6 +53,8 @@ bool is_it_prime_eratosthenes (int n)
     }
   }
 
+  free (primes);
+
   return TRUE;
 }
 
