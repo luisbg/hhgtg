@@ -60,6 +60,7 @@ algorithms/math/trailing_zeros_factorial
 algorithms/dynamic_programming/min_num_steps
 algorithms/dynamic_programming/number_of_paths
 algorithms/dynamic_programming/lakes
+algorithms/dynamic_programming/coin_sums
 algorithms/other/months_starting_on_weekday
 algorithms/other/date_from_epoch
 algorithms/other/shuffle_cards
@@ -74,6 +75,7 @@ data_structures/arrays/rotate
 data_structures/arrays/zero_out
 data_structures/arrays/business_tasks
 data_structures/arrays/bit_vector
+data_structures/arrays/number_spiral
 data_structures/hash_table/htoa
 data_structures/hash_table/htsc
 data_structures/linked_lists/adding

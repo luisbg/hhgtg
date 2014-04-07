@@ -3,3 +3,4 @@ gcc rotate_90_degrees.c -o rotate
 gcc zero_out.c -o zero_out
 gcc business_tasks.c -o business_tasks
 gcc bit_vector.c -o bit_vector
+gcc number_spiral.c -o number_spiral

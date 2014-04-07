@@ -43,6 +43,7 @@ algorithms:
         min_num_steps
         number_of_paths
         lakes
+        coin_sums
     other:
         months_starting_on_weekday
         date_from_epoch
@@ -89,6 +90,7 @@ data structures:
         zero_out
         business_tasks
         bit_vector
+        number_spiral
     hash_table:
         htoa
         htsc
