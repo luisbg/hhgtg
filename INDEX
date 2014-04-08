@@ -39,6 +39,7 @@ algorithms:
         coin_flipping
         palindromes
         trailing zeros factorial
+        lowest common terms
     dynamic programming:
         min_num_steps
         number_of_paths
