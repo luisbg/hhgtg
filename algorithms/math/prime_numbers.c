@@ -7,7 +7,8 @@ typedef enum
   FALSE, TRUE
 } bool;
 
-bool is_it_prime_naive (int n)
+
+bool is_it_prime (int n)
 {
   int c;  // counter
   int sqr;  // square root of n
@@ -24,6 +25,10 @@ bool is_it_prime_naive (int n)
   return TRUE;
 }
 
+// Eratosthenes works to check small numbers. For big numbers there could be
+// memory issues.
+// Specially suited when a cache needs to be generated to check if a series of
+// numbers are prime.
 bool is_it_prime_eratosthenes (int n)
 {
   int c, d; // counters
@@ -66,7 +71,7 @@ int main ()
 
   printf ("list %d first primes:\n", max);
   for (n = 1; found < max; n++) {
-    if (is_it_prime_naive (n)) {
+    if (is_it_prime (n)) {
     // if (is_it_prime_eratosthenes (n)) {
       printf ("%d ", n);
       found++;
