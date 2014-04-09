@@ -71,6 +71,7 @@ bit_manipulation/contain_m_n
 bit_manipulation/sign
 bit_manipulation/count_ones
 bit_manipulation/power_of_2
+bit_manipulation/palindromes
 data_structures/arrays/dynamic_array
 data_structures/arrays/rotate
 data_structures/arrays/zero_out

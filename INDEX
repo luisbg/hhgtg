@@ -57,6 +57,7 @@ bit manipulation:
     sign
     count_ones
     power_of_2
+    palindromes
 
 C:
     atoi

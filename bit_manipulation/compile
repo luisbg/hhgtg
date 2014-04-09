@@ -3,3 +3,4 @@ gcc contain_m_n.c -o contain_m_n
 gcc sign.c -o sign
 gcc count_ones.c -o count_ones
 gcc power_of_2.c -o power_of_2
+gcc palindromes.c -o palindromes
