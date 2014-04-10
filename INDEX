@@ -130,6 +130,7 @@ data structures:
         elementary_operations
         sorting_array_strings
         numbers_to_english
+        first_non_repeating
     trees:
         balanced_from_sorted
         binary_tree
