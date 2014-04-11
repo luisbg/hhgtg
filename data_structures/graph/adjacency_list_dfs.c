@@ -100,6 +100,7 @@ display_graph (graph_t graph)
   }
 }
 
+/* Search for node with number s by depth first */
 adj_node_t *
 depth_first_search (graph_t * graph, adj_node_t * curr, int v, int s)
 {
@@ -109,7 +110,7 @@ depth_first_search (graph_t * graph, adj_node_t * curr, int v, int s)
 
   for (; curr != NULL; curr = curr->next) {    // search all adjacent nodes
     if (!graph->list[curr->vertex].visited) {
-      if (curr->vertex == s)
+      if (curr->vertex == s)          // found it!
         return;
 
       depth_first_search (graph, graph->list[curr->vertex].head,
@@ -118,6 +119,7 @@ depth_first_search (graph_t * graph, adj_node_t * curr, int v, int s)
   }
 }
 
+/* Mark all nodes as not visited */
 void
 unset_visited (graph_t * graph)
 {
@@ -126,6 +128,7 @@ unset_visited (graph_t * graph)
     graph->list[c].visited = FALSE;
   }
 }
+
 
 int
 main ()
