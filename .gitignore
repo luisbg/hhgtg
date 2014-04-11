@@ -124,7 +124,7 @@ data_structures/trees/root_insertion
 data_structures/trees/join_trees
 data_structures/trees/b_tree
 data_structures/graph/adjacency_list
-data_structures/graph/adjacency_list_dfs
+data_structures/graph/adjacency_list_search
 data_structures/graph/adjacency_list_connected_nodes
 data_structures/graph/lattice_paths
 data_structures/graph/bucket_fill

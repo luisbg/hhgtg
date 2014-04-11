@@ -146,7 +146,7 @@ data structures:
         b_tree
     graphs:
         adjacency_list
-        adjacency_list_dfs
+        adjacency_list_search
         adjacency_list_connected_nodes
         lattice_paths
         bucket_fill

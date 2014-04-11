@@ -31,6 +31,31 @@ typedef struct graph
   adj_list_t *list;             // adjacency list array
 } graph_t;
 
+// queue for breadth first search
+typedef struct queue_node
+{
+  adj_node_t *node;
+  struct queue_node *next;
+} queue_node_t;
+
+typedef struct queue
+{
+  queue_node_t *head;
+  queue_node_t *last;
+} queue_t;
+
+
+adj_node_t * create_node (int value);
+graph_t * create_graph (int num, graph_direction_type direction);
+void add_edge (graph_t * graph, int src, int dest);
+void display_graph (graph_t graph);
+adj_node_t * depth_first_search (graph_t * graph, adj_node_t * curr, int v,
+                                 int s);
+adj_node_t * breadth_first_search (graph_t * graph, int s);
+void unset_visited (graph_t * graph);
+static void enqueue_node (queue_t * nq, adj_node_t * node);
+static adj_node_t * dequeue_node (queue_t * nq);
+
 
 /* Create a new node with the specified value */
 adj_node_t *
@@ -105,18 +130,55 @@ adj_node_t *
 depth_first_search (graph_t * graph, adj_node_t * curr, int v, int s)
 {
   printf ("visited: %d\n", v);
-
   graph->list[v].visited = TRUE;      // mark the node visited to avoid infinite loops
 
   for (; curr != NULL; curr = curr->next) {    // search all adjacent nodes
     if (!graph->list[curr->vertex].visited) {
       if (curr->vertex == s)          // found it!
-        return;
+        return curr;
 
       depth_first_search (graph, graph->list[curr->vertex].head,
                           curr->vertex, s);
     }
   }
+
+  return NULL;
+}
+
+/* Search for node with number s by breadth first */
+adj_node_t *
+breadth_first_search (graph_t * graph, int s)
+{
+  queue_t tmp_q;
+  tmp_q.head = NULL;
+  tmp_q.last = NULL;
+  adj_node_t * curr = graph->list->head;;
+
+  while (curr) {
+    if (!graph->list[curr->vertex].visited) {
+      enqueue_node (&tmp_q, curr);
+    }
+    curr = curr->next;
+  }
+
+  while (tmp_q.head) {
+    curr = dequeue_node (&tmp_q);
+
+    printf ("visited: %d\n", curr->vertex);
+    graph->list[curr->vertex].visited = TRUE;      // mark the node visited to avoid infinite loops
+
+    if (curr->vertex == s)           // found it!
+      return curr;
+
+    curr = graph->list[curr->vertex].head;
+    for (; curr != NULL; curr = curr->next) {
+      if (!graph->list[curr->vertex].visited) {
+        enqueue_node (&tmp_q, curr);
+      }
+    }
+  }
+
+  return NULL;
 }
 
 /* Mark all nodes as not visited */
@@ -127,6 +189,37 @@ unset_visited (graph_t * graph)
   for (c = 0; c < graph->num_vertices; c++) {
     graph->list[c].visited = FALSE;
   }
+}
+
+/* Add a node to the queue */
+static void
+enqueue_node (queue_t * nq, adj_node_t * node)
+{
+  queue_node_t * new_node = (queue_node_t *) malloc (sizeof (queue_node_t));
+  new_node->node = node;
+  new_node->next = NULL;
+
+  if (nq->head) {
+    nq->last->next = new_node;
+    nq->last = new_node;
+  } else {
+    nq->head = new_node;
+    nq->last = new_node;
+  }
+}
+
+/* Get head of the queue */
+static adj_node_t *
+dequeue_node (queue_t * nq)
+{
+  adj_node_t *node = NULL;
+
+  if (nq->head) {
+    node = nq->head->node;
+    nq->head = nq->head->next;
+  }
+
+  return node;
 }
 
 
@@ -150,10 +243,14 @@ main ()
 
   printf ("\n");
 
-  printf ("search for %d\n", 6);
+  printf ("dfs search for %d\n", 6);
   depth_first_search (graph, graph->list->head, 0, 6);
   unset_visited (graph);
 
-  printf ("\nsearch for %d\n", 9);
+  printf ("\ndfs search for %d\n", 9);
   depth_first_search (graph, graph->list->head, 0, 2);
+  unset_visited (graph);
+
+  printf ("\nbfs search for %d\n", 1);
+  breadth_first_search (graph, 1);
 }
