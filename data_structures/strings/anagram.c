@@ -59,51 +59,27 @@ anagram_by_sort (char *first, char *second)
   return TRUE;
 }
 
-int *
-letter_counter (char *str, int len)
-{
-  int *ret = (int *) malloc (ASCII_SIZE * sizeof (int));
-  int c;
-  for (c = 0; c < ASCII_SIZE; c++) {
-    ret[c] = 0;
-  }
-
-  for (c = 0; c < len; c++) {
-    ret[str[c]]++;
-  }
-
-  return ret;
-}
-
 bool
 anagram_by_count (char *first, char *second)
 {
+  int i;
+  int *count = (int *) calloc (ASCII_SIZE, sizeof (int));
   int len = strlen (first);
+
   if (len != strlen (second))
     return FALSE;
 
-  int *first_count;
-  first_count = letter_counter (first, len);
-  int *second_count;
-  second_count = letter_counter (second, len);
-
-  int c;
-  if (len > ASCII_SIZE) {
-    for (c = 0; c < ASCII_SIZE; c++) {
-      if (first_count[c] != second_count[c])
-        return FALSE;
-    }
-  } else {
-    int l;
-    for (c = 0; c < len; c++) {
-      l = first[c];
-      if (first_count[l] != second_count[l])
-        return FALSE;
-    }
+  for (i = 0; i < len; i++) {
+    count[first[i]]++;
+    count[second[i]]--;
   }
 
-  free (first_count);
-  free (second_count);
+  for (i = 0; i < len; i++) {
+    if (count[first[i]])
+      return FALSE;
+  }
+
+  free (count);
 
   return TRUE;
 }
