@@ -132,7 +132,7 @@ depth_first_search (graph_t * graph, adj_node_t * curr, int v, int s)
   printf ("visited: %d\n", v);
   graph->list[v].visited = TRUE;      // mark the node visited to avoid infinite loops
 
-  for (; curr != NULL; curr = curr->next) {    // search all adjacent nodes
+  while (curr) {    // search all adjacent nodes
     if (!graph->list[curr->vertex].visited) {
       if (curr->vertex == s)          // found it!
         return curr;
@@ -140,6 +140,7 @@ depth_first_search (graph_t * graph, adj_node_t * curr, int v, int s)
       depth_first_search (graph, graph->list[curr->vertex].head,
                           curr->vertex, s);
     }
+    curr = curr->next;
   }
 
   return NULL;
@@ -155,9 +156,9 @@ breadth_first_search (graph_t * graph, int s)
   adj_node_t * curr = graph->list->head;;
 
   while (curr) {
-    if (!graph->list[curr->vertex].visited) {
+    if (!graph->list[curr->vertex].visited)
       enqueue_node (&tmp_q, curr);
-    }
+
     curr = curr->next;
   }
 
@@ -171,10 +172,11 @@ breadth_first_search (graph_t * graph, int s)
       return curr;
 
     curr = graph->list[curr->vertex].head;
-    for (; curr != NULL; curr = curr->next) {
-      if (!graph->list[curr->vertex].visited) {
+    while (curr) {
+      if (!graph->list[curr->vertex].visited)
         enqueue_node (&tmp_q, curr);
-      }
+
+      curr = curr->next;
     }
   }
 
