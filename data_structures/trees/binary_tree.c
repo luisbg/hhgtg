@@ -241,12 +241,10 @@ bool
 validate_tree (struct node * leaf)
 {
   if (leaf) {
-    if (leaf->left)
-      if (leaf->key < leaf->left->key)
-        return FALSE;
-    if (leaf->right)
-      if (leaf->key > leaf->right->key)
-        return FALSE;
+    if (leaf->left && leaf->key < leaf->left->key)
+      return FALSE;
+    if (leaf->right && leaf->key > leaf->right->key)
+      return FALSE;
 
     if (!validate_tree (leaf->left))
       return FALSE;
