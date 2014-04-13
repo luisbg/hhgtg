@@ -14,9 +14,11 @@ typedef enum
   FALSE, TRUE
 } bool;
 
+
+/* Insert at the head of the list */
 bool
 insert_prepend (node ** l, int n)
-{                               /* Insert at beginning of the list */
+{
   printf ("insert prepend %d\n", n);
 
   node *new_node = (node *) malloc (sizeof (node));
@@ -30,11 +32,13 @@ insert_prepend (node ** l, int n)
   return TRUE;
 }
 
+/* Insert at the tail of the list */
 bool
 insert_append (node ** l, int n)
-{                               /* Insert at end of the list */
+{
   printf ("insert append %d\n", n);
 
+  node *run;
   node *new_node = (node *) malloc (sizeof (node));
   if (!new_node)
     return FALSE;
@@ -43,7 +47,7 @@ insert_append (node ** l, int n)
   new_node->next = NULL;
 
   if (*l) {
-    node *run = *l;
+    run = *l;
     while (run->next) {         // go to last node
       run = run->next;
     }
@@ -55,13 +59,16 @@ insert_append (node ** l, int n)
   return TRUE;
 }
 
+/* Retrieve and remove the first item */
 bool
 dequeue (node ** l, int *value)
-{                               /* retrieve and remove the first item */
+{
+  node *tmp;
+
   if (*l) {
     *value = (*l)->n;
 
-    node *tmp = *l;             // pointer to first node
+    tmp = *l;             // pointer to first node
     *l = tmp->next;
     free (tmp);
 
@@ -72,15 +79,18 @@ dequeue (node ** l, int *value)
   }
 }
 
+/* Retrieve and remove the last item */
 bool
 pop (node ** l, int *value)
-{                               /* retrieve and remove the last item */
+{
+  node *run;
+
   if (!*l) {
     printf ("list is empty\n");
     return FALSE;
   }
 
-  node *run = *l;
+  run = *l;
 
   if (!run->next) {             // only one element in the list
     *value = run->n;
@@ -99,6 +109,7 @@ pop (node ** l, int *value)
   return TRUE;
 }
 
+/* Travel through list printing the elements */
 bool
 travel (node * l)
 {
@@ -115,11 +126,14 @@ travel (node * l)
   return TRUE;
 }
 
+/* Remove the node with the value n */
 bool
 remove_node (node ** l, int n)
 {
+  node *run, *tmp;
+
   if (*l) {                     // not an empty list
-    node *run = *l;
+    run = *l;
 
     if (run->n == n) {          // if first node
       *l = run->next;           // list points to the second
@@ -132,7 +146,7 @@ remove_node (node ** l, int n)
         run = run->next;
       }
 
-      node *tmp = run->next;
+      tmp = run->next;
       run->next = run->next->next;      // make previous node point to next
       free (tmp);
     }
@@ -141,19 +155,21 @@ remove_node (node ** l, int n)
   return TRUE;
 }
 
+/* Reverse the order of the list */
 bool
-reverse_order (struct node ** head)
+reverse_order (node ** l)
 {
-  struct node *new_head = NULL;
+  node *tmp,
+    *new_head = NULL;
 
-  while (*head) {
-    struct node *tmp = *head;
-    *head = (*head)->next;
+  while (*l) {
+    tmp = *l;
+    *l = (*l)->next;
     tmp->next = new_head;
     new_head = tmp;
   }
 
-  *head = new_head;
+  *l = new_head;
 
   return TRUE;
 }
@@ -212,4 +228,6 @@ main ()
 
   if (pop (&list, &n))
     printf ("remove last item: %d\n", n);
+
+  return 0;
 }
