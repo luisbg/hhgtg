@@ -71,16 +71,8 @@ stack_pop (dyn_arr * da, int *ret)
 
   // trim array if half empty
   if (da->size >= (da->len * 2)) {
-    int new_size = da->size / 2;
-    int *new_s = (int *) malloc (new_size * sizeof (int));
-    int c;
-    for (c = 0; c < new_size; c++) {
-      new_s[c] = da->array[c];
-    }
-
-    free (da->array);
-    da->array = new_s;
-    da->size = new_size;
+    da->size /= 2;
+    da->array = (int *) realloc (da->array, da->size * sizeof (int));
   }
 
   return TRUE;
@@ -128,4 +120,5 @@ main ()
   printf ("stack empty\n");
 
   free_array (&a);
+  return 0;
 }
