@@ -1,6 +1,6 @@
-gcc dynamic_array.c -o dynamic_array
-gcc rotate_90_degrees.c -o rotate
-gcc zero_out.c -o zero_out
-gcc business_tasks.c -o business_tasks
-gcc bit_vector.c -o bit_vector
-gcc number_spiral.c -o number_spiral
+gcc -Wall dynamic_array.c -o dynamic_array
+gcc -Wall rotate_90_degrees.c -o rotate
+gcc -Wall zero_out.c -o zero_out
+gcc -Wall business_tasks.c -o business_tasks
+gcc -Wall bit_vector.c -o bit_vector
+gcc -Wall number_spiral.c -o number_spiral
