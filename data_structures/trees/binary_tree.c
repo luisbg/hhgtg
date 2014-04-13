@@ -25,7 +25,7 @@ void traverse_in_order (struct node *leaf);
 void traverse_in_postorder (struct node *leaf);
 void traverse_in_preorder (struct node *leaf);
 bool validate_tree (struct node * leaf);
-void show (node * leaf, int h);
+void show (node * leaf, int h, char direction);
 
 
 /* insert a key into the tree */
@@ -256,27 +256,28 @@ validate_tree (struct node * leaf)
 }
 
 static void
-print_node (int key, int h)
+print_node (int key, int h, char direction)
 {
   int i;
 
   for (i = 0; i < h; i++)
     printf ("    ");
 
-  printf ("%d\n", key);
+  printf ("%c %d\n", direction, key);
 }
 
+/* show tree left to right (rotated 90 degrees) */
 void
-show (node * leaf, int h)
+show (node * leaf, int h, char direction)    // h is the depth level
 {
   if (!leaf) {
-    // print_node ('*', h);
     return;
   }
 
-  show (leaf->right, h + 1);
-  print_node (leaf->key, h);
-  show (leaf->left, h + 1);
+
+  show (leaf->right, h + 1, '/');
+  print_node (leaf->key, h, direction);    // in order from biggest, to smallest
+  show (leaf->left, h + 1, '\\');
 }
 
 
@@ -297,7 +298,7 @@ main ()
   insert_node (&root, 2);
 
   printf ("show tree: (rotated 90 degrees)\n");
-  show (root, 0);
+  show (root, 0, ' ');
 
   printf ("search 10\n");
   search_key (root, 10);
