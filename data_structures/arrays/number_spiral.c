@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+/* Sum of numbers in both down-right and up-right diagonals */
 int sum_of_diagonals (int size, int matrix[size][size])
 {
   int i, j;
@@ -19,6 +21,7 @@ int sum_of_diagonals (int size, int matrix[size][size])
   return sum;
 }
 
+/* Print the two-dimensional array of numbers */
 void print_matrix (int size, int matrix[size][size])
 {
   int i, j;
@@ -33,6 +36,7 @@ void print_matrix (int size, int matrix[size][size])
   printf ("\n");
 }
 
+/* Generate the spiral of numbers in the two-dimensional array */
 void generate_matrix (int size, int matrix[size][size])
 {
   int c, i, j, level, step;
@@ -64,7 +68,7 @@ void generate_matrix (int size, int matrix[size][size])
       matrix[i][j] = ++c;
     }
 
-    level++;
+    level++;    // the going left step increment
     step = 0;
     while (step < level) {    // write numbers going left
       step++;
