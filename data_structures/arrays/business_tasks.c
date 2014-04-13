@@ -26,47 +26,52 @@ typedef enum {
 } bool;
 
 
-int cycle_next (int size, bool used[size], int run) {
-  run++;
+/* cycle through the circular list to the next available element */
+int cycle_next (int size, bool used[size], int curr) {
+  curr++;
 
-  if (run == size)  /* end of array, loop back */
-    run = 0;
+  if (curr == size)  /* end of array, loop back */
+    curr = 0;
 
-  while (!used[run]) {
-    run++;
-    if (run == size)
-      run = 0;
+  while (!used[curr]) {
+    curr++;
+    if (curr == size)
+      curr = 0;
   }
 
-  return run;
+  return curr;
 }
 
-char * select_task (char * tasks[], int size, int n) {
-  int run = 0, i, tasks_left = size;
+/* select task from the circular list */
+char * select_task (char * tasks[], int size, int steps) {
+  int i,
+    curr = 0,
+    tasks_left = size;
   bool used[size];
 
   for (i = 0; i < size; i++)  /* set all to used */
     used[i] = TRUE;
 
   while (tasks_left > 1) {
-    for (i = 1; i < n; i++) {
-      run = cycle_next (size, used, run);
+    for (i = 1; i < steps; i++) {
+      curr = cycle_next (size, used, curr);
     }
 
-    used[run] = FALSE;
-    printf ("drop %s\n", tasks[run]);
+    used[curr] = FALSE;
+    printf ("drop %s\n", tasks[curr]);
     tasks_left--;
-    run = cycle_next (size, used, run);
+    curr = cycle_next (size, used, curr);
   }
 
   for (i = 0; i < size; i++)
     if (used[i])
       return tasks[i];
+
+  return NULL;
 }
 
 
-int main ()
-{
+int main () {
   int i;
   char ** tasks = (char **) malloc (10 * 16 * sizeof (char));
   for (i = 0; i < 10; i++)
@@ -83,7 +88,7 @@ int main ()
   strcpy (tasks[8], "i");
   strcpy (tasks[9], "j");
 
-  printf ("%s\n", select_task (tasks, 10, 8));
+  printf ("\ntask selected: %s\n", select_task (tasks, 10, 8));
 
   return 0;
 }
