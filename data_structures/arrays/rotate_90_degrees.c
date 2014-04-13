@@ -1,10 +1,10 @@
-/* Given an NxN matrix, rotate it by 90 degrees.                              */
-/* Can it be done in place?                                                   */
+/* Given an NxN matrix, rotate it by 90 degrees in place.                     */
 
 #include <stdlib.h>
 #include <stdio.h>
 
 
+/* print the two-dimensional array of numbers */
 void
 show_array (int size, int arr[size][size])
 {
@@ -19,19 +19,19 @@ show_array (int size, int arr[size][size])
   printf ("\n");
 }
 
-/* rotation in place */
+/* rotation in place to the right */
 void
 rotate_right (int n, int matrix[n][n])
 {
-  int layer;
-  for (layer = 0; layer < n / 2; ++layer) {
-    int first = layer;
-    int last = n - 1 - layer;
-    int i;
+  int layer, first, last, offset, top, i;
+  for (layer = 0; layer < (n / 2); layer++) {
+    first = layer;
+    last = n - 1 - layer;
+
     for (i = first; i < last; i++) {
-      int offset = i - first;
+      offset = i - first;
       // save top
-      int top = matrix[first][i];
+      top = matrix[first][i];
 
       // left -> top
       matrix[first][i] = matrix[last - offset][first];
@@ -48,7 +48,7 @@ rotate_right (int n, int matrix[n][n])
   }
 }
 
-/* needs a second array */
+/* rotate to the left using auxiliary memory */
 void
 rotate_left (int size, int arr[size][size], int new[size][size])
 {
@@ -73,7 +73,8 @@ int
 main ()
 {
   printf ("original\n");
-  int arr[4][4] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+  int arr[4][4] = {{0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11},
+                   {12, 13, 14, 15}};
   int rot[4][4];
 
   show_array (4, arr);
@@ -84,4 +85,6 @@ main ()
   printf ("rotate right\n");
   rotate_right (4, arr);
   show_array (4, arr);
+
+  return 0;
 }
