@@ -14,29 +14,30 @@ typedef enum
 { FALSE, TRUE } bool;
 
 
+/* Sort the linked list */
 void
 sort_list (node ** l)
 {
-  node *head = (node *) malloc (sizeof (node));
-  node *move = (node *) malloc (sizeof (node));
+  node *curr = *l;
+  node *move = NULL;
   int tmp;
-  head = *l;
 
-  while (head->next) {
-    if (head->n > head->next->n) {
-      move = head->next;
-      while ((head->prev) && head->prev->n > move->n) {
-        head = head->prev;
+  while (curr->next) {
+    if (curr->n > curr->next->n) {
+      move = curr->next;
+      while ((curr->prev) && curr->prev->n > move->n) {
+        curr = curr->prev;
       }
-      tmp = head->n;
-      head->n = move->n;
+      tmp = curr->n;
+      curr->n = move->n;
       move->n = tmp;
     }
 
-    head = head->next;
+    curr = curr->next;
   }
 }
 
+/* Insert value at the head of the list */
 void
 prepend (node ** l, int n)
 {
@@ -50,6 +51,7 @@ prepend (node ** l, int n)
   *l = new;
 }
 
+/* Travel through the list and print values */
 void
 travel (node * l)
 {
@@ -61,78 +63,81 @@ travel (node * l)
   printf ("\n");
 }
 
+/* remove duplicate values */
 void
 remove_duplicates (node ** l)
 {
-  node *head = (node *) malloc (sizeof (node));
-  node *tmp = (node *) malloc (sizeof (node));
-  head = *l;
+  node *curr = *l;
+  node *tmp = NULL;
 
-  if (!head) {
+  if (!curr) {
     printf ("list empty\n");
     return;
   }
 
-  while (head->next) {
-    if (head->n == head->next->n) {
-      tmp = head->next;
-      if (head->next->next)
-        head->next->next->prev = head;
-      head->next = head->next->next;
+  while (curr->next) {   // loop through the list
+    if (curr->n == curr->next->n) {
+      // if curr and next are the same, remove next
+      tmp = curr->next;
+      if (curr->next->next)
+        curr->next->next->prev = curr;
+      curr->next = curr->next->next;
       free (tmp);
     } else {
-      head = head->next;
+      curr = curr->next;
     }
   }
 }
 
+/* check if the value is already contained in the list */
 bool
 have_we_seen_it_before (node ** l, int n)
 {
-  node *head = (node *) malloc (sizeof (node));
-  head = *l;
-  while (head) {
-    if (head->n == n)
+  node *curr = *l;
+  node *new = NULL;
+
+  while (curr) {    // check if we have seen it
+    if (curr->n == n)
       return TRUE;
 
-    head = head->next;
+    curr = curr->next;
   }
 
-  node *new = (node *) malloc (sizeof (node));  // if we haven't seen it, add
+  new = (node *) malloc (sizeof (node));  // if we haven't seen it, add
   new->n = n;                                   // it to the buffer
   new->next = *l;
   *l = new;
 
-  free (head);
   return FALSE;
 }
 
+/* remove the duplicates by saving a buffer with seen values */
 void
 remove_duplicates_with_buffer (node ** l)
 {
-  node *head = (node *) malloc (sizeof (node));
-  node *buffer = (node *) malloc (sizeof (node));       // preferably a hash table
-  node *tmp = (node *) malloc (sizeof (node));
-  buffer = NULL;
+  node *curr = *l;
+  node *buffer = NULL;       // preferably a hash table
+  node *tmp = NULL;
 
-  head = *l;
-  while (head) {
-    if (have_we_seen_it_before (&buffer, head->n)) {
-      tmp = head;
-      head->prev->next = head->next;
-      head->next->prev = head->prev;
+  while (curr) {  // loop through the list
+    if (have_we_seen_it_before (&buffer, curr->n)) {
+      // if duplicate, remove current element
+      tmp = curr;
+      curr->prev->next = curr->next;
+      curr->next->prev = curr->prev;
       free (tmp);
     }
 
-    head = head->next;
+    curr = curr->next;
   }
 }
+
 
 int
 main ()
 {
-  node *l = (node *) malloc (sizeof (node));
-  l = NULL;
+  node *l = NULL;
+  node *m = NULL;
 
   prepend (&l, 0);
   prepend (&l, 3);
@@ -164,9 +169,6 @@ main ()
   remove_duplicates (&l);
   travel (l);
 
-  node *m = (node *) malloc (sizeof (node));
-  m = NULL;
-
   prepend (&m, 1);
   prepend (&m, 4);
   prepend (&m, 5);
@@ -193,4 +195,6 @@ main ()
   printf ("removed duplicates: ");
   remove_duplicates_with_buffer (&m);
   travel (m);
+
+  return 0;
 }
