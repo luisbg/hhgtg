@@ -10,19 +10,20 @@
 #define WORD_BITS 5
 #define MOD 0x1F
 
+
 /* initialize the bit vector */
 int *
 vector_init (int size)
 {
   // array size is divided by 32 (since there are 32 bits per word)
-  int * vector = (int *) calloc (size >> WORD_BITS, sizeof (int));
+  int *vector = (int *) calloc (size >> WORD_BITS, sizeof (int));
 
   return vector;
 }
 
 /* get value at position in vector. check if the set has the number */
 int
-vector_get (int * bitvector, int pos)
+vector_get (int *bitvector, int pos)
 {
   int word_num = (pos >> WORD_BITS);   // divide by 32
   int bit_num = (pos & MOD);  // mod by 32
@@ -32,7 +33,7 @@ vector_get (int * bitvector, int pos)
 
 /* set value at position in vector to True */
 void
-vector_set (int * bitvector, int pos)
+vector_set (int *bitvector, int pos)
 {
   int word_num = (pos >> WORD_BITS);   // divide by 32
   int bit_num = (pos & MOD);  // mod by 32
@@ -42,7 +43,7 @@ vector_set (int * bitvector, int pos)
 
 /* set value at position in vector to False */
 void
-vector_unset (int * bitvector, int pos)
+vector_unset (int *bitvector, int pos)
 {
   int word_num = (pos >> WORD_BITS);   // divide by 32
   int bit_num = (pos & MOD);  // mod by 32
@@ -57,7 +58,7 @@ int main ()
     set = 15,
     max = 30000;
 
-  int * vector = vector_init (max);
+  int *vector = vector_init (max);
 
   // set positions
   for (i = 0; i < set; i++) {
@@ -70,9 +71,9 @@ int main ()
   printf ("\n");
   for (i = 0; i < max; i++) {
     if (vector_get (vector, i)) {
-        printf ("have in vector/set:  %5d\n", i);
-        if (rand () % 3)
-          vector_unset (vector, i);
+      printf ("have in vector/set:  %5d\n", i);
+      if (rand () % 3)
+        vector_unset (vector, i);
     }
   }
 
@@ -80,9 +81,8 @@ int main ()
   printf ("\nunset some\n\n");
   for (i = 0; i < max; i++) {
     if (vector_get (vector, i))
-        printf ("have in vector/set:  %5d\n", i);
+      printf ("have in vector/set:  %5d\n", i);
   }
 
   return 0;
 }
-
