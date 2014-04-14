@@ -12,7 +12,9 @@ typedef struct node
   struct node *next;
 } node;
 
-void
+
+/* Travel through the list printing the elements */
+static void
 travel (node * l)
 {
   while (l) {
@@ -22,7 +24,8 @@ travel (node * l)
   printf ("\n");
 }
 
-void
+/* Insert value at the head of the list */
+static void
 prepend (node ** l, int d)
 {
   node *new = (node *) malloc (sizeof (node));
@@ -31,7 +34,8 @@ prepend (node ** l, int d)
   *l = new;
 }
 
-void
+/* Insert value at the tail of the list */
+static void
 append (node ** l, int d)
 {
   node *new = (node *) malloc (sizeof (node));
@@ -49,7 +53,8 @@ append (node ** l, int d)
   }
 }
 
-int
+/* Convert a list of digits to an integer */
+static int
 list_to_number (node * l)
 {
   int base = 1;
@@ -63,7 +68,8 @@ list_to_number (node * l)
   return sum;
 }
 
-void
+/* Convert an integer into a list of digits */
+static void
 number_to_list (node ** l, int n)
 {
   while (n != 0) {
@@ -72,6 +78,7 @@ number_to_list (node ** l, int n)
   }
 }
 
+/* Add the two lists */
 void
 add (node * a, node * b, node ** sum)
 {
@@ -81,6 +88,7 @@ add (node * a, node * b, node ** sum)
   printf ("sum is %d\n", sum_a + sum_b);
   number_to_list (sum, sum_a + sum_b);
 }
+
 
 int
 main ()
@@ -102,4 +110,6 @@ main ()
 
   add (a, b, &sum);
   travel (sum);
+
+  return 0;
 }
