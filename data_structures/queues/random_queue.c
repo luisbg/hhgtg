@@ -29,6 +29,8 @@ queue_init (int max_num)
   q->size = max_num;
   q->elements = malloc (max_num * sizeof (int));
   q->used = malloc (max_num * sizeof (bool));
+
+  return q;
 }
 
 /* Check if the queue is empty */
@@ -55,14 +57,15 @@ queue_is_full (queue_t *q)
 void
 queue_put (queue_t *q, int num)
 {
-  int pos;
+  int pos = 0;
   if (!queue_is_full (q)) {
     // loop until empty position
-    for (pos = 0; (q->used[pos] == USED) && (pos < q->size); pos++);
-    q->elements[pos] = num;
+    while (q->used[pos] == USED && pos < q->size)
+      pos++;
 
-    q->num_elements++; 
+    q->elements[pos] = num;
     q->used[pos] = USED;
+    q->num_elements++;
   }
 }
 
@@ -70,12 +73,8 @@ queue_put (queue_t *q, int num)
 int
 queue_get (queue_t *q)
 {
-  int num;
+  int num = -1;
   int pos;
-
-  // for (pos = 0; pos < q->size; pos++)
-  //   if (q->used[pos]) printf (">> %d\n", q->elements[pos]);
-  //   else printf (">> -1\n");
 
   if (!queue_is_empty (q)) {
     // loop until a random used position
@@ -84,11 +83,9 @@ queue_get (queue_t *q)
     } while (q->used[pos] == UNUSED);
 
     num = q->elements[pos];
-
     q->used[pos] = UNUSED;
-    q->num_elements--; 
-  } else
-    num = -1;
+    q->num_elements--;
+  }
 
   return num;
 }
