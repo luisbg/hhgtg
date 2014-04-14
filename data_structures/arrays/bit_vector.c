@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #define WORD_BITS 5
 #define MOD 0x1F
@@ -16,7 +17,17 @@ int *
 vector_init (int size)
 {
   // array size is divided by 32 (since there are 32 bits per word)
-  int *vector = (int *) calloc (size >> WORD_BITS, sizeof (int));
+  int *vector;
+
+  // size has to be at least 1 word
+  if (size < 32)
+    size = 32;
+
+  // why would you need an empty set?
+  if (!size)
+    assert(!"helpful message");
+
+  vector = (int *) calloc (size >> WORD_BITS, sizeof (int));
 
   return vector;
 }
