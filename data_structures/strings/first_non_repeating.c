@@ -2,28 +2,18 @@
 #include <stdlib.h>
 
 
-int
-str_len (char *str)
-{
-  int l = 0;
-  while (str[l] != '\0') {
-    l++;
-  }
-
-  return l;
-}
-
 char
 first_non_repeat (char *in)
 {
-  int i;
   int *charcount = (int *) calloc (2 << sizeof (char), sizeof (int));
-  int len = str_len (in);
+  int len;
+  int i;
 
-  for (i = 0; i < len; i++) {
+  for (i = 0; in[i]; i++) {
     charcount[in[i]]++;
   }
 
+  len = i - 1;
   for (i = 0; i < len; i++) {
     if (charcount[in[i]] == 1) {
       return in[i];
