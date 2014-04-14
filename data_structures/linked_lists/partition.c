@@ -11,6 +11,7 @@ typedef struct node
 } node;
 
 
+/* Travel through the list and print all elements */
 void
 travel (node * l)
 {
@@ -21,6 +22,7 @@ travel (node * l)
   printf ("\n");
 }
 
+/* Insert value at the head of the list */
 void
 prepend (node ** l, int d)
 {
@@ -30,6 +32,7 @@ prepend (node ** l, int d)
   *l = new;
 }
 
+/* Partition the list around a value using new nodes and freeing the old */
 void
 partition (node ** l, int middle)
 {
@@ -53,21 +56,21 @@ partition (node ** l, int middle)
   if (!head)
     *l = higher;
   else {
-    while (head->next) {
+    while (head->next)
       head = head->next;
-    }
+
     head->next = higher;
     *l = lower;
   }
 }
 
-/* partition without creating new nodes and freeing the old */
+/* Partition the list without creating new nodes */
 void
 partition_directly (node ** l, int middle)
 {
+  node *head = *l;
   node *lower = NULL;
   node *higher = NULL;
-  node *head = *l;
   node *next = NULL;
 
   /* Partition list */
@@ -86,13 +89,13 @@ partition_directly (node ** l, int middle)
   }
 
   /* Merge lower and higher lists */
-  if (!lower)
+  *l = lower;
+  if (!l)
     *l = higher;
   else {
-    *l = lower;
-    while (lower->next) {
+    while (lower->next)
       lower = lower->next;
-    }
+
     lower->next = higher;
   }
 }
@@ -117,4 +120,6 @@ main ()
   printf ("All numbers below 5 to the left: ");
   partition_directly (&l, 5);
   travel (l);
+
+  return 0;
 }
