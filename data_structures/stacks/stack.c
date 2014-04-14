@@ -23,6 +23,17 @@ bool empty (stack s);
 stack init ();
 
 
+/* initialize the stack */
+stack
+init ()
+{
+  stack * s = (stack *) malloc (sizeof (stack));
+  s->top = NULL;
+
+  return *s;
+}
+
+/* push data to the top of the stack */
 void
 push (stack * s, int data)
 {
@@ -33,11 +44,12 @@ push (stack * s, int data)
   s->top = new;
 }
 
+/* get data at top of the stack and remove */
 int
 pop (stack * s)
 {
   int ret = -1;
-  node *tmp = NULL;
+  node *tmp;
 
   if (s->top) {
     ret = s->top->data;
@@ -49,6 +61,7 @@ pop (stack * s)
   return ret;
 }
 
+/* get the data at the top of the stack but don't remove */
 int
 peek (stack s)
 {
@@ -58,22 +71,14 @@ peek (stack s)
     return -1;
 }
 
+/* check if the stack is empty */
 bool
-empty (stack s)
+is_empty (stack s)
 {
   if (s.top)
     return FALSE;
   else
     return TRUE;
-}
-
-stack
-init ()
-{
-  stack * s = (stack *) malloc (sizeof (stack));
-  s->top = NULL;
-
-  return *s;
 }
 
 
@@ -90,7 +95,7 @@ main ()
   printf ("push: %d\n\n", 3);
   push (&s, 3);
 
-  printf ("empty stack? %s\n\n", empty (s)? "yes": "no");
+  printf ("empty stack? %s\n\n", is_empty (s)? "yes": "no");
 
   printf ("pop: %d\n", pop (&s));
 
@@ -105,5 +110,7 @@ main ()
   printf ("pop: %d\n", pop (&s));
   printf ("pop: %d\n\n", pop (&s));
 
-  printf ("empty stack? %s\n", empty (s)? "yes": "no");
+  printf ("empty stack? %s\n", is_empty (s)? "yes": "no");
+
+  return 0;
 }
