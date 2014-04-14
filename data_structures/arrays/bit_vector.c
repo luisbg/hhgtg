@@ -8,8 +8,8 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#define WORD_BITS 5
-#define MOD 0x1F
+#define WORD_BITS 5    // for 32 bit
+#define MOD (sizeof(int) * 8 - 1)
 
 
 /* initialize the bit vector */
@@ -36,8 +36,8 @@ vector_init (int size)
 int
 vector_get (int *bitvector, int pos)
 {
-  int word_num = (pos >> WORD_BITS);   // divide by 32
-  int bit_num = (pos & MOD);  // mod by 32
+  int word_num = (pos >> WORD_BITS);  // divide by 2 ^ WORD_BITS
+  int bit_num = (pos & MOD);     // mod by (2 ^ WORD_BITS) - 1
 
   return bitvector[word_num] & (1 << bit_num);
 }
@@ -46,8 +46,8 @@ vector_get (int *bitvector, int pos)
 void
 vector_set (int *bitvector, int pos)
 {
-  int word_num = (pos >> WORD_BITS);   // divide by 32
-  int bit_num = (pos & MOD);  // mod by 32
+  int word_num = (pos >> WORD_BITS);
+  int bit_num = (pos & MOD);
 
   bitvector[word_num] |= (1 << bit_num);
 }
@@ -56,8 +56,8 @@ vector_set (int *bitvector, int pos)
 void
 vector_unset (int *bitvector, int pos)
 {
-  int word_num = (pos >> WORD_BITS);   // divide by 32
-  int bit_num = (pos & MOD);  // mod by 32
+  int word_num = (pos >> WORD_BITS);
+  int bit_num = (pos & MOD);
 
   bitvector[word_num] &= ~(1 << bit_num);
 }
