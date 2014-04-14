@@ -9,15 +9,15 @@
 #include <assert.h>
 
 #define WORD_BITS 5    // for 32 bit
-#define MOD (sizeof(int) * 8 - 1)
+#define MOD (sizeof(uint) * 8 - 1)
 
 
 /* initialize the bit vector */
-int *
-vector_init (int size)
+uint *
+vector_init (uint size)
 {
   // array size is divided by 32 (since there are 32 bits per word)
-  int *vector;
+  uint *vector;
 
   // size has to be at least 1 word
   if (size < 32)
@@ -27,14 +27,14 @@ vector_init (int size)
   if (!size)
     assert(!"helpful message");
 
-  vector = (int *) calloc (size >> WORD_BITS, sizeof (int));
+  vector = (uint *) calloc (size >> WORD_BITS, sizeof (uint));
 
   return vector;
 }
 
 /* get value at position in vector. check if the set has the number */
-int
-vector_get (int *bitvector, int pos)
+uint
+vector_get (uint *bitvector, uint pos)
 {
   int word_num = (pos >> WORD_BITS);  // divide by 2 ^ WORD_BITS
   int bit_num = (pos & MOD);     // mod by (2 ^ WORD_BITS) - 1
@@ -44,7 +44,7 @@ vector_get (int *bitvector, int pos)
 
 /* set value at position in vector to True */
 void
-vector_set (int *bitvector, int pos)
+vector_set (uint *bitvector, uint pos)
 {
   int word_num = (pos >> WORD_BITS);
   int bit_num = (pos & MOD);
@@ -54,7 +54,7 @@ vector_set (int *bitvector, int pos)
 
 /* set value at position in vector to False */
 void
-vector_unset (int *bitvector, int pos)
+vector_unset (uint *bitvector, uint pos)
 {
   int word_num = (pos >> WORD_BITS);
   int bit_num = (pos & MOD);
@@ -69,7 +69,7 @@ int main ()
     set = 15,
     max = 30000;
 
-  int *vector = vector_init (max);
+  uint *vector = vector_init (max);
 
   // set positions
   for (i = 0; i < set; i++) {
