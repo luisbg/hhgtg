@@ -1,9 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define MAX_DATA_IN_STACK 4
+
 typedef struct stack
 {
-  int data[4];
+  int data[MAX_DATA_IN_STACK];
   int used;
 
   struct stack * next;
@@ -17,64 +19,79 @@ typedef struct l_stacks
 void push (l_stacks * ls, int data);
 int pop (l_stacks * ls);
 
+
+/* push data to the top of the last stack */
 void push (l_stacks * ls, int data)
 {
   printf("push: %d\n", data);
-  stack *head = ls->stack;
-  while (head->used == 4 && head->next)
-    head = head->next;
+  stack *curr = ls->stack;
 
-  if (head->used != 4) {
-    head->data[head->used] = data;
-    head->used++;
+  // loop to last stack
+  while (curr->used == MAX_DATA_IN_STACK && curr->next)
+    curr = curr->next;
+
+  // if last stack has space use it, if not create a new one and use it
+  if (curr->used != MAX_DATA_IN_STACK) {
+    curr->data[curr->used] = data;
+    curr->used++;
   } else {
     stack *new = (stack *) malloc (sizeof(stack));
     new->data[0] = data;
     new->used = 1;
     new->next = NULL;
-    head->next = new;
+    curr->next = new;
   }
 }
 
+/* travel through stacks printing the data */
 void travel (l_stacks ls) {
-  stack *head = ls.stack;
+  stack *curr = ls.stack;
 
-  printf("t: %d %d %d %d\n", head->data[0], head->data[1], head->data[2],
-         head->data[3]);
+  printf("t: %d %d %d %d\n", curr->data[0], curr->data[1], curr->data[2],
+         curr->data[3]);
 
-  while (head->next) {
-    head = head->next;
-    printf("t: %d %d %d %d\n", head->data[0], head->data[1], head->data[2],
-           head->data[3]);
+  while (curr->next) {
+    curr = curr->next;
+    printf("t: %d %d %d %d\n", curr->data[0], curr->data[1], curr->data[2],
+           curr->data[3]);
   }
 }
 
+/* get data at top of the last stack */
 int pop (l_stacks * ls) {
-  int value;
+  int value = -1;
+  stack *curr = ls->stack;
 
-  stack *head = ls->stack;
-  while (head->used == 4 && head->next)
-    head = head->next;
+  // loop to last stack
+  while (curr->used == MAX_DATA_IN_STACK && curr->next)
+    curr = curr->next;
 
-  if (head->used == 0)
-    return -1;
+  // stack is empty
+  if (curr->used == 0)
+    return value;
 
-  if (head->used != 1) {
-    value = head->data[head->used-1];
-    head->used--;
+  // get top value in stack
+  if (curr->used != 1) {
+    value = curr->data[curr->used-1];
+    curr->used--;
+
+  // one element left in all stack
   } else if (ls->stack->used == 1) {
-    value = head->data[0];
-    head->used--;
-  } else {
-    head = ls->stack;
+    value = curr->data[0];
+    curr->used--;
 
-    while (head->next->next) {
-      head = head->next;
+  // last element of this stack get data and free stack
+  } else {
+    stack *tmp;
+    curr = ls->stack;
+
+    while (curr->next->next) {
+      curr = curr->next;
     }
-    value = head->next->data[0];
-    stack *tmp = NULL;
-    head->next = NULL;
-    tmp = head->next;
+    value = curr->next->data[0];
+
+    tmp = curr->next;
+    curr->next = NULL;
     free(tmp);
   }
 
@@ -117,4 +134,6 @@ int main ()
   printf("pop: %d\n", pop (&ls));
   printf("pop: %d\n", pop (&ls));
   printf("pop: %d\n", pop (&ls));
+
+  return 0;
 }
