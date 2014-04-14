@@ -48,9 +48,9 @@ insert_append (node ** l, int n)
 
   if (*l) {
     run = *l;
-    while (run->next) {         // go to last node
+    while (run->next)           // go to last node
       run = run->next;
-    }
+
     run->next = new_node;       // append new_node as next of last
   } else {
     *l = new_node;
@@ -58,6 +58,38 @@ insert_append (node ** l, int n)
 
   return TRUE;
 }
+
+/* Insert after a certain element */
+bool
+insert_after (node **l, int b, int n)
+{
+  printf ("insert %d after %d\n", n, b);
+
+  node *run;
+  node *new_node = (node *) malloc (sizeof (node));
+  if (!new_node)
+    return FALSE;
+
+  new_node->n = n;
+  new_node->next = NULL;
+
+  if (*l) {
+    run = *l;
+    while (run && run->n != b)         // find before element
+      run = run->next;
+
+    if (!run)
+      return FALSE;
+
+    new_node->next = run->next;
+    run->next = new_node;
+  } else {
+    return FALSE;
+  }
+
+  return TRUE;
+}
+
 
 /* Retrieve and remove the first item */
 bool
@@ -213,6 +245,9 @@ main ()
 
   printf ("remove item with value 2\n");
   remove_node (&list, 2);
+  travel (list);
+
+  insert_after (&list, 4, 3);
   travel (list);
 
   printf ("remove item with value 7\n");
