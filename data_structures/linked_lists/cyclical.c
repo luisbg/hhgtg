@@ -13,7 +13,9 @@ typedef struct node
   struct node *next;
 } node;
 
-void
+
+/* Insert value at the head of the list */
+static void
 prepend (node ** l, int d)
 {
   node *new = (node *) malloc (sizeof (node));
@@ -22,7 +24,8 @@ prepend (node ** l, int d)
   *l = new;
 }
 
-void
+/* Turn the list circular by having tail element point to the head */
+static void
 make_circular (node ** l)
 {
   node *first = *l;
@@ -35,21 +38,24 @@ make_circular (node ** l)
   head->next = first;
 }
 
+/* Check if a list is circular */
 bool
-find_circular (node * head)
+find_cyclical (node * head)
 {
   node *slower, *faster;
   slower = head;
   faster = head->next;          // start faster one node ahead
-  while (TRUE) {
 
+  while (TRUE) {
     // if the faster pointer encounters a NULL element
     if (!faster || !faster->next)
       return FALSE;
+
     // if faster pointer ever equals slower or faster's next
     // pointer is ever equal to slow then it's a circular list
     else if (faster == slower || faster->next == slower)
       return TRUE;
+
     else {
       // advance the pointers
       slower = slower->next;
@@ -74,8 +80,10 @@ main ()
   prepend (&l, 1);
   prepend (&l, 0);
 
-  printf ("is it circular? %s\n", find_circular (l) ? "yes" : "no");
+  printf ("is it circular? %s\n", find_cyclical (l) ? "yes" : "no");
 
   make_circular (&l);
-  printf ("is it circular? %s\n", find_circular (l) ? "yes" : "no");
+  printf ("is it circular? %s\n", find_cyclical (l) ? "yes" : "no");
+
+  return 0;
 }
