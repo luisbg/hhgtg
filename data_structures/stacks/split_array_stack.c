@@ -9,6 +9,7 @@ int stackSize = 100;
 int buffer[300];                // stackSize * 3
 int stackPointer[] = { -1, -1, -1 };    // pointers to track top elements
 
+
 /* returns index of top of stack "stackNum", in absolute terms */
 int
 absTopOfStack (int stackNum)
@@ -16,6 +17,7 @@ absTopOfStack (int stackNum)
   return stackNum * stackSize + stackPointer[stackNum];
 }
 
+/* push element to the top of the specified stack */
 void
 push (int stackNum, int value)
 {
@@ -29,6 +31,7 @@ push (int stackNum, int value)
   buffer[absTopOfStack (stackNum)] = value;
 }
 
+/* get element from the top of the specified stack */
 int
 pop (int stackNum)
 {
@@ -42,6 +45,7 @@ pop (int stackNum)
   return value;
 }
 
+/* read element from the top of the specified stack */
 int
 peek (int stackNum)
 {
@@ -49,6 +53,7 @@ peek (int stackNum)
   return buffer[index];
 }
 
+/* check if stack is empty */
 bool
 isEmpty (int stackNum)
 {
@@ -106,4 +111,6 @@ main ()
   printf ("pop from %d: %d\n", 2, pop (2));
   printf ("pop from %d: %d\n", 2, pop (2));
   printf ("pop from %d: %d\n", 2, pop (2));
+
+  return 0;
 }
