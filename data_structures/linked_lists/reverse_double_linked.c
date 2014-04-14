@@ -9,11 +9,13 @@ typedef struct Node
 } Node;
 
 
+/* Reverse the linked list */
 Node *
 reverse_list (Node * head)
 {
   Node *run = head;
   Node *tmp, *next, *last;
+
   while (run) {
     next = run->next;           // save next before changing the pointer
 
@@ -29,6 +31,7 @@ reverse_list (Node * head)
   return last;                  // return new head
 }
 
+/* Insert a node at head of the list */
 Node *
 insert_node (Node * head, int data)
 {
@@ -46,6 +49,7 @@ insert_node (Node * head, int data)
   return tmp;
 }
 
+/* Print the values in the list */
 void
 print_list (Node * head)
 {
@@ -67,6 +71,7 @@ print_list (Node * head)
   printf ("%d\n", head->data);
 }
 
+/* Remove the first node in the list with the given value */
 void
 remove_node (Node * head, int data)
 {
@@ -88,6 +93,7 @@ remove_node (Node * head, int data)
     free (tmp);
   }
 }
+
 
 int
 main ()
@@ -119,4 +125,6 @@ main ()
 
   head = reverse_list (head);
   print_list (head);
+
+  return 0;
 }
