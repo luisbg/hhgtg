@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 
+/* Find the frist non-repeating character */
 char
 first_non_repeat (char *in)
 {
@@ -14,12 +15,13 @@ first_non_repeat (char *in)
   }
 
   len = i - 1;
-  for (i = 0; i < len; i++) {
+  for (i = 0; i < len; i++)
     if (charcount[in[i]] == 1) {
+      free (charcount);
       return in[i];
     }
-  }
 
+  free (charcount);
   return '\0';
 }
 
