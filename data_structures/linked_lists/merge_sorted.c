@@ -18,10 +18,11 @@ typedef enum
 } bool;
 
 
-Node
+/* Append data to tail of list */
+static void
 Append (Node ** head, int data)
 {
-  //printf ("Append: %d\n", data);
+  // printf ("Append: %d\n", data);
   Node *new_node = (Node *) malloc (sizeof (Node));
   new_node->data = data;
   new_node->next = NULL;
@@ -37,11 +38,22 @@ Append (Node ** head, int data)
   }
 }
 
+/* Print the list */
+static void
+Print (Node * head)
+{
+  while (head != NULL) {
+    printf ("%d ", head->data);
+    head = head->next;
+  }
+  printf ("\n");
+}
+
+/* Merge the two sorted lists into one */
 Node *
 MergeLists (Node * headA, Node * headB)
 {
-  Node *tmp = (Node *) malloc (sizeof (Node));
-  tmp = NULL;
+  Node *tmp = NULL;
 
   while (headA && headB) {      // run through both lists until one is empty
     if (headA->data < headB->data) {    // appending the smallest new head
@@ -65,36 +77,6 @@ MergeLists (Node * headA, Node * headB)
   return tmp;
 }
 
-void
-Print (Node * head)
-{
-  bool ok = FALSE;
-  while (head != NULL) {
-    printf ("%d ", head->data);
-    head = head->next;
-  }
-  printf ("\n");
-}
-
-Node *
-Insert (Node * head, int x)
-{
-  Node *tmp = (Node *) malloc (sizeof (Node));
-  tmp->data = x;
-  tmp->next = NULL;
-
-  if (head == NULL) {
-    return tmp;
-  }
-
-  Node *tmp1 = head;
-  while (tmp1->next != NULL)
-    tmp1 = tmp1->next;
-
-  tmp1->next = tmp;
-  return head;
-}
-
 
 int
 main ()
@@ -102,26 +84,29 @@ main ()
   Node *A = NULL;
   Node *B = NULL;
 
-  A = Insert (A, 0);
-  A = Insert (A, 3);
-  A = Insert (A, 5);
-  A = Insert (A, 6);
-  A = Insert (A, 7);
-  A = Insert (A, 8);
+  Append (&A, 0);
+  Append (&A, 3);
+  Append (&A, 5);
+  Append (&A, 6);
+  Append (&A, 7);
+  Append (&A, 8);
 
-  B = Insert (B, 1);
-  B = Insert (B, 2);
-  B = Insert (B, 3);
-  B = Insert (B, 4);
-  B = Insert (B, 5);
-  B = Insert (B, 6);
-  B = Insert (B, 7);
-  B = Insert (B, 8);
-  B = Insert (B, 9);
+  Append (&B, 1);
+  Append (&B, 2);
+  Append (&B, 3);
+  Append (&B, 4);
+  Append (&B, 5);
+  Append (&B, 6);
+  Append (&B, 7);
+  Append (&B, 8);
+  Append (&B, 9);
 
   Print (A);
   Print (B);
 
+  // Merge the lists
   A = MergeLists (A, B);
   Print (A);
+
+  return 0;
 }
