@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 
 typedef struct Item
@@ -15,50 +16,84 @@ typedef struct Item
 typedef struct PQ
 {
   Item_t *q;
-  int N;
+  bool *used;
+  int size;
+  int max_size;
 } PQ_t;
 
 
+/* initialize priority queue */
 PQ_t *
-pq_init (int maxN)
+pq_init (int max_size)
 {
   PQ_t * pq = (PQ_t *) malloc (sizeof (PQ_t));
-  pq->q  = malloc (maxN * sizeof (Item_t));
-  pq->N = 0;
+  pq->q  = (Item_t *) malloc (max_size * sizeof (Item_t));
+  pq->used = (bool *) calloc (max_size, sizeof (bool));
+  pq->size = 0;
+  pq->max_size = max_size;
+
+  return pq;
 }
 
+/* check if queue is empty */
 int
 pq_empty (PQ_t * pq)
 {
-  return pq->N == 0;
+  return pq->size == 0;
 }
 
+/* insert value into priority queue */
 void
 pq_insert (PQ_t * pq, Item_t v)
 {
   printf ("Insert: %d :: %s\n", v.priority, v.label);
 
-  pq->N++;
-  pq->q[pq->N] = v;
+  int i = 0;
+
+  // insert v in the first unused spot
+  if (pq->size < pq->max_size) {
+    pq->size++;
+    while (pq->used[i])
+      i++;
+
+    pq->q[i] = v;
+    pq->used[i] = true;
+  }
 }
 
+/* remove biggest value from priority queue */
 Item_t
 pq_del_max (PQ_t * pq)
 {
-  int j, max = 0;
+  int j, top = -1,
+    max = -1;
   Item_t tmp;
 
-  for (j = 1; j < pq->N; j++)
-    if (pq->q[max].priority < pq->q[j].priority)
-      max = j;
+  /* find the top value */
+  for (j = 0; j < pq->max_size; j++)
+    if (pq->used[j] && max < pq->q[j].priority) {
+      top = j;
+      max = pq->q[top].priority;
+    }
 
-  tmp = pq->q[max];
-  pq->q[max] = pq->q[pq->N - 1];
-  pq->q[pq->N - 1] = tmp;
+  /* return the top value */
+  if (top != -1) {
+    tmp = pq->q[top];
+    pq->used[top] = false;
+    pq->size--;
+  }
 
-  return pq->q[--pq->N];
+  return tmp;
 }
 
+/* Delete the memory used by the priority queue */
+void
+pq_free (PQ_t * pq)
+{
+  free (pq->q);
+  free (pq->used);
+  free (pq);
+}
 
 int main ()
 {
@@ -68,6 +103,7 @@ int main ()
 
   PQ_t *pq = pq_init (12);
 
+  /* insert 12 random values */
   for (i = 0; i < 12; i++) {
     p = rand() % 100;
     v[i].priority = p;
@@ -76,12 +112,14 @@ int main ()
     pq_insert (pq, v[i]);
   }
 
+  /* get the top 6 */
   printf ("\nGet priorities:\n");
-  for (i = 0; i < 4; i++) {
+  for (i = 0; i < 6; i++) {
     w = pq_del_max (pq);
     printf ("%s\n", w.label);
   }
 
+  /* insert 4 new values */
   for (i = 0; i < 4; i++) {
     p = rand() % 100;
     v[i].priority = p;
@@ -90,11 +128,15 @@ int main ()
     pq_insert (pq, v[i]);
   }
 
+  /* show all stored values in order */
   printf ("\nGet priorities:\n");
   while (!pq_empty (pq)) {
     w = pq_del_max (pq);
     printf ("%s\n", w.label);
   }
+
+  /* free the memory */
+  pq_free (pq);
 
   return 0;
 }
