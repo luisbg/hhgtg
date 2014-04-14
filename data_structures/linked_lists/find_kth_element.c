@@ -10,6 +10,7 @@ typedef struct node
 } node;
 
 
+/* Insert value at the head of the list */
 void
 prepend (node ** l, int n)
 {
@@ -20,11 +21,13 @@ prepend (node ** l, int n)
 }
 
 
+/* Find the kth element with a naive method */
 int
 find_kth_element_brute (node ** l, int pos)
 {
-  node *head = (node *) malloc (sizeof (node));
   int c = 0;
+  node *head;
+
   head = *l;
   while (head) {
     c++;
@@ -32,25 +35,24 @@ find_kth_element_brute (node ** l, int pos)
   }
 
   head = *l;
-  for (c -= pos; c > 0; c--) {
+  for (c -= pos; c > 0; c--)
     head = head->next;
-  }
 
   return head->n;
 }
 
+/* Find the kth element using a runner */
 int
-find_kth_element_iteratively (node ** l, int pos)
+find_kth_element_iteratively (node ** l, int k)
 {
-  node *p1 = (node *) malloc (sizeof (node));
-  node *p2 = (node *) malloc (sizeof (node));
+  node *p1 = NULL;
+  node *p2 = *l;
+  int c;
 
   // move p2 forward pos times
-  p2 = *l;
-  int c;
-  for (c = 0; c < pos; c++) {
+  for (c = 0; c < k; c++) {
     if (!p2)
-      return 0;                 // error check
+      return 0;                 // List shorter than k
     p2 = p2->next;
   }
 
@@ -63,6 +65,7 @@ find_kth_element_iteratively (node ** l, int pos)
 
   return p1->n;
 }
+
 
 int
 main ()
@@ -90,4 +93,7 @@ main ()
   printf ("%d th last element: %d\n", 4, find_kth_element_iteratively (&l, 4));
   printf ("%d th last element: %d\n", 5, find_kth_element_iteratively (&l, 5));
   printf ("%d th last element: %d\n", 6, find_kth_element_iteratively (&l, 6));
+  printf ("%d th last element: %d\n", 12, find_kth_element_iteratively (&l, 12));
+
+  return 0;
 }
