@@ -32,11 +32,12 @@ void show (node * leaf, int h, char direction);
 void
 insert_node (node ** leaf, int key)
 {
-  node *run = NULL;
-  if (!*leaf) {
+  if (!*leaf) {      // recurse until an empty leaf and introduce new node there
     node *new_node = (node *) malloc (sizeof (node));
+
     if (!new_node)
       return;
+
     new_node->key = key;
     /* initialize the children to null */
     new_node->left = NULL;
@@ -46,13 +47,12 @@ insert_node (node ** leaf, int key)
     return;
   }
 
-  run = *leaf;
-  if (key <= run->key) {
+  if (key <= (*leaf)->key) {
     /* if smaller recurse to the left branch */
-    insert_node (&run->left, key);
+    insert_node (&(*leaf)->left, key);
   } else {
     /* if bigger recurse to the right branch */
-    insert_node (&run->right, key);
+    insert_node (&(*leaf)->right, key);
   }
 }
 
@@ -62,24 +62,22 @@ static bool
 search_parent (struct node **root, int num, struct node **parent, struct
     node **x)
 {
-  struct node *head;
-
-  head = *root;
+  struct node *curr = *root;
   *parent = NULL;
 
-  while (head) {
+  while (curr) {
     /* if the node to be deleted is found */
-    if (head->key == num) {
-      *x = head;
+    if (curr->key == num) {
+      *x = curr;
       return TRUE;
     }
 
-    *parent = head;
+    *parent = curr;
 
-    if (head->key > num)
-      head = head->left;
+    if (curr->key > num)
+      curr = curr->left;
     else
-      head = head->right;
+      curr = curr->right;
   }
 
   return FALSE;
@@ -89,8 +87,7 @@ search_parent (struct node **root, int num, struct node **parent, struct
 void
 delete_node (node ** leaf, int key)
 {
-  node *parent, *head, *succesor = NULL;
-  int found = 0;
+  node *parent, *head, *succesor;
 
   if (!*leaf)
     return;
@@ -104,7 +101,7 @@ delete_node (node ** leaf, int key)
 
   if (head->right && head->left) {      //have both childs
     parent = head;              // replace with left child's tree biggest
-    succesor = head->right;     // then remove the old locatoin of that value below
+    succesor = head->right;     // then remove the old location of that value below
                                 // (that location had no childs, or just left child)
     while (succesor->left) {
       parent = succesor;
@@ -114,6 +111,7 @@ delete_node (node ** leaf, int key)
     head->key = succesor->key;
     head = succesor;
   }
+
   if (!head->right && head->left) {     // only has left child
     if (parent->left == head)   // link past the node
       parent->left = head->left;        // can also be previous case
@@ -122,8 +120,8 @@ delete_node (node ** leaf, int key)
 
     free (head);
     return;
-
   }
+
   if (head->right && !head->left) {     // only has right child
     if (parent->left == head)   // link past the node
       parent->left = head->right;
@@ -132,8 +130,8 @@ delete_node (node ** leaf, int key)
 
     free (head);
     return;
-
   }
+
   if (!head->right && !head->left) {    // no children
     if (parent->right == head)
       parent->right = NULL;
@@ -177,19 +175,18 @@ height (struct node *leaf)
 node *
 search_key (node * leaf, int key)
 {
-  if (leaf) {
-    printf ("%d ->", leaf->key);
-
-    if (key == leaf->key) {
-      printf ("\n");
-      return leaf;
-    } else if (key < leaf->key) {
-      return search_key (leaf->left, key);
-    } else {
-      return search_key (leaf->right, key);
-    }
-  } else {
+  if (!leaf)
     return NULL;
+
+  printf ("%d ->", leaf->key);
+
+  if (key == leaf->key) {
+    printf ("\n");
+    return leaf;
+  } else if (key < leaf->key) {
+    return search_key (leaf->left, key);
+  } else {
+    return search_key (leaf->right, key);
   }
 }
 
@@ -237,6 +234,7 @@ traverse_in_postorder (struct node * leaf)
   }
 }
 
+/* check the tree is a valid binary tree */
 bool
 validate_tree (struct node * leaf)
 {
@@ -255,6 +253,7 @@ validate_tree (struct node * leaf)
   return TRUE;
 }
 
+/* print the value and direction of the node based on the parent */
 static void
 print_node (int key, int h, char direction)
 {
@@ -273,7 +272,6 @@ show (node * leaf, int h, char direction)    // h is the depth level
   if (!leaf) {
     return;
   }
-
 
   show (leaf->right, h + 1, '/');
   print_node (leaf->key, h, direction);    // in order from biggest, to smallest
@@ -343,4 +341,6 @@ main ()
 
   printf ("height of the tree: ");
   printf ("%d\n", height (root));
+
+  return 0;
 }

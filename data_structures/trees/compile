@@ -1,12 +1,12 @@
-gcc -O0 -ggdb binary_tree.c -o binary_tree
-gcc -O0 -ggdb depth_first_search.c -o depth_first_search
-gcc -O0 -ggdb -D DEBUG trie.c -o trie
-gcc -O0 -ggdb breadth_first_search.c -o breadth_first_search
-gcc -O0 -ggdb binary_tree_measure_height.c -o binary_tree_measure_height
-gcc -O0 -ggdb balanced_from_sorted.c -o balanced_from_sorted
-gcc -O0 -ggdb preorder_traversal_nonrecursive.c -o preorder_traversal_nonrecursive
-gcc -O0 -ggdb lowest_common_ancestor.c -o lowest_common_ancestor
-gcc -O0 -ggdb fenwick_bit.c -o fenwick_bit
-gcc -O0 -ggdb root_insertion.c -o root_insertion
-gcc -O0 -ggdb join_trees.c -o join_trees
-gcc -O0 -ggdb b_tree.c -o b_tree
+gcc -Wall -O0 -ggdb binary_tree.c -o binary_tree
+gcc -Wall -O0 -ggdb depth_first_search.c -o depth_first_search
+gcc -Wall -O0 -ggdb -D DEBUG trie.c -o trie
+gcc -Wall -O0 -ggdb breadth_first_search.c -o breadth_first_search
+gcc -Wall -O0 -ggdb binary_tree_measure_height.c -o binary_tree_measure_height
+gcc -Wall -O0 -ggdb balanced_from_sorted.c -o balanced_from_sorted
+gcc -Wall -O0 -ggdb preorder_traversal_nonrecursive.c -o preorder_traversal_nonrecursive
+gcc -Wall -O0 -ggdb lowest_common_ancestor.c -o lowest_common_ancestor
+gcc -Wall -O0 -ggdb fenwick_bit.c -o fenwick_bit
+gcc -Wall -O0 -ggdb root_insertion.c -o root_insertion
+gcc -Wall -O0 -ggdb join_trees.c -o join_trees
+gcc -Wall -O0 -ggdb b_tree.c -o b_tree
