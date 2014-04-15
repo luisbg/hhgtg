@@ -15,8 +15,6 @@ typedef struct node
 
 
 void insert (node ** leaf, int key);
-void delete (node ** leaf, int key);
-node *search_key (node * leaf, int key);
 void destroy_tree (struct node *leaf);
 void traverse (struct node *leaf);
 
@@ -42,115 +40,6 @@ insert (node ** leaf, int key)
   }
 }
 
-/* returns the address of the node to be deleted, address of its parent and */
-/* whether the node is found or not                                         */
-static bool
-search_parent (struct node **root, int num, struct node **parent, struct
-    node **x)
-{
-  struct node *head;
-
-  head = *root;
-  *parent = NULL;
-
-  while (head) {
-    /* if the node to be deleted is found */
-    if (head->key == num) {
-      *x = head;
-      return TRUE;
-    }
-
-    *parent = head;
-
-    if (head->key > num)
-      head = head->left;
-    else
-      head = head->right;
-  }
-
-  return FALSE;
-}
-
-/* delete the specified node from the binary tree */
-void
-delete_node (node ** leaf, int key)
-{
-  node *parent, *head, *succesor = NULL;
-  int found = 0;
-
-  if (!*leaf)
-    return;
-
-  search_parent (leaf, key, &parent, &head);
-
-  if (!search_parent (leaf, key, &parent, &head)) {
-    printf ("ERROR: %d isn't in the tree", key);
-    return;
-  }
-
-  if (head->right && head->left) {      //have both childs
-    parent = head;              // replace with left child's tree biggest
-    succesor = head->right;     // then remove the old locatoin of that value below
-    // (that location had no childs, or just left child)
-    while (succesor->left) {
-      parent = succesor;
-      succesor = succesor->left;
-    }
-
-    head->key = succesor->key;
-    head = succesor;
-  }
-  if (!head->right && head->left) {      // only has left child
-    if (parent->left == head)   // link past the node
-      parent->left = head->left;        // can also be previous case
-    else                        // after we switched values
-      parent->right = head->left;
-
-    free (head);
-    return;
-
-  }
-  if (head->right && !head->left) {      // only has right child
-    if (parent->left == head)   // link past the node
-      parent->left = head->right;
-    else
-      parent->right = head->right;
-
-    free (head);
-    return;
-
-  }
-  if (!head->right && !head->left) {      // no children
-    if (parent->right == head)
-      parent->right = NULL;
-    else
-      parent->left = NULL;
-
-    free (head);
-    return;
-  }
-}
-
-/* search for a key in the tree */
-node *
-search_key (node * leaf, int key)
-{
-  if (leaf) {
-    printf ("%d ->", leaf->key);
-
-    if (key == leaf->key) {
-      printf ("\n");
-      return leaf;
-    } else if (key < leaf->key) {
-      return search_key (leaf->left, key);
-    } else {
-      return search_key (leaf->right, key);
-    }
-  } else {
-    return NULL;
-  }
-}
-
 /* destroy the tree and release all memory */
 void
 destroy_tree (struct node *leaf)
@@ -173,23 +62,10 @@ traverse (struct node *leaf)
   }
 }
 
+/* check if both children of leaf have the same balanced height recursively */
+// O(n)
 static int
-get_height (struct node *leaf)
-{
-  if (!leaf)
-    return 0;
-
-  int lefth = get_height (leaf->left);
-  int righth = get_height (leaf->right);
-
-  if (lefth < righth)
-    return righth + 1;
-  else
-    return lefth + 1;
-}
-
-static int
-check_balanced_height (struct node *leaf)
+check_balanced_height (struct node *leaf)           /* cleaner than below */
 {
   if (!leaf)
     return 0;                   // height of 0
@@ -216,10 +92,27 @@ check_balanced_height (struct node *leaf)
   }
 }
 
+/* get the height from the leaf to last level */
+static int
+get_height (struct node *leaf)
+{
+  if (!leaf)
+    return 0;
+
+  int lefth = get_height (leaf->left);
+  int righth = get_height (leaf->right);
+
+  if (lefth < righth)
+    return righth + 1;
+  else
+    return lefth + 1;
+}
+
+/* check if the leaf has balanced children */
+// this function calls same nodes repeatedly, sub-optimal O(n^2)
 bool
 is_balanced_recursive (struct node * leaf)
 {
-  // this function calls same nodes repeatedly, sub-optimal O(n^2)
   if (!leaf)
     return TRUE;                // Base case
 
@@ -231,14 +124,16 @@ is_balanced_recursive (struct node * leaf)
         && is_balanced_recursive (leaf->right);
 }
 
+/* uses the check balanced height to check if it is balanced */
 bool
-is_balanced (struct node * leaf)        // O(n)
+is_balanced (struct node * leaf)
 {
   if (check_balanced_height (leaf) != -1)
     return TRUE;
   else
     return FALSE;
 }
+
 
 int
 main ()
@@ -260,4 +155,7 @@ main ()
   }
   printf ("max height is: %d\n", get_height (root));
   printf ("is it balanced? %s\n", is_balanced (root) ? "yes" : "no");
+
+  destroy_tree (root);
+  return 0;
 }
