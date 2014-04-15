@@ -50,6 +50,7 @@ algorithms:
         date_from_epoch
         shuffle_cards
         largest contiguous
+        mapreduce word frequency
 
 bit manipulation:
     bit_manipulation

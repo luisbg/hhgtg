@@ -66,6 +66,7 @@ algorithms/other/months_starting_on_weekday
 algorithms/other/date_from_epoch
 algorithms/other/shuffle_cards
 algorithms/other/largest_contiguous
+algorithms/other/mapreduce_word_frequency
 bit_manipulation/bit_manipulation
 bit_manipulation/contain_m_n
 bit_manipulation/sign

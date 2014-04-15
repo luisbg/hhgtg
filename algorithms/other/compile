@@ -2,3 +2,4 @@ gcc -O0 -ggdb months_starting_on_weekday.c -o months_starting_on_weekday
 gcc -O0 -ggdb date_from_epoch.c -o date_from_epoch
 gcc -O0 -ggdb shuffle_cards.c -o shuffle_cards
 gcc -O0 -ggdb largest_contiguous.c -o largest_contiguous
+gcc -O0 -ggdb -lpthread mapreduce_word_frequency.c -o mapreduce_word_frequency
