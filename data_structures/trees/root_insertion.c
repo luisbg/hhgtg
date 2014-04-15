@@ -21,7 +21,7 @@ bool validate_tree (struct node * leaf);
 void show (node * leaf, int h);
 
 
-/* insert a key into the tree */
+/* insert a key into the root of a tree */
 node *
 root_insert_node (node * run, int key)
 {
@@ -48,6 +48,7 @@ root_insert_node (node * run, int key)
   return run;
 }
 
+/* rotate parent and left children */
 static node *
 rotate_right (node * r)
 {
@@ -60,6 +61,7 @@ rotate_right (node * r)
   return x;
 }
 
+/* rotate parent and right children */
 static node *
 rotate_left (node * r)
 {
@@ -72,6 +74,7 @@ rotate_left (node * r)
   return x;
 }
 
+/* check if the tree is a valid binary search tree */
 bool
 validate_tree (struct node * leaf)
 {
@@ -92,6 +95,7 @@ validate_tree (struct node * leaf)
   return TRUE;
 }
 
+/* print the data in the node */
 void
 print_node (int key, int h)
 {
@@ -103,6 +107,7 @@ print_node (int key, int h)
   printf ("%d\n", key);
 }
 
+/* show the tree structure */
 void
 show (node * leaf, int h)
 {
@@ -115,6 +120,7 @@ show (node * leaf, int h)
   print_node (leaf->key, h);
   show (leaf->left, h + 1);
 }
+
 
 int
 main ()
