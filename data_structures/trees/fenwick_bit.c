@@ -1,11 +1,13 @@
 /* http://en.wikipedia.org/wiki/Fenwick_tree */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int orig[10];
 int bit[10];
 
 
+/* update the value at index */
 void
 update (int index, int value, int len)
 {
@@ -15,6 +17,7 @@ update (int index, int value, int len)
   }
 }
 
+/* get the value at index */
 int
 query (int index)
 {
@@ -26,6 +29,7 @@ query (int index)
   return res;
 }
 
+/* print the array of values */
 void
 print_array (int *arr, int len)
 {
@@ -37,6 +41,7 @@ print_array (int *arr, int len)
   printf ("\n");
 }
 
+/* calculate the summation of frequencies */
 void
 count_frequency (int *orig, int *freq, int len)
 {
@@ -50,6 +55,7 @@ count_frequency (int *orig, int *freq, int len)
     freq[orig[c]]++;
   }
 }
+
 
 int
 main ()
