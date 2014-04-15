@@ -59,6 +59,7 @@ heap_permute (char **str, int n, int size)
 // Recursive solution
 void do_permute (char * orig, char * out, int size, bool used[size], int level)
 {
+  // if past last level, add null character and print
   if (level == size) {
     out[size] = '\0';
     printf ("%s\n", out);
@@ -66,18 +67,22 @@ void do_permute (char * orig, char * out, int size, bool used[size], int level)
 
   int i;
 
+  // loop over yet unused characters
   for (i = 0; i < size; i++) {
     if (used[i])
       continue;
 
+    // add unused character in current level and recurse one level up
     out[level] = orig[i];
     used[i] = TRUE;
     do_permute (orig, out, size, used, level + 1);
 
+    // set to unused for the next iteration
     used[i] = FALSE;
   }
 }
 
+/* start the permutation. wrapper to add initializing parameters */
 void permute (char * str, int size)
 {
   bool used[size];
@@ -121,4 +126,6 @@ main ()
     str[c] = tmp[c];
 
   permute (str, size);
+
+  return 0;
 }

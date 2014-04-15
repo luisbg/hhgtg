@@ -15,6 +15,7 @@
 #include <stdio.h>
 
 
+/* recurse down over the triangle adding the two paths from current position */
 int recursive_run (int size, int triangle[size][size], int c, int r, int count,
                    int *max)
 {
@@ -30,13 +31,16 @@ int recursive_run (int size, int triangle[size][size], int c, int r, int count,
 
   recursive_run (size, triangle, c, r+1, count, max);
   recursive_run (size, triangle, c +1, r+1, count, max);
+
+  return *max;
 }
 
+/* start the max run */
 int find_maximum_run (int size, int triangle[size][size])
 {
   int c = 0;
   int max = 0;
-  int t = recursive_run (size, triangle, 0, 0, c, &max);
+  recursive_run (size, triangle, 0, 0, c, &max);
 
   return max;
 }

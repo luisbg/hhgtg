@@ -4,6 +4,8 @@
 
 int binary_search (int *array, int lower, int upper, int target);
 
+
+/* binary search: recurse over half of the slice where the value should be until found */
 int
 binary_search (int *array, int lower, int upper, int target)
 {
@@ -26,6 +28,7 @@ binary_search (int *array, int lower, int upper, int target)
     return binary_search (array, middle + 1, upper, target);
 }
 
+
 int
 main ()
 {
@@ -42,4 +45,6 @@ main ()
   index = binary_search (array, 9, 0, 10);
   if (index == -2)
     printf ("limits out of order\n");
+
+  return 0;
 }

@@ -103,4 +103,6 @@ main ()
   travel_towers (towers);
 
   move_disks (disk_num, &towers[0], &towers[2], &towers[1]);
+
+  return 0;
 }
