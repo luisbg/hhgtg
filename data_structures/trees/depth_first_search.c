@@ -19,7 +19,7 @@ void insert (node ** leaf, int key);
 void traverse (node * leaf);
 void depth_first_traverse (node * leaf);
 bool depth_first_search (node * leaf, int key);
-static bool visited (node * leaf);
+
 
 /* insert a key into the tree */
 void
@@ -40,6 +40,7 @@ insert (node ** leaf, int key)
   }
 }
 
+/* print the values in the tree in order */
 void
 traverse (node * leaf)
 {
@@ -50,6 +51,7 @@ traverse (node * leaf)
   }
 }
 
+/* traverse the list pre-order */
 void
 depth_first_traverse (node * leaf)
 {
@@ -60,36 +62,24 @@ depth_first_traverse (node * leaf)
   }
 }
 
+/* search for a key by going to the leftest node first */
 bool
 depth_first_search (node * leaf, int key)
 {
-  if (leaf) {
-    if (leaf->key == key)
-      return TRUE;
-
-    if (key < leaf->key)
-      depth_first_search (leaf->left, key);
-    else
-      depth_first_search (leaf->right, key);
-  } else {
+  if (!leaf)
     return FALSE;
-  }
+
+  if (leaf->key == key)
+    return TRUE;
+
+  if (key < leaf->key)
+    depth_first_search (leaf->left, key);
+  else
+    depth_first_search (leaf->right, key);
+
+  return FALSE;
 }
 
-static bool
-visited (node * leaf)
-{
-  if (leaf) {
-    int c = leaf->key;
-
-    if (!visit[c]) {
-      visit[c] = TRUE;
-      return FALSE;
-      }
-  }
-
-  return TRUE;
-}
 
 int
 main ()
@@ -125,4 +115,6 @@ main ()
 
   printf ("depth first search: ");
   printf ("%d %s\n", 12, depth_first_search (root, 12) ? "found" : "not found");
+
+  return 0;
 }
