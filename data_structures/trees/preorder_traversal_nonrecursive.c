@@ -22,10 +22,11 @@ typedef enum
 
 void insert (tree ** leaf, int key);
 bool preorder_traverse (tree *t);
-bool push (stack **q, tree *node);
-bool pop (stack **q, tree **node);
+static bool push (stack **q, tree *node);
+static void pop (stack **q, tree **node);
 
 
+/* traverse in preorder using a stack */
 bool preorder_traverse (tree *t) {
   if (!t)
     return TRUE;
@@ -41,6 +42,7 @@ bool preorder_traverse (tree *t) {
       if (tmp->right) {
         push (&q, tmp->right);
       }
+
       if (tmp->left) {
         push (&q, tmp->left);
       }
@@ -52,11 +54,13 @@ bool preorder_traverse (tree *t) {
   return TRUE;
 }
 
-bool push (stack **t, tree *node)
+/* push node to the top of the stack */
+static bool push (stack **t, tree *node)
 {
   stack *new_element = (stack *) malloc (sizeof (stack));
   if (!new_element)
     return FALSE;
+
   new_element->data = node;
   new_element->next = NULL;
 
@@ -67,10 +71,13 @@ bool push (stack **t, tree *node)
   return TRUE;
 }
 
-bool pop (stack **t, tree **node)
+/* get element from the top of teh stack */
+static void pop (stack **t, tree **node)
 {
+  stack *tmp = *t;
   *node = (*t)->data;
   *t = (*t)->next;
+  free (tmp);
 }
 
 /* insert a key into the tree */
@@ -116,4 +123,6 @@ main ()
 
   printf ("pre-order traverse: ");
   preorder_traverse (root);
+
+  return 0;
 }
