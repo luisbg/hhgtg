@@ -12,16 +12,20 @@
 
 void travel_grid (int size, unsigned long grid[size][size]);
 
+
+/* resolve the amount of routes through the grid */
 unsigned long lattice_paths (int size, unsigned long grid[size][size]) {
   int c, r;
 
   grid[0][0] = 0;
 
+  // set left and top edges of matrix to 1
   for (c = 1; c < size; c++) {
     grid[c][0] = 1;
     grid[0][c] = 1;
   }
 
+  // starting from the set edges add up
   for (r = 1; r < size; r++) {
     for (c = 1; c < size; c++) {
       grid[c][r] = grid[c-1][r] + grid[c][r-1];
@@ -33,6 +37,7 @@ unsigned long lattice_paths (int size, unsigned long grid[size][size]) {
   return grid[size -1][size - 1]; 
 }
 
+/* more efficient way of resolving amount of routes using combinatronics */
 unsigned long lattice_combinatronics (int size, unsigned long grid[size][size])
 {
   unsigned long paths = 1;
@@ -47,6 +52,7 @@ unsigned long lattice_combinatronics (int size, unsigned long grid[size][size])
   return paths;
 }
 
+/* display the grid */
 void travel_grid (int size, unsigned long grid[size][size]) {
   int c, r;
   for (r = 0; r < size; r++) {
@@ -55,17 +61,17 @@ void travel_grid (int size, unsigned long grid[size][size]) {
     }
     printf ("\n");
   }
-
-  return;
 }
 
+
 int main () {
-  unsigned long grid[21][21];
+  int size = 21;
+  unsigned long grid[size][size];
   unsigned long paths;
 
-  paths = lattice_paths (21, grid);
+  paths = lattice_paths (size, grid);
 
-  printf ("paths: %ld\n", paths);
-
+  printf ("paths for a %dx%d grid: %ld\n", size, size, paths);
+  // travel_grid (size, grid);
   return 0;
 } 
