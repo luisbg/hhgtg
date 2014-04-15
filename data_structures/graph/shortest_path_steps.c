@@ -38,6 +38,7 @@ static node *dequeue (queue * q);
 static bool empty_queue (queue q);
 
 
+/* discover and return the shortest path between two nodes */
 node *
 min_steps (int w, int h, bool grid[w][h], int start_x, int start_y,
     int end_x, int end_y)
@@ -48,6 +49,7 @@ min_steps (int w, int h, bool grid[w][h], int start_x, int start_y,
   node *top = NULL;
   queue q;
 
+  // mark all nodes as unvisited
   for (r = 0; r < h; r++) {
     for (c = 0; c < w; c++) {
       visited[c][r] = FALSE;
@@ -59,8 +61,12 @@ min_steps (int w, int h, bool grid[w][h], int start_x, int start_y,
   // enqueue starting position with 0 steps
   enqueue (&q, start_x, start_y, 0, NULL);
 
+  // breadth first travel until find destination or out of paths
   while (!empty_queue (q)) {
     top = dequeue (&q);
+
+    if (top->x == end_x && top->y == end_y)
+      return top;
 
     // Check if out of bounds
     if (top->x < 0 || top->x >= w)
@@ -78,9 +84,6 @@ min_steps (int w, int h, bool grid[w][h], int start_x, int start_y,
       continue;
     visited[top->x][top->y] = TRUE;
 
-    if (top->x == end_x && top->y == end_y)
-      return top;
-
     // Generate all of the transitions between nodes
     // Generate the following deltas: (-1,-1), (-1,0), (-1,1), (0,-1), (0,0),
     // (0,1), (1,-1), (1,0), (1,1)
@@ -97,6 +100,7 @@ min_steps (int w, int h, bool grid[w][h], int start_x, int start_y,
   return NULL;
 }
 
+/* display the map with the path between nodes marked */
 void
 show_steps (int w, int h, bool map[w][h], node * steps)
 {
@@ -133,6 +137,7 @@ show_steps (int w, int h, bool map[w][h], node * steps)
   }
 }
 
+/* initialize queue */
 static void
 init_queue (queue * q)
 {
@@ -140,6 +145,7 @@ init_queue (queue * q)
   q->last = NULL;
 }
 
+/* add node to the tail of the queue */
 static void
 enqueue (queue * q, int x, int y, int steps, node * prev)
 {
@@ -171,6 +177,7 @@ enqueue (queue * q, int x, int y, int steps, node * prev)
   }
 }
 
+/* get head of the queue */
 static node *
 dequeue (queue * q)
 {
@@ -184,12 +191,14 @@ dequeue (queue * q)
   return dq;
 }
 
+/* check if queue is empty */
 static bool
 empty_queue (queue q)
 {
   return q.head == NULL;
 }
 
+/* initialize random map with obstacles */
 void
 init_map (int w, int h, bool map[w][h])
 {

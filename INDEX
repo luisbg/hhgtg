@@ -151,7 +151,7 @@ data structures:
         adjacency_list_connected_nodes
         lattice_paths
         bucket_fill
-        min_number_steps
+        shortest_path_steps
         adjacency_matrix
 
 threads:
