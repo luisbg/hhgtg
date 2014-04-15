@@ -147,4 +147,6 @@ main ()
   destroy_graph (dir_graph);
   undir_graph = NULL;
   dir_graph = NULL;
+
+  return 0;
 }

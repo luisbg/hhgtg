@@ -100,6 +100,7 @@ display_graph (graph_t graph)
   }
 }
 
+/* mark all vertices in the grap unvisited */
 static void
 unset_visited (graph_t * graph)
 {
@@ -109,6 +110,7 @@ unset_visited (graph_t * graph)
   }
 }
 
+/* search by going depth first */
 void
 depth_first_search (graph_t * graph, adj_node_t * curr, int v)
 {
@@ -129,19 +131,19 @@ depth_first_search (graph_t * graph, adj_node_t * curr, int v)
   unset_visited (graph);
 }
 
+/* check if two vertices are connected in the graph */
 bool
-route_to_vertex (graph_t * graph, adj_node_t * curr, int *v, int dest)
+vertices_connected (graph_t * graph, adj_node_t * curr, int *v, int dest)
 {
-#ifdef DEBUG
   printf (":: %d %d\n", *v, dest);
-#endif
+    // run through all paths depth first checking if vertex is dest
   if (curr && *v != dest) {
     graph->list[*v].visited = TRUE;
 
     while (curr) {
       *v = curr->vertex;
       if (!graph->list[curr->vertex].visited) {
-        route_to_vertex (graph, graph->list[curr->vertex].head, v, dest);
+        vertices_connected (graph, graph->list[curr->vertex].head, v, dest);
       }
       curr = curr->next;
     }
@@ -149,29 +151,22 @@ route_to_vertex (graph_t * graph, adj_node_t * curr, int *v, int dest)
 
   unset_visited (graph);
 
-  if (*v == dest)
-    return TRUE;
-  else
-    return FALSE;
+  return *v == dest;
 }
 
+/* check if the two vertices are connected */
 bool
 direct_connection (graph_t * graph, int v, int dest)
 {
-  bool found = FALSE;
   adj_node_t *curr = graph->list[v].head;
 
-  while (curr) {
-    if (curr->vertex != dest)
+  while (curr && curr->vertex != dest) {
       curr = curr->next;
-    else {
-      found = TRUE;
-      break;
-    }
   }
 
-  return found;
+  return curr && curr->vertex == dest;
 }
+
 
 int
 main ()
@@ -198,9 +193,11 @@ main ()
           c, d) ? "yes" : "no");
 
   c = 1, d = 7;
-  printf ("%d and %d connected? %s\n", c, d, route_to_vertex (graph,
+  printf ("%d and %d connected? %s\n", c, d, vertices_connected (graph,
           graph->list[c].head, &c, d) ? "yes" : "no");
   c = 1, d = 0;
-  printf ("%d and %d connected? %s\n", c, d, route_to_vertex (graph,
+  printf ("%d and %d connected? %s\n", c, d, vertices_connected (graph,
           graph->list[c].head, &c, d) ? "yes" : "no");
+
+  return 0;
 }

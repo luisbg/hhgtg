@@ -1,7 +1,7 @@
-gcc -O0 -ggdb adjacency_list.c -o adjacency_list
-gcc -O0 -ggdb adjacency_list_search.c -o adjacency_list_search
-gcc -O0 -ggdb adjacency_list_connected_nodes.c -o adjacency_list_connected_nodes
-gcc -O0 -ggdb lattice_paths.c -o lattice_paths -Wall
-gcc -O0 -ggdb bucket_fill.c -o bucket_fill -Wall
-gcc -O0 -ggdb min_number_steps.c -o min_number_steps -Wall
-gcc -O0 -ggdb adjacency_matrix.c -o adjacency_matrix -Wall
+gcc -Wall -O0 -ggdb adjacency_list.c -o adjacency_list
+gcc -Wall -O0 -ggdb adjacency_list_search.c -o adjacency_list_search
+gcc -Wall -O0 -ggdb adjacency_list_connected_nodes.c -o adjacency_list_connected_nodes
+gcc -Wall -O0 -ggdb lattice_paths.c -o lattice_paths -Wall
+gcc -Wall -O0 -ggdb bucket_fill.c -o bucket_fill -Wall
+gcc -Wall -O0 -ggdb min_number_steps.c -o min_number_steps -Wall
+gcc -Wall -O0 -ggdb adjacency_matrix.c -o adjacency_matrix -Wall
