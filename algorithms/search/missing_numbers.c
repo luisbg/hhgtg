@@ -28,7 +28,7 @@ int *
 range_count (int size, int *list, int low, int high)
 {
   int *count_ar = (int *) malloc ((high - low) * sizeof (int));
-  int c, d, value, range;
+  int c, value, range;
 
   range = high - low;
   // Initialize all elements of count array to 0

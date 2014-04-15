@@ -54,15 +54,6 @@ void st_delete (Item item)
   st[key (item)].key = -1;        // st[key (item)] = -1;
 }
 
-Item st_select (int k)
-{
-  int i;
-  for (i = 0; i < M; i++)
-    if (st[i].key != -1)      // if (st[i] != NULLitem)
-      if (k-- == 0)
-        return st[i];
-}
-
 /*
 void st_sort (void (*vist)(Item))
 {

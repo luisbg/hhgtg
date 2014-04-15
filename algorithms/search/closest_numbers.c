@@ -22,7 +22,6 @@ static int
 partition (int *l, int low, int high)
 {
   int c, tmp, pivot, middle;
-  int ar_size = high - low + 1;
 
   int *low_ar = (int *) malloc (high * sizeof (int));
   int *high_ar = (int *) malloc (high * sizeof (int));

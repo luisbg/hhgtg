@@ -20,17 +20,20 @@ static int less (Key A, Key B) { return A < B; }
 static int eq (Key A, Key B) { return A == B; }
 
 
+/* initialize array of items */
 void st_init (int maxN)
 {
   st = malloc ((maxN) * sizeof (Item));
   N = 0;
 }
 
+/* get the number of items stored */
 int st_count ()
 {
   return N;
 }
 
+/* insert item */
 void st_insert (Item item)
 {
   int j = N++;
@@ -44,6 +47,7 @@ void st_insert (Item item)
   st[j] = item;
 }
 
+/* search for item with key */
 Item st_search (Key v)
 {
   int j;
@@ -59,11 +63,13 @@ Item st_search (Key v)
   return null_item;
 }
 
+/* select with index */
 Item st_select (int k)
 {
   return st[k];
 }
 
+/* sort all items */
 void st_sort (void (*visit)(Item))
 {
   int i;

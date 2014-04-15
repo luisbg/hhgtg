@@ -74,19 +74,20 @@ find (int *l, int a_size, int num)      // could be solved with a hash table
   return 0;
 }
 
+// find pairs with specified difference in the list
 int
 pairs (int a_size, int *a, int k)
 {
 
   int ans = 0;
-  int l, m, diff;
+  int l, m;
 
   quicksort (a, 0, a_size - 1);
   for (l = 0; l < a_size; l++) {
     m = k + a[l];
     if (m > 0) {
       if (find (a, a_size, m)) {
-        // printf ("%d %d %d\n", k, m, a[l]);
+        printf ("%d %d %d\n", k, m, a[l]);
         ans++;
       }
     }
@@ -101,14 +102,17 @@ main ()
 {
   int size, i, k, item, p;
 
+  // size and difference
   scanf ("%d %d", &size, &k);
 
+  // items
   int arr[size];
   for (i = 0; i < size; i++) {
     scanf ("%d", &item);
     arr[i] = item;
   }
 
+  // find pairs
   p = pairs (size, arr, k);
   printf ("pairs: %d\n", p);
 

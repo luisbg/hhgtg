@@ -8,7 +8,7 @@ void print (int m, int n, int l[m][n]);
 
 int search (int key, int m, int n, int l[m][n])
 {
-  int c, r, found;
+  int c, r;
   r = n - 1;
   c = 0;
 
@@ -41,10 +41,10 @@ int main ()
 {
   int m = 4;
   int n = 4;
-  int l[4][4] = { 15, 20, 40, 85,
-                  20, 35, 80, 95,
-                  30, 55, 95, 105,
-                  40, 80, 100, 120 };
+  int l[4][4] = {{15, 20, 40, 85},
+                 {20, 35, 80, 95},
+                 {30, 55, 95, 105},
+                 {40, 80, 100, 120}};
 
   print (m, n, l);
 
@@ -54,4 +54,6 @@ int main ()
   printf ("pos of %d is %d\n", 60, search (60, m, n, l));
   printf ("pos of %d is %d\n", 100, search (100, m, n, l));
   printf ("pos of %d is %d\n", 120, search (120, m, n, l));
+
+  return 0;
 }
