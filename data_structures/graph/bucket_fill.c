@@ -34,6 +34,7 @@ static void push (stack * s, int x, int y);
 static bool empty (stack s);
 
 
+/* paint the region connected to the given pixel to the given color */
 int
 paint_region (int col, int row, int bitmap[col][row], int x, int y, int color)
 {
@@ -42,8 +43,10 @@ paint_region (int col, int row, int bitmap[col][row], int x, int y, int color)
   int old_color = bitmap[x][y];
   bool fill[col][row];
 
+  // we first get the region to paint
   pixels = do_fill_map (col, row, bitmap, fill, x, y, old_color);
 
+  // then we paint it
   for (r = 0; r < row; r++) {
     for (c = 0; c < col; c++) {
       if (fill[c][r])
@@ -54,6 +57,7 @@ paint_region (int col, int row, int bitmap[col][row], int x, int y, int color)
   return pixels;
 }
 
+/* find connected pixels to the given one */
 static int
 do_fill_map (int col, int row, int bitmap[col][row], bool fill[col][row], int x,
     int y, int color)
@@ -62,6 +66,7 @@ do_fill_map (int col, int row, int bitmap[col][row], bool fill[col][row], int x,
   int result = 0;
   bool visited[col][row];
 
+  // mark all pixels as unfilled and unvisited
   for (r = 0; r < row; r++) {
     for (c = 0; c < col; c++) {
       fill[c][r] = FALSE;
@@ -69,31 +74,32 @@ do_fill_map (int col, int row, int bitmap[col][row], bool fill[col][row], int x,
     }
   }
 
-  // Declare our stack of nodes, and push our starting node onto the stack
+  // declare our stack of pixels, and push our starting pixel onto the stack
   stack s;
   s.top = NULL;
   push (&s, x, y);
 
+  // travel breadth first to all connected pixels
   while (!empty (s)) {
     node *top = pop (&s);
 
-    // Check to ensure that we are within the bounds of the grid
+    // check to ensure that we are within the bounds of the grid
     if (top->x < 0 || top->x >= col)
       continue;
     if (top->y < 0 || top->y >= row)
       continue;
 
-    // Check that we haven't already visited this position
+    // check that we haven't already visited this position
     if (visited[top->x][top->y])
       continue;
 
     visited[top->x][top->y] = TRUE;     // Save this position as visited
     if (bitmap[top->x][top->y] == color) {
-      // This pixel has the same color and is connected, add it to results
+      // this pixel has the same color and is connected, add it to results
       fill[top->x][top->y] = TRUE;
       result++;
 
-      // Visit every node adjacent to this node.
+      // visit every node adjacent to this node.
       push (&s, top->x + 1, top->y);
       push (&s, top->x - 1, top->y);
       push (&s, top->x, top->y + 1);
@@ -106,6 +112,7 @@ do_fill_map (int col, int row, int bitmap[col][row], bool fill[col][row], int x,
   return result;
 }
 
+// get the node at the top of the stack
 static node *
 pop (stack * s)
 {
@@ -119,6 +126,7 @@ pop (stack * s)
   return ret;
 }
 
+// put a node at the top of the stack
 static void
 push (stack * s, int x, int y)
 {
@@ -130,6 +138,7 @@ push (stack * s, int x, int y)
   s->top = new;
 }
 
+// check if stack is empty
 static bool
 empty (stack s)
 {
@@ -139,44 +148,11 @@ empty (stack s)
     return TRUE;
 }
 
+// display the bitmap
 void
-init_bitmap (int col, int row, int bitmap[col][row])
+print_bitmap (int col, int row, int bitmap[col][row])
 {
   int c, r;;
-
-  // initialize bitmap
-  for (r = 0; r < row; r++) {
-    for (c = 0; c < col; c++) {
-      bitmap[c][r] = rand () % 2;
-      if (bitmap[c][r] == 0)
-        printf (". ");
-      else
-        printf ("* ");
-    }
-    printf ("\n");
-  }
-  printf ("\n");
-
-  return;
-}
-
-
-int
-main ()
-{
-  int col = COLUMNS;
-  int row = ROWS;
-
-  int c, r;
-  int pixels;
-  int bitmap[col][row];
-  int x = 16, y = 12, color = 4;        // pixel to bucket fill and color
-
-  init_bitmap (col, row, bitmap);
-
-  // paint region connected to pixel
-  pixels = paint_region (col, row, bitmap, x, y, color);
-  printf ("painted %d pixels: \n\n", pixels);
 
   for (r = 0; r < row; r++) {
     for (c = 0; c < col; c++) {
@@ -190,6 +166,40 @@ main ()
     printf ("\n");
   }
   printf ("\n");
+}
+
+// initialize bitmap to a random image
+void
+init_bitmap (int col, int row, int bitmap[col][row])
+{
+  int c, r;;
+
+  // initialize bitmap
+  for (r = 0; r < row; r++) {
+    for (c = 0; c < col; c++) {
+      bitmap[c][r] = rand () % 2;
+    }
+  }
+}
+
+
+int
+main ()
+{
+  int col = COLUMNS;
+  int row = ROWS;
+
+  int pixels;
+  int bitmap[col][row];
+  int x = 16, y = 12, color = 4;        // pixel to bucket fill and color
+
+  init_bitmap (col, row, bitmap);
+  print_bitmap (col, row, bitmap);
+
+  // paint region connected to pixel
+  pixels = paint_region (col, row, bitmap, x, y, color);
+  printf ("painted %d pixels: \n\n", pixels);
+  print_bitmap (col, row, bitmap);
 
   return 0;
 }
