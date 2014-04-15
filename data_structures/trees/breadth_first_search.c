@@ -53,6 +53,7 @@ tree_insert (tree_node ** leaf, int key)
   }
 }
 
+/* traverse the tree in order */
 void
 tree_traverse (tree_node * leaf)
 {
@@ -63,6 +64,7 @@ tree_traverse (tree_node * leaf)
   }
 }
 
+/* enqueue for breadth first search's queue */
 static void
 enqueue (queue * q, tree_node * data)
 {
@@ -79,37 +81,42 @@ enqueue (queue * q, tree_node * data)
   }
 }
 
+/* dequeue for breadth first search's queue */
 static tree_node *
 dequeue (queue * q)
 {
   tree_node *dq = NULL;
+  queue_node *tmp;
 
   if (q->head) {
     dq = q->head->data;
+    tmp = q->head;
     q->head = q->head->next;
+    free (tmp);
   }
 
   return dq;
 }
 
+/* traverse by going level by level */
 void
 breadth_first_traverse (tree_node * leaf)
 {
-  queue tmp_q;                  // temporary queue
+  queue tmp_q;                       // temporary queue
   tmp_q.head = NULL;
   tmp_q.last = NULL;
-  tree_node *traverse = NULL;   // points to node we are processing
+  tree_node *traverse = NULL;        // points to node we are processing
 
   if (!leaf)
-    return;                     // nothing to traverse
+    return;                          // nothing to traverse
 
-  enqueue (&tmp_q, leaf);       // put something in the queue initially
+  enqueue (&tmp_q, leaf);            // put something in the queue initially
 
-  while (tmp_q.head) {
-    traverse = dequeue (&tmp_q);
+  while (tmp_q.head) {               // loop while queue holds nodes
+    traverse = dequeue (&tmp_q);     // get first element from queue
     printf ("%d ", traverse->key);
 
-    if (traverse->left)
+    if (traverse->left)              // enqueue existing children
       enqueue (&tmp_q, traverse->left);
     if (traverse->right)
       enqueue (&tmp_q, traverse->right);
@@ -118,6 +125,7 @@ breadth_first_traverse (tree_node * leaf)
   printf ("\n");
 }
 
+/* search by going level by level */
 tree_node *
 breadth_first_search (tree_node * leaf, int key)
 {
@@ -127,7 +135,7 @@ breadth_first_search (tree_node * leaf, int key)
   tree_node *traverse = NULL;
 
   if (!leaf)
-    return;
+    return NULL;
 
   enqueue (&tmp_q, leaf);
 
