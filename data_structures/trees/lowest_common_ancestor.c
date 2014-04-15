@@ -26,21 +26,22 @@ typedef enum
 
 
 bool lowest_common_ancestor (tree * t, int val_a, int val_b, tree ** ancestor);
-bool common_path (queue_t * pa, queue_t * pb, tree ** common);
-bool add_to_tree (tree ** t, int value);
-bool enqueue (queue_t ** t, tree * node);
-bool dequeue (queue_t ** t, tree ** node);
-void print_queue (queue_t * t);
+void add_to_tree (tree ** t, int value);
+static bool common_path (queue_t * pa, queue_t * pb, tree ** common);
+static bool enqueue (queue_t ** t, tree * node);
+static bool dequeue (queue_t ** t, tree ** node);
+static void print_queue (queue_t * t);
 
 
+/* find the lowest common ancestor of two values in a binary search tree */
 bool
 lowest_common_ancestor (tree * t, int val_a, int val_b, tree ** ancestor)
 {
-  queue_t *path_to_a = NULL;
-  queue_t *path_to_b = NULL;
+  queue_t *path_to_a = NULL;  // path list to a
+  queue_t *path_to_b = NULL;  // path list to b
   tree *run = t;
 
-  while (run) {
+  while (run) {               // populate path to a
     enqueue (&path_to_a, run);
 
     if (run->value == val_a)
@@ -53,7 +54,7 @@ lowest_common_ancestor (tree * t, int val_a, int val_b, tree ** ancestor)
   }
 
   run = t;
-  while (run) {
+  while (run) {               // populate path to b
     enqueue (&path_to_b, run);
 
     if (run->value == val_b)
@@ -68,16 +69,17 @@ lowest_common_ancestor (tree * t, int val_a, int val_b, tree ** ancestor)
   print_queue (path_to_a);
   print_queue (path_to_b);
 
-  common_path (path_to_a, path_to_b, ancestor);
+  common_path (path_to_a, path_to_b, ancestor);  // compare paths
   return TRUE;
 }
 
+/* find the lowest common ancestor of two values in a binary search tree */
 bool
 lowest_common_ancestor_bts (tree * t, int val_a, int val_b, tree ** ancestor)
 {
   int tree_val;
 
-  while (t) {
+  while (t) {               // loop until tree_val is split between < a and > b
     tree_val = t->value;
 
     if (tree_val > val_a && tree_val > val_b) {
@@ -93,7 +95,8 @@ lowest_common_ancestor_bts (tree * t, int val_a, int val_b, tree ** ancestor)
   return FALSE;
 }
 
-bool
+/* compare two paths to find the last common parent */
+static bool
 common_path (queue_t * pa, queue_t * pb, tree ** common)
 {
   tree *tmp_a, *tmp_b;
@@ -112,7 +115,8 @@ common_path (queue_t * pa, queue_t * pb, tree ** common)
   return TRUE;
 }
 
-bool
+/* add a node of the tree to the queue list */
+static bool
 enqueue (queue_t ** t, tree * node)
 {
   // printf ("enq: %d\n", node->value);
@@ -134,7 +138,8 @@ enqueue (queue_t ** t, tree * node)
   return TRUE;
 }
 
-bool
+/* get a node of the tree from the queue list */
+static bool
 dequeue (queue_t ** t, tree ** node)
 {
   if (!*t)
@@ -147,7 +152,8 @@ dequeue (queue_t ** t, tree ** node)
   return TRUE;
 }
 
-void
+/* print the values in the queue list */
+static void
 print_queue (queue_t * t)
 {
   printf ("print queue: ");
@@ -159,7 +165,8 @@ print_queue (queue_t * t)
   printf ("\n");
 }
 
-bool
+/* add a value to the binary search tree */
+void
 add_to_tree (tree ** t, int value)
 {
   tree *run = NULL;
@@ -167,21 +174,21 @@ add_to_tree (tree ** t, int value)
   if (!*t) {
     tree *new_node = (tree *) malloc (sizeof (tree));
     if (!new_node)
-      return FALSE;
+      return;
+
     new_node->value = value;
     new_node->left = NULL;
     new_node->right = NULL;
 
     *t = new_node;
-    return TRUE;
+    return;
   }
 
   run = *t;
-  if (value <= run->value) {
+  if (value <= run->value)
     add_to_tree (&run->left, value);
-  } else {
+  else
     add_to_tree (&run->right, value);
-  }
 }
 
 
