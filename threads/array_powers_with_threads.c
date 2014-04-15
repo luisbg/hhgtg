@@ -33,7 +33,7 @@ main (void)
   pthread_t thread[NUMTHREADS];
   int array[ARRAYSIZE];
   struct ThreadData data[NUMTHREADS];
-  int i;
+  int i, error;
   /* this has the effect of rounding up the number of tasks
    * per thread, which is useful in case ARRAYSIZE does not
    * divide evenly by NUMTHREADS. */
@@ -50,12 +50,16 @@ main (void)
 
   /* Launch threads */
   for (i = 0; i < NUMTHREADS; i++) {
-    pthread_create (&thread[i], NULL, squarer, &data[i]);
+    error = pthread_create (&thread[i], NULL, squarer, &data[i]);
+    if (error)
+      fprintf (stderr, "Unable to create thread\n");
   }
 
   /* Wait for threads to finish */
   for (i = 0; i < NUMTHREADS; i++) {
-    pthread_join (thread[i], NULL);
+    error = pthread_join (thread[i], NULL);
+    if (error)
+      fprintf (stderr, "Unable to join thread\n");
   }
 
   /* Display Result */
