@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-//#define DEBUG
-
 typedef struct trie_node
 {
   char key;
@@ -18,15 +16,14 @@ void add_trie (trie_node_t ** root, char *key, int data);
 trie_node_t *search (trie_node_t * root, const char *key);
 
 
+/* create a node for the trie */
 trie_node_t *
 create_node (char key, int data)
 {
   trie_node_t *node = (trie_node_t *) malloc (sizeof (trie_node_t));
 
   if (!node) {
-#ifdef DEBUG
     printf ("ERROR: malloc failed\n");
-#endif
     return node;
   }
 
@@ -40,86 +37,77 @@ create_node (char key, int data)
   return node;
 }
 
+/* add a key in the trie */
 void
 add_trie (trie_node_t ** root, char *key, int data)
 {
-  trie_node_t *head;
+  trie_node_t *curr;
 
-#ifdef DEBUG
   printf ("Inserting key: %s\n", key);
-#endif
   if (!*root) {
-#ifdef DEBUG
     printf ("Empty trie\n");
-#endif
     return;
   }
-  head = (*root)->children;
+  curr = (*root)->children;
 
-  if (!head) {           /* first node */
-    for (head = *root; *key; head = head->children) {
-      head->children = create_node (*key, 0);
-#ifdef DEBUG
+  if (!curr) {           /* first node */
+    for (curr = *root; *key; curr = curr->children) { // add all nodes
+      curr->children = create_node (*key, 0);       // create node for this char
+
       printf ("Inserting first node: %c\n", *key);
-#endif
-      head->children->parent = head;
-      key++;
+
+      curr->children->parent = curr;
+      key++;                     // loop through string with pointer arithmetic
     }
 
-    head->children = create_node ('\0', data);
-    head->children->parent = head;
+    curr->children = create_node ('\0', data); // create end node
+    curr->children->parent = curr;
+    return;
   }
 
-  if (search (head, key)) {
-#ifdef DEBUG
+  if (search (curr, key)) {     // check if key is already contained
     printf ("Duplicate!\n");
-#endif
     return;
   }
 
   while (*key != '\0') {        /* for strings with the beginning already stored */
-    if (*key == head->key) {
-      head = head->children;
+    if (*key == curr->key) {
+      curr = curr->children;
       key++;
     } else
       break;
   }
 
-  while (head->next) {          /* find if the beginning is already stored */
-    if (*key == head->next->key) {
+  while (curr->next) {          /* find if the beginning is already stored */
+    if (*key == curr->next->key) {
       key++;
-      add_trie (&head->next, key, data);
+      add_trie (&curr->next, key, data);
       return;
     }
-    head = head->next;
+    curr = curr->next;
   }
 
-  head->next = create_node (*key, 0);   /* start new branch */
-  head->next->parent = head->parent;
-  head->next->prev;
-  head;
+  curr->next = create_node (*key, 0);   /* start new branch */
+  curr->next->parent = curr->parent;
 
-#ifdef DEBUG
-  printf ("Inserting %c as neighbour of %c \n", head->next->key, head->key);
-#endif
+  printf ("Inserting %c as neighbour of %c \n", curr->next->key, curr->key);
 
   key++;
 
-  for (head = head->next; *key; head = head->children) {
-    head->children = create_node (*key, 0);     /* populate children of new */
-    head->children->parent = head;      /* branch */
+  for (curr = curr->next; *key; curr = curr->children) {
+    curr->children = create_node (*key, 0);     /* populate children of new */
+    curr->children->parent = curr;      /* branch */
     key++;
-#ifdef DEBUG
-    printf ("Inserting: %c\n", head->children->key);
-#endif
+    printf ("Inserting: %c\n", curr->children->key);
   }
 
-  head->children = create_node ('\0', data);
-  head->children->parent = head;
+  curr->children = create_node ('\0', data);
+  curr->children->parent = curr;
 
   return;
 }
 
+/* search for a key in the trie */
 trie_node_t *
 search (trie_node_t * root, const char *key)
 {
@@ -154,12 +142,12 @@ main ()
 {
   trie_node_t *root = NULL;
   trie_node_t *tmp = NULL;
+
   root = create_node ('\0', 0);
   add_trie (&root, "alice", 10);
   add_trie (&root, "barbara", 11);
   add_trie (&root, "charlie", 12);
   add_trie (&root, "alfred", 13);
-  add_trie (&root, "alfred", 16);
   add_trie (&root, "bar", 14);
   add_trie (&root, "batman", 15);
 
@@ -171,4 +159,6 @@ main ()
     if (tmp)
       printf ("%s is: %d\n", names[c], tmp->value);
   }
+
+  return 0;
 }
