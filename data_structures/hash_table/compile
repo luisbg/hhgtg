@@ -1,2 +1,2 @@
-gcc hash_table_separate_chaining.c -o htsc
-gcc hash_table_open_addressing.c -o htoa
+gcc -Wall hash_table_separate_chaining.c -o htsc
+gcc -Wall hash_table_open_addressing.c -o htoa
