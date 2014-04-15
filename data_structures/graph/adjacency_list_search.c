@@ -255,4 +255,6 @@ main ()
 
   printf ("\nbfs search for %d\n", 1);
   breadth_first_search (graph, 1);
+
+  return 0;
 }

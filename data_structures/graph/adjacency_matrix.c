@@ -22,7 +22,7 @@ typedef struct graph
 graph_t
 create_graph (int vertices)
 {
-  int i, j;
+  int i;
 
   graph_t *graph = (graph_t *) malloc (sizeof (graph_t));;
   graph->num_vertices = vertices;
@@ -30,12 +30,7 @@ create_graph (int vertices)
   //int graph[V][V];
   graph->adj = malloc (vertices * sizeof (bool *));
   for (i = 0; i < V; i++)
-    graph->adj[i] = malloc (vertices * sizeof (bool));
-
-  // Set all edges to disconnected
-  for (i = 0; i < vertices; i++)
-    for (j = 0; j < vertices; j++)
-      graph->adj[i][j] = 0;
+    graph->adj[i] = calloc (vertices, sizeof (bool));
 
   // All vertixes are connected with themselves
   for (i = 0; i < vertices; i++)
@@ -83,6 +78,7 @@ destroy_graph (graph_t graph)
   free (graph.adj);
 }
 
+
 int
 main ()
 {
@@ -108,7 +104,6 @@ main ()
   remove_edge (graph, 1, 4);
 
   display_graph (graph);
-
   destroy_graph (graph);
 
   return 0;
