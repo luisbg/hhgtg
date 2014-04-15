@@ -28,16 +28,16 @@ tree_insert (node ** leaf, int key)
     (*leaf)->left = NULL;
     (*leaf)->right = NULL;
 
-  } else if (key <= (*leaf)->key) {
+  } else if (key <= (*leaf)->key)
     /* if smaller recurse to the left branch */
     tree_insert (&(*leaf)->left, key);
 
-  } else if (key > (*leaf)->key) {
+  else if (key > (*leaf)->key)
     /* if bigger recurse to the right branch */
     tree_insert (&(*leaf)->right, key);
-  }
 }
 
+/* check if the tree is balanced */
 static int
 check_balanced_height (struct node *leaf)
 {
@@ -81,6 +81,7 @@ sorted_array_to_tree (struct node **leaf, int arr[], int start, int end)
   sorted_array_to_tree (leaf, arr, middle + 1, end);
 }
 
+/* convert sorted array into a balanced tree without auxiliary functions */
 node *
 create_tree_selfcontained (int arr[], int start, int end)
 {
@@ -90,9 +91,11 @@ create_tree_selfcontained (int arr[], int start, int end)
   int middle = (start + end) / 2;
   node *new_leaf = (node *) malloc (sizeof (node));
   printf ("%d: ", arr[middle]);
+
   new_leaf->key = arr[middle];
   new_leaf->left = create_tree_selfcontained (arr, start, middle - 1);
   new_leaf->right = create_tree_selfcontained (arr, middle + 1, end);
+
   return new_leaf;
 }
 
@@ -116,4 +119,6 @@ main ()
   node *second = create_tree_selfcontained (arr, 0, 32);
   printf ("\nleft tree height: %d\n", check_balanced_height (second->left));
   printf ("right tree height: %d\n", check_balanced_height (second->right));
+
+  return 0;
 }
