@@ -51,14 +51,15 @@ insert_node (node ** leaf, int key)
   if (!*leaf) {
     node *new_node = (node *) malloc (sizeof (node));
     if (!new_node)
-      return;
+      return NULL;
+
     new_node->key = key;
     /* initialize the children to null */
     new_node->left = NULL;
     new_node->right = NULL;
     *leaf = new_node;
 
-    return;
+    return new_node;
   }
 
   run = *leaf;
@@ -89,11 +90,9 @@ bool
 validate_tree (struct node * leaf)
 {
   if (leaf) {
-    if (leaf->left)
-      if (leaf->key < leaf->left->key)
+    if (leaf->left && leaf->key < leaf->left->key)
         return FALSE;
-    if (leaf->right)
-      if (leaf->key > leaf->right->key)
+    if (leaf->right && leaf->key > leaf->right->key)
         return FALSE;
 
     if (!validate_tree (leaf->left))
@@ -105,6 +104,7 @@ validate_tree (struct node * leaf)
   return TRUE;
 }
 
+/* print the data at the node */
 static void
 print_node (int key, int h)
 {
