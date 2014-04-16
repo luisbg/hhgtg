@@ -37,7 +37,6 @@ year_size (int y)
 Date_T
 date_from_epoch (int since_epoch)
 {
-  int epoch_year = 1970;
   int seconds_day = 86400;
   int dayclock;
   int dayno;
@@ -70,7 +69,7 @@ date_from_epoch (int since_epoch)
   }
   date.yday = dayno;
 
-  is_leap = (is_leap_year) ? 1 : 0;
+  is_leap = (is_leap_year (date.year)) ? 1 : 0;
   date.month = 11;
   while (dayno < days_before_month[is_leap][date.month]) {
     date.month--;

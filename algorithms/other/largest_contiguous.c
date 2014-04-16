@@ -9,7 +9,7 @@ int
 find_largest_contiguous (int *array, int len)
 {
   int sum, tmp_sum;
-  int start, end;
+  // int start, end;
 
   int c, n;
   for (c = 0; c < len; c++) {
@@ -21,16 +21,17 @@ find_largest_contiguous (int *array, int len)
         break;
 
       if (tmp_sum > sum) {
-        start = c;
-        end = n;
+        // start = c;
+        // end = n;
         sum = tmp_sum;
       }
     }
   }
 
-//  int *res = (int *) malloc (2 * sizeof (int));
-//  res[0] = start;
-//  res[1] = end;
+  //  int *res = (int *) malloc (2 * sizeof (int));
+  //  res[0] = start;
+  //  res[1] = end;
+
   return sum;
 }
 
