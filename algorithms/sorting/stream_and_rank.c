@@ -16,16 +16,17 @@ typedef struct node
 } node_t;
 
 
+/* track ranks in a binary tree with the values and counter */
 void
 track (node_t ** root, int x)
 {
-  node_t * new_node = (node_t *) malloc (sizeof (node_t));
-  new_node->value = x;
-  new_node->left = NULL;
-  new_node->right = NULL;
-  new_node->counter = 0;
-
   if (!*root) {
+    node_t * new_node = (node_t *) malloc (sizeof (node_t));
+    new_node->value = x;
+    new_node->left = NULL;
+    new_node->right = NULL;
+    new_node->counter = 0;
+
     *root = new_node;
     return;
   }
@@ -38,6 +39,7 @@ track (node_t ** root, int x)
   }
 }
 
+/* read the binary tree recursively to get the rank */
 int get_rank (node_t * root, int x, int count)
 {
   if (!root)
@@ -52,6 +54,8 @@ int get_rank (node_t * root, int x, int count)
 
   if (root->value < x)
     return get_rank (root->right, x, count);
+
+  return -1;
 }
 
 

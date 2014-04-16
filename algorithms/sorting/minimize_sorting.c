@@ -64,7 +64,7 @@ minimize_direct (int *arr, int len)
   /* find min and max element of middle */
   int min_index = end_left + 1;
   if (min_index >= len)
-    return;                     // already sorted
+    return NULL;                     // already sorted
 
   int max_index = start_right - 1;
   int c;

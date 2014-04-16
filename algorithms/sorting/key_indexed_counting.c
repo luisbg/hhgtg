@@ -13,14 +13,11 @@ void key_index_count (int a[], int len);
 void print_list (int a[], int len);
 
 
+/* create an array size of range and count instances of values */
 void key_index_count (int a[], int len)
 {
-  int i, j, cnt[RANGE_MAX];
-  int b[len];
-
-  // Initialize the counts to 0
-  for (i = 0; i < RANGE_MAX; i++)
-    cnt[i] = 0;
+  int i, j;
+  int *cnt = (int *) calloc (RANGE_MAX, sizeof (int));
 
   // Count instances of each number inside the range
   for (i = 0; i <= (len - 1); i++)
@@ -35,6 +32,7 @@ void key_index_count (int a[], int len)
   return;
 }
 
+/* print the list of values */
 void
 print_list (int a[], int len)
 {
@@ -42,7 +40,7 @@ print_list (int a[], int len)
 
   for (i = 0; i < len; i++)
     printf ("%3d  ", a[i]);
-  printf ("\n");
+  printf ("\n \n");
 
   return;
 }

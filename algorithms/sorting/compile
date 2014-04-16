@@ -1,13 +1,13 @@
-gcc -O0 -ggdb mergesort.c -o mergesort
-gcc -O0 -ggdb quicksort.c -o quicksort
-gcc -O0 -ggdb heapsort.c -o heapsort
-gcc -O0 -ggdb insertionsort.c -o insertionsort
-gcc -O0 -ggdb slice_array.c -o slice_array
-gcc -O0 -ggdb countingsort.c -o countingsort
-gcc -O0 -ggdb buying_toys.c -o buying_toys
-gcc -O0 -ggdb selectionsort.c -o selectionsort
-gcc -O0 -ggdb bubblesort.c -o bubblesort
-gcc -O0 -ggdb key_indexed_counting.c -o key_indexed_counting
-gcc -O0 -ggdb find_kth_element.c -o find_kth_element
-gcc -O0 -ggdb stream_and_rank.c -o stream_and_rank
-gcc -O0 -ggdb minimize_sorting.c -o minimize_sorting
+gcc -Wall -O0 -ggdb mergesort.c -o mergesort
+gcc -Wall -O0 -ggdb quicksort.c -o quicksort
+gcc -Wall -O0 -ggdb heapsort.c -o heapsort
+gcc -Wall -O0 -ggdb insertionsort.c -o insertionsort
+gcc -Wall -O0 -ggdb slice_array.c -o slice_array
+gcc -Wall -O0 -ggdb countingsort.c -o countingsort
+gcc -Wall -O0 -ggdb buying_toys.c -o buying_toys
+gcc -Wall -O0 -ggdb selectionsort.c -o selectionsort
+gcc -Wall -O0 -ggdb bubblesort.c -o bubblesort
+gcc -Wall -O0 -ggdb key_indexed_counting.c -o key_indexed_counting
+gcc -Wall -O0 -ggdb find_kth_element.c -o find_kth_element
+gcc -Wall -O0 -ggdb stream_and_rank.c -o stream_and_rank
+gcc -Wall -O0 -ggdb minimize_sorting.c -o minimize_sorting

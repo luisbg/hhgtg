@@ -23,6 +23,7 @@ static void merge (int *l, int low, int middle, int high);
 static void print_list (int *l, int len);
 
 
+/* up-down merge sort */
 void
 mergesort (int *l, int low, int high)
 {
@@ -36,6 +37,7 @@ mergesort (int *l, int low, int high)
   }
 }
 
+/* bottom up merge sort */
 void
 mergesort_bottom_up (int *l, int low, int high)
 {
@@ -54,56 +56,7 @@ mergesort_bottom_up (int *l, int low, int high)
     }
 }
 
-static void
-enqueue (queue ** q, int value)
-{
-  queue *node = (queue *) malloc (sizeof (queue));
-  node->value = value;
-  node->next = NULL;
-
-  if (!*q) {
-    *q = node;
-
-  } else {
-    queue *curr = *q;
-    while (curr->next != NULL) {
-      curr = curr->next;
-    }
-
-    curr->next = node;
-  }
-}
-
-static int
-dequeue (queue ** q)
-{
-  if (*q) {
-    queue *node = *q;
-    int value = node->value;
-    *q = node->next;
-    free (node);
-
-    return value;
-  } else {
-    return -1;
-  }
-}
-
-static int
-headq (queue * q)
-{
-  return q->value;
-}
-
-static bool
-empty_queue (queue * q)
-{
-  if (!q)
-    return TRUE;
-  else
-    return FALSE;
-}
-
+/* merging step of merge sort */
 static void
 merge (int *l, int low, int middle, int high)
 {
@@ -130,6 +83,61 @@ merge (int *l, int low, int middle, int high)
     l[i++] = dequeue (&buffer2);
 }
 
+/* add value to the queue */
+static void
+enqueue (queue ** q, int value)
+{
+  queue *node = (queue *) malloc (sizeof (queue));
+  node->value = value;
+  node->next = NULL;
+
+  if (!*q) {
+    *q = node;
+
+  } else {
+    queue *curr = *q;
+    while (curr->next != NULL) {
+      curr = curr->next;
+    }
+
+    curr->next = node;
+  }
+}
+
+/* get head element from the queue */
+static int
+dequeue (queue ** q)
+{
+  if (*q) {
+    queue *node = *q;
+    int value = node->value;
+    *q = node->next;
+    free (node);
+
+    return value;
+  } else {
+    return -1;
+  }
+}
+
+/* see the value at the head of the queue, but don't remove it */
+static int
+headq (queue * q)
+{
+  return q->value;
+}
+
+/* check if queue is empty */
+static bool
+empty_queue (queue * q)
+{
+  if (!q)
+    return TRUE;
+  else
+    return FALSE;
+}
+
+/* print the list of values */
 static void
 print_list (int *l, int len)
 {
@@ -166,4 +174,6 @@ main ()
   mergesort_bottom_up (l, 0, size - 1);
   printf ("in order bottom-up mergesort:\n");
   print_list (l, size);
+
+  return 0;
 }

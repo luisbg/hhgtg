@@ -4,6 +4,7 @@
 #define SIZE 15
 
 
+/* check if character is in the low group */
 static int
 islow (char c)
 {
@@ -14,6 +15,7 @@ islow (char c)
   return 0;
 }
 
+/* check if character is in the middle group */
 static int
 ismedium (char c)
 {
@@ -22,6 +24,7 @@ ismedium (char c)
   return 0;
 }
 
+/* check if character is in the high group */
 static int
 ishigh (char c)
 {
@@ -30,15 +33,18 @@ ishigh (char c)
   return 0;
 }
 
+/* sort the array into the 3 groups */
 int
 sort (char *array, int size)
 {
-  int low = 0;
-  int high = size - 1;
-  int i;
+  int i = 0, 
+    low = 0,
+    high = size - 1;
   char c;
-  for (i = 0; i < size && i < high;) {
+
+  while (i < size && i < high) {
     if (islow (array[i])) {
+      // if in the low group, swap values of i and low and increment low
       c = array[low];
       array[low] = array[i];
 
@@ -47,6 +53,7 @@ sort (char *array, int size)
       low++;
     }
     if (ishigh (array[i])) {
+      // if in high group, swap values of i and high and decrement high 
       c = array[high];
       array[high] = array[i];
       array[i] = c;
@@ -62,7 +69,10 @@ sort (char *array, int size)
     if (low > i)
       i++;
   }
+
+  return 0;
 }
+
 
 int
 main ()

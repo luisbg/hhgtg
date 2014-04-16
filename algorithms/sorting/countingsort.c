@@ -18,14 +18,10 @@ print_list (int *l, int size)
 void
 count_sort (int size, int *list, int low, int high)
 {
-  int *count_ar = (int *) malloc ((high - low) * sizeof (int));
-  int c, d, value, range;
-
-  range = high - low;
-  // Initialize all elements of count array to 0
-  for (c = 0; c < range; c++) {
-    count_ar[c] = 0;
-  }
+  int c, value,
+    d = 0,
+    range = high - low;
+  int *count_ar = (int *) calloc (range,  sizeof (int));
 
   // Go through the list incrementing the count of each value seen
   for (c = 0; c < size; c++) {
@@ -34,7 +30,6 @@ count_sort (int size, int *list, int low, int high)
   }
 
   // Go through the count array and move the seen values to sorted list
-  d = 0;
   for (c = 0; c < range; c++) {
     while (count_ar[c] > 0) {
       list[d++] = c + low;
@@ -43,8 +38,6 @@ count_sort (int size, int *list, int low, int high)
   }
 
   free (count_ar);
-
-  return;
 }
 
 int

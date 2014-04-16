@@ -14,25 +14,103 @@ typedef struct stack
 } stack;
 
 
-static void swap (int *a, int *b);
-static int get_middle_pivot (int low, int high);
-static int get_best_of_three_pivot (int *l, int low, int high);
-static int partition (int *l, int low, int high);
 void quicksort (int *l, int low, int high);
 void quicksort_non_recursive (int *l, int low, int high);
+static void swap (int *a, int *b);
+// static int get_middle_pivot (int low, int high);
+static int get_best_of_three_pivot (int *l, int low, int high);
+static int partition (int *l, int low, int high);
+static void print_list (int *l, int len);
+static void push (stack * s, int data);
+static int pop (stack * s);
+static int stackempty (stack * s);
 
 
+/* classic recursive quicksort */
 void
-print_list (int *l, int len)
+quicksort (int *l, int low, int high)
 {
-  int c;
-  for (c = 0; c < len; c++) {
-    printf ("%d ", l[c]);
-  }
-  printf ("\n");
+  if (low >= high)
+    return;
+
+  int middle;
+
+  middle = partition (l, low, high);
+  quicksort (l, low, middle - 1);
+  quicksort (l, middle + 1, high);
 }
 
+/* iterative quicksort using a stack */
 void
+quicksort_non_recursive (int *l, int low, int high)
+{
+  int middle;
+
+  stack s;
+  push (&s, high);
+  push (&s, low);
+
+  while (!stackempty (&s)) {
+    low = pop(&s);
+    high = pop(&s);
+
+    if (low >= high)
+      continue;
+
+    middle = partition (l, low, high);
+    if (middle - 1 > high - middle) {
+      push (&s, middle - 1);
+      push (&s, low);
+      push (&s, high);
+      push (&s, middle + 1);
+    } else {
+      push (&s, high);
+      push (&s, middle + 1);
+      push (&s, middle - 1);
+      push (&s, low);
+    }
+  }
+}
+
+/* partition values smaller than k to the left and bigger than k to the right */
+static int
+partition (int *l, int low, int high)
+{
+  int c;
+  int middle;
+
+  int k = get_best_of_three_pivot (l, low, high);
+  int pivot = l[k];
+  swap (&l[low], &l[k]);        // move pivot out of array to order
+
+  c = low + 1;
+  middle = high;
+  while (c <= middle)           // run the array
+  {
+    while ((c <= high) && (l[c] <= pivot))      // before pivot
+      c++;
+    while ((middle >= low) && (l[middle] > pivot))      // after pivot
+      middle--;
+    if (c < middle)
+      swap (&l[c], &l[middle]);
+  }
+
+  swap (&l[low], &l[middle]);   // bring the pivot to its place
+
+  return middle;
+}
+
+/* swap values with auxiliary memory */
+static void
+swap (int *a, int *b)
+{
+  int tmp = *a;
+  *a = *b;
+  *b = tmp;
+}
+
+/* push data to stack for iterative quicksort */
+static void
 push (stack * s, int data)
 {
   node *new = (node *) malloc (sizeof (node));
@@ -42,7 +120,8 @@ push (stack * s, int data)
   s->top = new;
 }
 
-int
+/* get element from top of stack for iterative quicksort */
+static int
 pop (stack * s)
 {
   int ret = -1;
@@ -58,7 +137,8 @@ pop (stack * s)
   return ret;
 }
 
-int
+/* check if stack is empty */
+static int
 stackempty (stack * s)
 {
   if (s->top)
@@ -67,20 +147,14 @@ stackempty (stack * s)
     return 1;
 }
 
-static void
-swap (int *a, int *b)
-{
-  int tmp = *a;
-  *a = *b;
-  *b = tmp;
-}
-
+/*
 static int
 get_middle_pivot (int low, int high)
 {
   return (low + high) / 2;
-}
+} */
 
+/* try 3 pivots and chose the middle one */
 static int
 get_best_of_three_pivot (int *l, int low, int high)
 {
@@ -114,75 +188,15 @@ get_best_of_three_pivot (int *l, int low, int high)
   return pivot;
 }
 
-static int
-partition (int *l, int low, int high)
+/* print the list of values */
+static void
+print_list (int *l, int len)
 {
   int c;
-  int middle;
-
-  int k = get_best_of_three_pivot (l, low, high);
-  int pivot = l[k];
-  swap (&l[low], &l[k]);        // move pivot out of array to order
-
-  c = low + 1;
-  middle = high;
-  while (c <= middle)           // run the array
-  {
-    while ((c <= high) && (l[c] <= pivot))      // before pivot
-      c++;
-    while ((middle >= low) && (l[middle] > pivot))      // after pivot
-      middle--;
-    if (c < middle)
-      swap (&l[c], &l[middle]);
+  for (c = 0; c < len; c++) {
+    printf ("%d ", l[c]);
   }
-
-  swap (&l[low], &l[middle]);   // bring the pivot to its place
-
-  return middle;
-}
-
-void
-quicksort (int *l, int low, int high)
-{
-  if (low >= high)
-    return;
-
-  int middle;
-
-  middle = partition (l, low, high);
-  quicksort (l, low, middle - 1);
-  quicksort (l, middle + 1, high);
-}
-
-void
-quicksort_non_recursive (int *l, int low, int high)
-{
-  int middle;
-
-  stack s;
-  push (&s, high);
-  push (&s, low);
-
-  while (!stackempty (&s)) {
-    low = pop(&s);
-    high = pop(&s);
-
-    if (low >= high)
-      continue;
-
-    middle = partition (l, low, high);
-    if (middle - 1 > high - middle) {
-      push (&s, middle - 1);
-      push (&s, low);
-      push (&s, high);
-      push (&s, middle + 1);
-    } else {
-      push (&s, high);
-      push (&s, middle + 1);
-      push (&s, middle - 1);
-      push (&s, low);
-    }
-  }
+  printf ("\n");
 }
 
 
@@ -212,4 +226,6 @@ main ()
   printf ("in order (non-recursive quicksort):\n");
   quicksort_non_recursive (l, 0, size - 1);
   print_list (l, size - 1);
+
+  return 0;
 }

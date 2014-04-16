@@ -58,4 +58,6 @@ main ()
   printf ("in order:\n");
   insertion_sort (ar, size);
   print_array (ar, size);
+
+  return 0;
 }

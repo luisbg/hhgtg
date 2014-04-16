@@ -118,4 +118,6 @@ main ()
   printf ("in order:\n");
   heapsort (l, size - 1);
   print_list (l, size - 1);
+
+  return 0;
 }

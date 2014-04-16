@@ -2,6 +2,7 @@
 /* N toy items, tagged with their prices and only K available */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 
 void
@@ -68,11 +69,11 @@ quicksort (int *l, int low, int high)
   quicksort (l, middle + 1, high);
 }
 
+// get the number of toys that can be purchased with the given amount of money
 int
 purchased_toys (int num_items, int *toys, int money)
 {
-  int i;
-  int purchased = 0;
+  int i, purchased = 0;
 
   quicksort (toys, 0, num_items - 1);
 
@@ -94,7 +95,6 @@ main ()
   int num_items = 15;
   int toys[15];
   int money;
-  int purchased;
 
   int i;
   for (i = 0; i < num_items; i++) {
