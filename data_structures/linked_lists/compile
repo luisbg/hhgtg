@@ -7,3 +7,4 @@ gcc -Wall -O0 -ggdb adding.c -o adding
 gcc -Wall -O0 -ggdb cyclical.c -o cyclical
 gcc -Wall -O0 -ggdb merge_sorted.c -o merge_sorted
 gcc -Wall -O0 -ggdb reverse_double_linked.c -o reverse_double_linked
+gcc -Wall -O0 -ggdb multiplying.c -o multiplying
