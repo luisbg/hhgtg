@@ -145,6 +145,7 @@ data structures:
         root_insertion
         join_trees
         b_tree
+        display_paths
     graphs:
         adjacency_list
         adjacency_list_search

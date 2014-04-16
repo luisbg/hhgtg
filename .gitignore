@@ -124,6 +124,7 @@ data_structures/trees/fenwick_bit
 data_structures/trees/root_insertion
 data_structures/trees/join_trees
 data_structures/trees/b_tree
+data_structures/trees/display_paths
 data_structures/graph/adjacency_list
 data_structures/graph/adjacency_list_search
 data_structures/graph/adjacency_list_connected_nodes
