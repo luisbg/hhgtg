@@ -3,3 +3,4 @@ gcc -Wall -O0 -ggdb date_from_epoch.c -o date_from_epoch
 gcc -Wall -O0 -ggdb shuffle_cards.c -o shuffle_cards
 gcc -Wall -O0 -ggdb largest_contiguous.c -o largest_contiguous
 gcc -Wall -O0 -ggdb -lpthread mapreduce_word_frequency.c -o mapreduce_word_frequency
+gcc -Wall -O0 -ggdb fisher_yates_shuffle.c -o fisher_yates_shuffle
