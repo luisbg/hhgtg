@@ -67,6 +67,7 @@ algorithms/other/date_from_epoch
 algorithms/other/shuffle_cards
 algorithms/other/largest_contiguous
 algorithms/other/mapreduce_word_frequency
+algorithms/other/fisher_yates_shuffle
 bit_manipulation/bit_manipulation
 bit_manipulation/contain_m_n
 bit_manipulation/sign
