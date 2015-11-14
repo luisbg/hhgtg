@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 
 static int rand_number (int start, int end) {
@@ -12,6 +13,7 @@ static void swap_cards (int size, int deck[size], int a, int b) {
   deck[b] = tmp;
 }
 
+/* shuffle cards based on Sattolo's suffling algorithm */
 void shuffle_cards (int size, int deck[size]) {
   int i, r;
 
@@ -26,6 +28,9 @@ int main () {
   int size = 20;
   int deck[20];
   int i;
+
+  /* use time as seed for pseud-randomness */
+  srand(time(NULL));
 
   /* new sorted deck */
   for (i = 0; i < size; i++)
