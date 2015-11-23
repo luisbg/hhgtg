@@ -75,11 +75,12 @@ bit_manipulation/count_ones
 bit_manipulation/power_of_2
 bit_manipulation/palindromes
 data_structures/arrays/dynamic_array
-data_structures/arrays/rotate
+data_structures/arrays/rotate_90_degrees
 data_structures/arrays/zero_out
 data_structures/arrays/business_tasks
 data_structures/arrays/bit_vector
 data_structures/arrays/number_spiral
+data_structures/arrays/rotate_array
 data_structures/hash_table/htoa
 data_structures/hash_table/htsc
 data_structures/linked_lists/adding
