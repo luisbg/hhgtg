@@ -108,6 +108,20 @@ get_height (struct node *leaf)
     return lefth + 1;
 }
 
+/* get the amount of nodes in the tree */
+static int
+get_size (struct node *leaf)
+{
+  if (!leaf)
+    return 0;
+
+  int lefts = get_size (leaf->left);
+  int rights = get_size (leaf->right);
+
+  return 1 + lefts + rights;
+}
+
+
 /* check if the leaf has balanced children */
 // this function calls same nodes repeatedly, sub-optimal O(n^2)
 bool
@@ -154,7 +168,9 @@ main ()
     insert (&root, nodes[c]);
   }
   printf ("max height is: %d\n", get_height (root));
-  printf ("is it balanced? %s\n", is_balanced (root) ? "yes" : "no");
+  printf ("is it balanced? %s\n\n", is_balanced (root) ? "yes" : "no");
+
+  printf ("tree size is: %d\n", get_size (root));
 
   destroy_tree (root);
   return 0;
