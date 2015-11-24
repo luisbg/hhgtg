@@ -13,6 +13,8 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+
 
 int to_english (int num, char singles[10][7], char tens[9][9],
                  char hundred[13], char excpt_teens[9][11])
