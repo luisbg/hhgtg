@@ -156,12 +156,38 @@ remove_duplicates_single_linked (node * head)
   return buffer;
 }
 
+node *
+remove_duplicates_single_linked_in_place (node * head)
+{
+  node *i = NULL;
+  node *j = NULL;
+  node *freed = NULL;
+
+  // run through all elements
+  for (i = head; i; i = i->next) {
+    // and check each one with all the elements after it
+    j = i;
+    while (j->next) {
+      if (i->n == j->next->n) {
+        freed = j->next;
+        j->next = j->next->next;
+        free (freed);
+      } else {
+        j = j->next;
+      }
+    }
+  }
+
+  return head;
+}
+
 int
 main ()
 {
   node *l = NULL;
   node *m = NULL;
   node *o = NULL;
+  node *p = NULL;
 
   prepend (&l, 0);
   prepend (&l, 3);
@@ -237,6 +263,22 @@ main ()
   printf ("removed duplicates: ");
   o = remove_duplicates_single_linked (o);
   travel (o);
+
+  prepend (&p, 4);
+  prepend (&p, 5);
+  prepend (&p, 6);
+  prepend (&p, 6);
+  prepend (&p, 5);
+  prepend (&p, 4);
+  prepend (&p, 7);
+  prepend (&p, 5);
+
+  printf ("new original single linked list: ");
+  travel (p);
+
+  printf ("removed duplicates in place: ");
+  p = remove_duplicates_single_linked_in_place (p);
+  travel (p);
 
   return 0;
 }
