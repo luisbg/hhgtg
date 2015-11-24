@@ -1,3 +1,4 @@
+
 /* Remove duplicates from an unsorted linked list */
 
 #include <stdlib.h>
@@ -90,6 +91,7 @@ remove_duplicates (node ** l)
 }
 
 /* check if the value is already contained in the list */
+/* stores a singled linked list of unique values */
 bool
 have_we_seen_it_before (node ** l, int n)
 {
@@ -104,9 +106,16 @@ have_we_seen_it_before (node ** l, int n)
   }
 
   new = (node *) malloc (sizeof (node));  // if we haven't seen it, add
-  new->n = n;                                   // it to the buffer
-  new->next = *l;
-  *l = new;
+  new->n = n;                             // it to the buffer
+  new->next = NULL;                       // appending requires more work
+  if (*l) {                               // but keeps the original order
+    curr = *l;
+    while (curr->next)
+      curr = curr->next;
+    curr->next = new;
+  } else {
+    *l = new;
+  }
 
   return FALSE;
 }
@@ -132,12 +141,27 @@ remove_duplicates_with_buffer (node ** l)
   }
 }
 
+node *
+remove_duplicates_single_linked (node * head)
+{
+  node *curr = head;
+  node *buffer = NULL;
+
+  // run through the list creating a unique values new one
+  while (curr) {
+    have_we_seen_it_before (&buffer, curr->n);
+    curr = curr->next;
+  }
+
+  return buffer;
+}
 
 int
 main ()
 {
   node *l = NULL;
   node *m = NULL;
+  node *o = NULL;
 
   prepend (&l, 0);
   prepend (&l, 3);
@@ -166,8 +190,10 @@ main ()
   sort_list (&l);
   travel (l);
 
+  printf ("remove duplicates: ");
   remove_duplicates (&l);
   travel (l);
+  printf ("\n");
 
   prepend (&m, 1);
   prepend (&m, 4);
@@ -195,6 +221,22 @@ main ()
   printf ("removed duplicates: ");
   remove_duplicates_with_buffer (&m);
   travel (m);
+  printf ("\n");
+
+  prepend (&o, 1);
+  prepend (&o, 2);
+  prepend (&o, 3);
+  prepend (&o, 3);
+  prepend (&o, 1);
+  prepend (&o, 2);
+  prepend (&o, 3);
+
+  printf ("new original single linked list: ");
+  travel (o);
+
+  printf ("removed duplicates: ");
+  o = remove_duplicates_single_linked (o);
+  travel (o);
 
   return 0;
 }
