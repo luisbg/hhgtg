@@ -191,8 +191,8 @@ remove_node (node ** l, int n)
 bool
 reverse_order (node ** l)
 {
-  node *tmp,
-    *new_head = NULL;
+  node *tmp;
+  node *new_head = NULL;        // set new_head to NULL in case list is emtpy
 
   while (*l) {
     tmp = *l;
