@@ -4,3 +4,4 @@ gcc sign.c -o sign
 gcc count_ones.c -o count_ones
 gcc power_of_2.c -o power_of_2
 gcc palindromes.c -o palindromes
+gcc swap_odd_even_bits.c -o swap_odd_even_bits
