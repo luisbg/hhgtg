@@ -10,3 +10,4 @@ gcc -O0 -ggdb elementary_operations.c -o elementary_operations
 gcc -O0 -ggdb sorting_array_strings.c -o sorting_array_strings
 gcc -O0 -ggdb numbers_to_english.c -o numbers_to_english
 gcc -O0 -ggdb first_non_repeating.c -o first_non_repeating
+gcc -O0 -ggdb remove_duplicates.c -o remove_duplicates
