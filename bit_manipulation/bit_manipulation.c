@@ -36,7 +36,7 @@ clearbits_msb (int num, int i)
   return num & mask;
 }
 
-// clear least significant bits before (and including) i 
+// clear least significant bits before (and including) i
 int
 clearbits_lsb (int num, int i)
 {
@@ -74,18 +74,27 @@ main ()
 
   printf ("x = %d (1111)\n\n", 15);
 
+  printf ("XOR\n");
   printf ("x ^ 0 = %d   (x)\n", x ^ 0);
   printf ("x ^ 1 = %d   ~(x)\n", x ^ 15);
   printf ("x ^ x = %d    (0)\n\n", x ^ x);
 
+  printf ("AND\n");
   printf ("x & 0 = %d    (0)\n", x & 0);
   printf ("x & 1 = %d   (x)\n", x & 15);
   printf ("x & x = %d   (x)\n\n", x & x);
 
+  printf ("OR\n");
   printf ("x | 0 = %d   (x)\n", x | 0);
   printf ("x | 1 = %d   (1)\n", x | 15);
   printf ("x | x = %d   (x)\n\n", x | x);
 
+  printf ("NOT\n");
+  printf ("~x = %d     ~(x)\n", ~x);
+  for (c = 3; c >= 0; --c)
+    printf ("get %d bit: %d\n", c, getbit (~x, c));
+
+  printf ("\n\n");
 
   printf ("x = %d (1010)\n", x = 10);
   for (c = 3; c >= 0; --c)
