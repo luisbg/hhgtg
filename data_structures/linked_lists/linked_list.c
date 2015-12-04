@@ -90,6 +90,41 @@ insert_after (node **l, int b, int n)
   return TRUE;
 }
 
+/* Insert at position */
+node *insert_at_position (node *head, int data,int pos){
+  node *run;
+  node *new_node = (node *) malloc (sizeof (node));
+  int c = 2;
+
+  if (!new_node)
+    return NULL;
+
+  new_node->n = data;
+  new_node->next = NULL;
+
+  if (head) {
+    if (pos == 1) {
+      new_node->next = head;
+      return new_node;
+    }
+
+    run = head;
+    while (run && c < pos) {
+      run = run->next;
+      c++;
+    }
+
+    if (!run)
+      return head;
+
+    new_node->next = run->next;
+    run->next = new_node;
+  } else {
+    return new_node;
+  }
+
+  return head;
+}
 
 /* Retrieve and remove the first item */
 bool
@@ -252,6 +287,14 @@ main ()
 
   printf ("remove item with value 7\n");
   remove_node (&list, 7);
+  travel (list);
+
+  printf ("add a 9 in position 3\n");
+  list = insert_at_position (list, 9, 3);
+  travel (list);
+
+  printf ("add a 8 in position 1\n");
+  list = insert_at_position (list, 8, 1);
   travel (list);
 
   pop (&list, &n);
