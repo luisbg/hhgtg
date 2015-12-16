@@ -61,7 +61,7 @@ insert_append (node ** l, int n)
 
 /* Insert after a certain element */
 bool
-insert_after (node **l, int b, int n)
+insert_after (node ** l, int b, int n)
 {
   printf ("insert %d after %d\n", n, b);
 
@@ -75,7 +75,7 @@ insert_after (node **l, int b, int n)
 
   if (*l) {
     run = *l;
-    while (run && run->n != b)         // find before element
+    while (run && run->n != b)  // find before element
       run = run->next;
 
     if (!run)
@@ -91,7 +91,9 @@ insert_after (node **l, int b, int n)
 }
 
 /* Insert at position */
-node *insert_at_position (node *head, int data,int pos){
+node *
+insert_at_position (node * head, int data, int pos)
+{
   node *run;
   node *new_node = (node *) malloc (sizeof (node));
   int c = 2;
@@ -135,7 +137,7 @@ dequeue (node ** l, int *value)
   if (*l) {
     *value = (*l)->n;
 
-    tmp = *l;             // pointer to first node
+    tmp = *l;                   // pointer to first node
     *l = tmp->next;
     free (tmp);
 
@@ -231,12 +233,12 @@ remove_node_at_position (node ** l, int n)
   if (*l) {                     // not an empty list
     run = *l;
 
-    if (n == 1) {          // if first node
+    if (n == 1) {               // if first node
       *l = run->next;           // list points to the second
       free (run);
     } else {
-      while (c < n) {       // find node
-        if (!run->next)   // node isn't in the list
+      while (c < n) {           // find node
+        if (!run->next)         // node isn't in the list
           return FALSE;
 
         run = run->next;
