@@ -224,6 +224,7 @@ remove_node (node ** l, int n)
   return TRUE;
 }
 
+/* remove the nth node */
 bool
 remove_node_at_position (node ** l, int n)
 {
@@ -252,6 +253,55 @@ remove_node_at_position (node ** l, int n)
   }
 
   return TRUE;
+}
+
+/* remove the nth node from the end of the list */
+node *
+remove_nth_from_end (node * head, int n)
+{
+  node *run, *tmp, *forward;
+  int c = 0;
+
+  if (!head)                    // input checking
+    return NULL;
+  if (n <= 0)
+    return head;
+
+  run = head;
+  forward = head;
+
+  if (n == 1) {                 // remove last element
+    while (run->next->next)
+      run = run->next;
+    free (run->next);
+    run->next = NULL;
+    return head;
+  }
+
+  while (c <= n) {              // run the forward runner ahead by n
+    if (forward == NULL) {
+      if (c == n) {             // first element is to be removed
+        tmp = head;
+        head = head->next;
+        free (tmp);
+      }
+      return head;
+    }
+
+    forward = forward->next;
+    c++;
+  }
+
+  while (forward != NULL) {     // find node
+    run = run->next;
+    forward = forward->next;
+  }
+
+  tmp = run->next;
+  run->next = run->next->next;  // make previous node point to next
+  free (tmp);
+
+  return head;
 }
 
 /* Reverse the order of the list */
@@ -331,6 +381,10 @@ main ()
 
   printf ("remove node at position 3\n");
   remove_node_at_position (&list, 3);
+  travel (list);
+
+  printf ("remove node at position 3 from end\n");
+  list = remove_nth_from_end (list, 3);
   travel (list);
 
   pop (&list, &n);

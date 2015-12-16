@@ -120,6 +120,7 @@ data_structures/strings/sorting_array_strings
 data_structures/strings/numbers_to_english
 data_structures/strings/first_non_repeating
 data_structures/strings/remove_duplicates
+data_structures/strings/palindromes
 data_structures/trees/balanced_from_sorted
 data_structures/trees/binary_tree
 data_structures/trees/binary_tree_measure
