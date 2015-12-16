@@ -222,6 +222,36 @@ remove_node (node ** l, int n)
   return TRUE;
 }
 
+bool
+remove_node_at_position (node ** l, int n)
+{
+  node *run, *tmp;
+  int c = 2;
+
+  if (*l) {                     // not an empty list
+    run = *l;
+
+    if (n == 1) {          // if first node
+      *l = run->next;           // list points to the second
+      free (run);
+    } else {
+      while (c < n) {       // find node
+        if (!run->next)   // node isn't in the list
+          return FALSE;
+
+        run = run->next;
+        c++;
+      }
+
+      tmp = run->next;
+      run->next = run->next->next;      // make previous node point to next
+      free (tmp);
+    }
+  }
+
+  return TRUE;
+}
+
 /* Reverse the order of the list */
 bool
 reverse_order (node ** l)
@@ -295,6 +325,10 @@ main ()
 
   printf ("add a 8 in position 1\n");
   list = insert_at_position (list, 8, 1);
+  travel (list);
+
+  printf ("remove node at position 3\n");
+  remove_node_at_position (&list, 3);
   travel (list);
 
   pop (&list, &n);
