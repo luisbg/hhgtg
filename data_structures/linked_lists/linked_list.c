@@ -323,6 +323,19 @@ reverse_order (node ** l)
   return TRUE;
 }
 
+/* return the number of elements in the list */
+int list_length (node * head)
+{
+    int c = 1;
+
+    while (head) {
+        head = head->next;
+        c++;
+    }
+
+    return c;
+}
+
 
 int
 main ()
@@ -344,12 +357,16 @@ main ()
   // travel the list
   travel (list);
 
+  printf ("list length is now %d\n\n", list_length (list));
+
   // remove all elements
   dequeue (&list, &n);
   printf ("remove first item: %d\n", n);
   dequeue (&list, &n);
   printf ("remove first item: %d\n", n);
   travel (list);
+
+  printf ("list length is now %d\n\n", list_length (list));
 
   // reverse order of list
   printf ("reverse order of list\n");
@@ -379,6 +396,8 @@ main ()
   list = insert_at_position (list, 8, 1);
   travel (list);
 
+  printf ("list length is now %d\n\n", list_length (list));
+
   printf ("remove node at position 3\n");
   remove_node_at_position (&list, 3);
   travel (list);
@@ -395,7 +414,9 @@ main ()
   printf ("remove first item: %d\n", n);
 
   if (pop (&list, &n))
-    printf ("remove last item: %d\n", n);
+    printf ("remove last item: %d\n\n", n);
+
+  printf ("list length is now %d\n\n", list_length (list));
 
   return 0;
 }
