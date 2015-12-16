@@ -124,7 +124,7 @@ data_structures/strings/palindromes
 data_structures/strings/balanced_parenthesis
 data_structures/trees/balanced_from_sorted
 data_structures/trees/binary_tree
-data_structures/trees/binary_tree_measure
+data_structures/trees/binary_tree_measure_and_sum
 data_structures/trees/breadth_first_search
 data_structures/trees/depth_first_search
 data_structures/trees/trie

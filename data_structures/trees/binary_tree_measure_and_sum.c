@@ -121,6 +121,16 @@ get_size (struct node *leaf)
   return 1 + lefts + rights;
 }
 
+/* sum all the values stored in the tree */
+int get_sum (node * leaf) {
+    if (!leaf)
+        return 0;
+
+    int lefts = get_sum (leaf->left);
+    int rights = get_sum (leaf->right);
+
+    return leaf->key + lefts + rights;
+}
 
 /* check if the leaf has balanced children */
 // this function calls same nodes repeatedly, sub-optimal O(n^2)
@@ -170,7 +180,9 @@ main ()
   printf ("max height is: %d\n", get_height (root));
   printf ("is it balanced? %s\n\n", is_balanced (root) ? "yes" : "no");
 
-  printf ("tree size is: %d\n", get_size (root));
+  printf ("tree size is: %d\n\n", get_size (root));
+
+  printf ("sum of all values in the tree: %d\n", get_sum (root));
 
   destroy_tree (root);
   return 0;

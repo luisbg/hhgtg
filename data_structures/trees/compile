@@ -2,7 +2,7 @@ gcc -Wall -O0 -ggdb binary_tree.c -o binary_tree
 gcc -Wall -O0 -ggdb depth_first_search.c -o depth_first_search
 gcc -Wall -O0 -ggdb -D DEBUG trie.c -o trie
 gcc -Wall -O0 -ggdb breadth_first_search.c -o breadth_first_search
-gcc -Wall -O0 -ggdb binary_tree_measure.c -o binary_tree_measure
+gcc -Wall -O0 -ggdb binary_tree_measure_and_sum.c -o binary_tree_measure_and_sum
 gcc -Wall -O0 -ggdb balanced_from_sorted.c -o balanced_from_sorted
 gcc -Wall -O0 -ggdb preorder_traversal_nonrecursive.c -o preorder_traversal_nonrecursive
 gcc -Wall -O0 -ggdb lowest_common_ancestor.c -o lowest_common_ancestor
