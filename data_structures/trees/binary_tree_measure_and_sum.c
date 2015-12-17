@@ -132,6 +132,21 @@ int get_sum (node * leaf) {
     return leaf->key + lefts + rights;
 }
 
+int
+number_of_half_nodes(struct node * root)
+{
+    if (!root)
+        return 0;
+
+    int lefts = number_of_half_nodes (root->left);
+    int rights = number_of_half_nodes (root->right);
+
+    if ((!root->left && root->right) || (root->left && !root->right))
+        return 1 + lefts + rights;
+    else
+        return lefts + rights;
+}
+
 /* check if the leaf has balanced children */
 // this function calls same nodes repeatedly, sub-optimal O(n^2)
 bool
@@ -181,6 +196,9 @@ main ()
   printf ("is it balanced? %s\n\n", is_balanced (root) ? "yes" : "no");
 
   printf ("tree size is: %d\n\n", get_size (root));
+
+  printf ("number of half nodes (only one child): %d\n\n",
+    number_of_half_nodes (root));
 
   printf ("sum of all values in the tree: %d\n", get_sum (root));
 
