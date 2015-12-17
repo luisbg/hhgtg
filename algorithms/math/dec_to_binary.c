@@ -17,7 +17,7 @@ dec_to_binary (int num)
   int digit = 1;
 
   while (num > 0) {
-    bin = ((num % 2) * digit) + (bin);
+    bin += (num % 2) * digit;
     num = num / 2;
     digit = digit * 10;
   }
@@ -25,13 +25,26 @@ dec_to_binary (int num)
   return bin;
 }
 
-/* test compute_binary */
+int
+to_binary_recursive (int num)
+{
+  if (num <= 0)
+    return 0;
+  else
+    /* Recursively keep calculating the remainder
+       and then move to the remaining part */
+    return (num % 2) + (10 * to_binary_recursive (num / 2));
+}
+
+
 int
 main ()
 {
   int i;
-  for (i = 0; i < 32; i++)
+  for (i = 0; i < 16; i++)
     printf ("%2d :: \t%6d\n", i, dec_to_binary (i));
+  for (; i < 32; i++)
+    printf ("%2d :: \t%6d\n", i, to_binary_recursive (i));
 
   return 0;
 }
