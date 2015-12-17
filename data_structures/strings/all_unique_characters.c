@@ -2,10 +2,14 @@
 /* What if you cannot use additional data structures?                         */
 
 #include <stdio.h>
+#include <stdlib.h>
+
+#define ASCII_SIZE 256
 
 typedef enum
 { FALSE, TRUE } bool;
 
+/* O(n^2) but no need for extra memory */
 bool
 all_unique_characters (char *str)
 {
@@ -14,12 +18,28 @@ all_unique_characters (char *str)
 
   int c;
   int n;
-  for (c = 0; str[c] != 0; c++) {
-    for (n = c + 1; str[n] != 0; n++) {
+  for (c = 0; str[c] != '\0'; c++) {
+    for (n = c + 1; str[n] != '\0'; n++) {
       if (str[c] == str[n]) {
         return FALSE;
       }
     }
+  }
+
+  return TRUE;
+}
+
+/* O(n) and saving a 256 byte array */
+bool
+all_unique_characters_using_memory (char *str)
+{
+  int c;
+  int *seen = (int *) calloc (ASCII_SIZE, sizeof (int));
+
+  for (c = 0; str[c] != '\0'; c++) {
+    if(seen[str[c]])
+      return FALSE;
+    seen[str[c]] = 1;
   }
 
   return TRUE;
@@ -37,4 +57,11 @@ main ()
   test = "world";
   printf ("%s :: unique characters: %s\n", test,
       all_unique_characters (test) ? "yes" : "no");
+
+  test = "strings";
+  printf ("%s :: unique characters: %s\n", test,
+      all_unique_characters_using_memory (test) ? "yes" : "no");
+  test = "chars";
+  printf ("%s :: unique characters: %s\n", test,
+      all_unique_characters_using_memory (test) ? "yes" : "no");
 }
