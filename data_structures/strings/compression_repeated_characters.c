@@ -30,7 +30,6 @@ compress_string (char *str, int len)
       nss++;
   }
 
-  printf ("%d %d\n", nss, len);
   if (nss < len) {
     char tmp;
     char *new = (char *) malloc (nss * sizeof (char));
@@ -40,12 +39,12 @@ compress_string (char *str, int len)
       if (chars[c] > 0) {
         new[pos++] = c;
         if (chars[c] < 10) {
-          sprintf (&tmp, "%d", chars[c]);
+          tmp = chars[c] + '0';
           new[pos++] = tmp;
         } else {
-          sprintf (&tmp, "%d", chars[c] / 10);
+          tmp = (chars[c] / 10) + '0';
           new[pos++] = tmp;
-          sprintf (&tmp, "%d", chars[c] % 10);
+          tmp = (chars[c] % 10) + '0';
           new[pos++] = tmp;
         }
       }
