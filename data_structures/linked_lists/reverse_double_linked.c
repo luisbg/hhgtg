@@ -33,9 +33,10 @@ reverse_list (Node * head)
 
 /* Insert a node at head of the list */
 Node *
-insert_node (Node * head, int data)
+prepend_node (Node * head, int data)
 {
   Node *tmp = (Node *) malloc (sizeof (Node));;
+
   tmp->data = data;
   tmp->prev = NULL;
   tmp->next = NULL;
@@ -78,8 +79,10 @@ Node*  append_node (Node* head, int data){
 void
 print_list (Node * head)
 {
-  if (head == NULL)
+  if (head == NULL) {
+    printf ("empty list\n");
     return;
+  }
 
   printf ("> ");
   while (head->next) {
@@ -124,20 +127,27 @@ int
 main ()
 {
   Node *head = NULL;
-  int c = 0;
-  int set[9] = { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+  int c;
+  int set[9] = { 0, 1, 2, 3, 4, 6, 7, 8, 9 };
 
   print_list (head);
   reverse_list (head);
   print_list (head);
   printf ("\n");
 
-  head = insert_node (head, 0);
+  head = prepend_node (head, 5);
   print_list (head);
   reverse_list (head);
   print_list (head);
   printf ("\n");
 
+  c = 4;
+  while (c >= 0) {
+    head = prepend_node (head, set[c]);
+    c--;
+  }
+
+  c = 5;
   while (c < 9) {
     head = append_node (head, set[c]);
     c++;
