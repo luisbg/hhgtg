@@ -49,6 +49,31 @@ insert_node (Node * head, int data)
   return tmp;
 }
 
+/* Insert a node at the tail of the list */
+Node*  append_node (Node* head, int data){
+    Node * new_node = (Node *) malloc (sizeof (Node));
+    Node * runner;
+
+    new_node->data = data;
+    new_node->next = NULL;
+
+    if (!head) {
+        new_node->prev = NULL;
+        new_node->next = NULL;
+
+        return new_node;
+    }
+
+    runner = head;
+    while (runner->next != NULL)
+        runner = runner->next;
+
+    runner->next = new_node;
+    new_node->prev = runner;
+
+    return head;
+}
+
 /* Print the values in the list */
 void
 print_list (Node * head)
@@ -114,7 +139,7 @@ main ()
   printf ("\n");
 
   while (c < 9) {
-    head = insert_node (head, set[c]);
+    head = append_node (head, set[c]);
     c++;
   }
 
