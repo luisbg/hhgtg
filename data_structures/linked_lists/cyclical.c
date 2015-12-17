@@ -93,6 +93,25 @@ find_cyclical (node * head)
   }
 }
 
+void
+print_cyclical (node * head)
+{
+  node *run = head->next;
+
+  if (!head) {
+    printf ("empty list");
+    return;
+  }
+
+  printf ("%d :", head->d);
+  while (run != head) {
+    printf ("%d :", run->d);
+    run = run->next;
+  }
+
+  printf ("\n\n");
+  return;
+}
 
 int
 main ()
@@ -113,12 +132,15 @@ main ()
   printf ("is it circular? %s\n", find_cyclical (l) ? "yes" : "no");
 
   make_circular (&l);
-  printf ("is it circular? %s\n", find_cyclical (l) ? "yes" : "no");
+  printf ("is it circular? %s\n\n", find_cyclical (l) ? "yes" : "no");
+  print_cyclical (l);
 
   m = circular_append (m, 10);
   m = circular_append (m, 11);
   m = circular_append (m, 12);
-  printf ("is it circular? %s\n", find_cyclical (m) ? "yes" : "no");
+  m = circular_append (m, 13);
+  printf ("is it circular? %s\n\n", find_cyclical (m) ? "yes" : "no");
+  print_cyclical (m);
 
   return 0;
 }
