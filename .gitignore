@@ -58,7 +58,7 @@ algorithms/math/coin_flipping
 algorithms/math/palindromes
 algorithms/math/trailing_zeros_factorial
 algorithms/math/lowest_common_terms
-algorithms/math/recursive_exponentiation
+algorithms/math/exponentiation
 algorithms/math/dec_to_binary
 algorithms/math/reverse_number
 algorithms/dynamic_programming/min_num_steps

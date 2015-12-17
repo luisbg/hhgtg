@@ -7,6 +7,6 @@ gcc -O0 -ggdb coin_flipping.c -o coin_flipping -lm
 gcc -O0 -ggdb palindromes.c -o palindromes -lm
 gcc -O0 -ggdb trailing_zeros_factorial.c -o trailing_zeros_factorial -lm
 gcc -O0 -ggdb lowest_common_terms.c -o lowest_common_terms
-gcc -O0 -ggdb recursive_exponentiation.c -o recursive_exponentiation
+gcc -O0 -ggdb exponentiation.c -o exponentiation
 gcc -O0 -ggdb dec_to_binary.c -o dec_to_binary
 gcc -O0 -ggdb reverse_number.c -o reverse_number
