@@ -39,10 +39,11 @@ prepend_node (Node * head, int data)
 
   tmp->data = data;
   tmp->prev = NULL;
-  tmp->next = NULL;
 
-  if (!head)
+  if (!head) {
+    tmp->next = NULL;
     return tmp;
+  }
 
   head->prev = tmp;
   tmp->next = head;
@@ -60,8 +61,6 @@ Node*  append_node (Node* head, int data){
 
     if (!head) {
         new_node->prev = NULL;
-        new_node->next = NULL;
-
         return new_node;
     }
 
