@@ -1,5 +1,5 @@
 /*  Find the missing numbers from B in A without changing up the order
- *  
+ *
  *  Run with: ./missing_numbers < missing_numbers_input.txt */
 
 #include <stdio.h>
@@ -15,7 +15,7 @@ check_missing (int *list_a, int *list_b, int low, int high)
   int c;
   int range = high - low;
 
-  // If the count is different print the number    
+  // If the count is different print the number
   for (c = 0; c < range; c++) {
     if (list_a[c] != list_b[c])
       printf ("%d ", c + low);
