@@ -12,4 +12,4 @@ gcc -O0 -ggdb numbers_to_english.c -o numbers_to_english
 gcc -O0 -ggdb first_non_repeating.c -o first_non_repeating
 gcc -O0 -ggdb remove_duplicates.c -o remove_duplicates
 gcc -O0 -ggdb palindromes.c -o palindromes
-gcc -O0 -ggdb balanced_parenthesis.c -o balance_parenthesis
+gcc -O0 -ggdb balanced_parenthesis.c -o balanced_parenthesis
