@@ -57,6 +57,29 @@ compress_string (char *str, int len)
   }
 }
 
+char *
+compress_blocks (char *text)
+{
+  char *temp = (char *) malloc (sizeof (char) * strlen (text));
+  int n, r;
+  int m = 0;
+  int pos = 0;
+
+  while (m < strlen (text)) {
+    n = m + 1;
+    r = 1;
+    for (r = 1; text[m] == text[n]; n++)
+      r++;
+
+    temp[pos++] = text[m];
+    if (r > 1)
+      temp[pos++] = r + '0';
+
+    m = n;
+  }
+
+  return temp;
+}
 
 int
 main ()
@@ -65,8 +88,16 @@ main ()
   printf ("%s :: compressed :: %s\n", test, compress_string (test,
           strlen (test)));
 
+  printf ("%s :: compressed blocks :: %s\n", test,
+      compress_blocks (test));
+
   test = "abbccdde";
   printf ("%s :: compressed :: %s\n", test, compress_string (test,
           strlen (test)));
 
+  test = "uuuseeerr";
+  printf ("%s :: compressed blocks :: %s\n", test,
+      compress_blocks (test));
+
+  return 0;
 }
