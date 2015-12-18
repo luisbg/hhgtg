@@ -53,6 +53,31 @@ circular_append (node * head, int data)
   return head;
 }
 
+static node *
+circular_remove_last (node * head)
+{
+  node *curr = NULL;
+
+  if (!head) {                  // empty list
+    return NULL;
+  }
+
+  curr = head->next;
+  if (curr == head) {           // one element
+    free (curr);
+    return NULL;
+  }
+
+  // more than one element, find the last one
+  while (curr->next->next != head) {
+    curr = curr->next;
+  }
+  free (curr->next);
+  curr->next = head;
+
+  return head;
+}
+
 /* Turn the list circular by having tail element point to the head */
 static void
 make_circular (node ** l)
@@ -140,6 +165,10 @@ main ()
   m = circular_append (m, 12);
   m = circular_append (m, 13);
   printf ("is it circular? %s\n\n", find_cyclical (m) ? "yes" : "no");
+  print_cyclical (m);
+
+  printf ("remove last\n");
+  circular_remove_last (m);
   print_cyclical (m);
 
   return 0;
