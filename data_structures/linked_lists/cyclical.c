@@ -25,7 +25,8 @@ lineal_prepend (node ** l, int d)
 }
 
 static node *
-circular_prepend (node * head, int d) {
+circular_prepend (node * head, int d)
+{
   node *new_node = (node *) malloc (sizeof (node));
   node *run;
 
@@ -33,8 +34,8 @@ circular_prepend (node * head, int d) {
   new_node->next = head;
 
   if (head == NULL) {
-      new_node->next = new_node;
-      return new_node;
+    new_node->next = new_node;
+    return new_node;
   }
 
   run = head->next;
