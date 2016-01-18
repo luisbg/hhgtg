@@ -11,7 +11,8 @@ typedef enum
   FALSE, TRUE
 } bool;
 
-bool is_palindrome (int num)
+bool
+is_palindrome (int num)
 {
   int num_digits;
   int tmp = num;
@@ -41,19 +42,20 @@ bool is_palindrome (int num)
     tmp--;
   }
 
-  free(digits);
+  free (digits);
 
   return TRUE;
 }
 
-unsigned long biggest_palindrome (int top)
+unsigned long
+biggest_palindrome (int top)
 {
   int c, d;
   unsigned long biggest = 0;
   unsigned long prod;
 
-  for (d = top; d > (sqrt(top) * 2); d--) {
-    for (c = top; c > (sqrt(top) * 2); c--) {
+  for (d = top; d > (sqrt (top) * 2); d--) {
+    for (c = top; c > (sqrt (top) * 2); c--) {
       prod = c * d;
       if (is_palindrome (prod))
         break;
@@ -61,7 +63,7 @@ unsigned long biggest_palindrome (int top)
 
     if (prod > biggest) {
       biggest = prod;
-      printf ("%d, %d\n", d, c);
+      // printf ("%d, %d\n", d, c);
     }
   }
 
@@ -69,11 +71,14 @@ unsigned long biggest_palindrome (int top)
   return biggest;
 }
 
-int main ()
+int
+main ()
 {
-  printf ("is %d a palindrome? %s\n", 1234, is_palindrome (1234)? "yes" : "no");
-  printf ("is %d a palindrome? %s\n", 1331, is_palindrome (1331)? "yes" : "no");
-  printf ("is %d a palindrome? %s\n", 1, is_palindrome (1)? "yes" : "no");
+  printf ("is %d a palindrome? %s\n", 1234,
+      is_palindrome (1234) ? "yes" : "no");
+  printf ("is %d a palindrome? %s\n", 1331,
+      is_palindrome (1331) ? "yes" : "no");
+  printf ("is %d a palindrome? %s\n", 1, is_palindrome (1) ? "yes" : "no");
 
   printf ("largest palindrome of two digit numbers: %d\n",
       biggest_palindrome (999));
