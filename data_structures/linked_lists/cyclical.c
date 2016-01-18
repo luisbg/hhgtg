@@ -16,12 +16,33 @@ typedef struct node
 
 /* Insert value at the head of the list */
 static void
-prepend (node ** l, int d)
+lineal_prepend (node ** l, int d)
 {
   node *new = (node *) malloc (sizeof (node));
   new->d = d;
   new->next = *l;
   *l = new;
+}
+
+static node *
+circular_prepend (node * head, int d) {
+  node *new_node = (node *) malloc (sizeof (node));
+  node *run;
+
+  new_node->d = d;
+  new_node->next = head;
+
+  if (head == NULL) {
+      new_node->next = new_node;
+      return new_node;
+  }
+
+  run = head->next;
+  while (run->next != head)
+    run = run->next;
+  run->next = new_node;
+
+  return new_node;
 }
 
 /* Insert value at the tail of the circular list
@@ -143,16 +164,16 @@ main ()
 {
   node *l = NULL;
   node *m = NULL;
-  prepend (&l, 9);
-  prepend (&l, 8);
-  prepend (&l, 7);
-  prepend (&l, 6);
-  prepend (&l, 5);
-  prepend (&l, 4);
-  prepend (&l, 3);
-  prepend (&l, 2);
-  prepend (&l, 1);
-  prepend (&l, 0);
+  lineal_prepend (&l, 9);
+  lineal_prepend (&l, 8);
+  lineal_prepend (&l, 7);
+  lineal_prepend (&l, 6);
+  lineal_prepend (&l, 5);
+  lineal_prepend (&l, 4);
+  lineal_prepend (&l, 3);
+  lineal_prepend (&l, 2);
+  lineal_prepend (&l, 1);
+  lineal_prepend (&l, 0);
 
   printf ("is it circular? %s\n", find_cyclical (l) ? "yes" : "no");
 
@@ -160,10 +181,11 @@ main ()
   printf ("is it circular? %s\n\n", find_cyclical (l) ? "yes" : "no");
   print_cyclical (l);
 
-  m = circular_append (m, 10);
   m = circular_append (m, 11);
   m = circular_append (m, 12);
   m = circular_append (m, 13);
+  m = circular_append (m, 14);
+  m = circular_prepend (m, 10);
   printf ("is it circular? %s\n\n", find_cyclical (m) ? "yes" : "no");
   print_cyclical (m);
 
