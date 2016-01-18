@@ -100,6 +100,29 @@ circular_remove_last (node * head)
   return head;
 }
 
+static node *
+circular_remove_first (node * head)
+{
+  node *curr;
+
+  if (!head)                    // empty list
+    return NULL;
+
+  if (head == head->next) {     // one element
+    free (head);
+    return NULL;
+  }
+  // more than one element, find last to make it point to the new head
+  curr = head->next;
+  while (curr->next != head) {
+    curr = curr->next;
+  }
+  curr->next = head->next;
+  free (head);
+
+  return curr->next;
+}
+
 /* Turn the list circular by having tail element point to the head */
 static void
 make_circular (node ** l)
@@ -193,6 +216,12 @@ main ()
   printf ("remove last\n");
   circular_remove_last (m);
   print_cyclical (m);
+
+  printf ("remove first\n");
+  m = circular_remove_first (m);
+  printf ("is it circular? %s\n", find_cyclical (m) ? "yes" : "no");
+  print_cyclical (m);
+
 
   return 0;
 }
