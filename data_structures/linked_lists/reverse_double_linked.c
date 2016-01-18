@@ -35,7 +35,7 @@ reverse_list (Node * head)
 Node *
 prepend_node (Node * head, int data)
 {
-  Node *tmp = (Node *) malloc (sizeof (Node));;
+  Node *tmp = (Node *) malloc (sizeof (Node));
 
   tmp->data = data;
   tmp->prev = NULL;
