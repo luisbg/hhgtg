@@ -21,22 +21,21 @@ bool is_palindrome (int num)
   for (num_digits = 0; tmp > 0; num_digits++) {
     tmp = tmp / 10;
   }
-
   int *digits = (int *) malloc (num_digits * sizeof (int));
 
-  tmp = num_digits;
-  for (i = 0; tmp > 0; tmp--) {
-    th = pow (10, tmp - 1);
-    digits[i] = num / th;
-    num = num % th;
-    i++;
+  tmp = num;
+  for (i = 0; i < num_digits; i++) {
+    digits[i] = tmp % 10;
+    tmp = tmp / 10;
   }
 
   tmp = num_digits - 1;
   i = 0;
   while (i < tmp) {
-    if (digits[i] != digits[tmp])
+    if (digits[i] != digits[tmp]) {
+      free (digits);
       return FALSE;
+    }
 
     i++;
     tmp--;
@@ -72,6 +71,10 @@ unsigned long biggest_palindrome (int top)
 
 int main ()
 {
+  printf ("is %d a palindrome? %s\n", 1234, is_palindrome (1234)? "yes" : "no");
+  printf ("is %d a palindrome? %s\n", 1331, is_palindrome (1331)? "yes" : "no");
+  printf ("is %d a palindrome? %s\n", 1, is_palindrome (1)? "yes" : "no");
+
   printf ("largest palindrome of two digit numbers: %d\n",
       biggest_palindrome (999));
 
