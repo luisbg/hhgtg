@@ -12,3 +12,4 @@ gcc -Wall -O0 -ggdb join_trees.c -o join_trees
 gcc -Wall -O0 -ggdb b_tree.c -o b_tree
 gcc -Wall -O0 -ggdb display_paths.c -o display_paths
 gcc -Wall -O0 -ggdb compare_trees.c -o compare_trees
+gcc -Wall -O0 -ggdb mirrors.c -o mirrors
