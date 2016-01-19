@@ -95,6 +95,27 @@ void permute (char * str, int size)
   do_permute (str, out, size, used, 0);
 }
 
+/* iterative permutation */
+void
+permute_iterative_size_3 (char *str)
+{
+  int size = 3;
+  char tmp[4];
+  int m, n, o;
+
+  for (m = 0; m < size; m++)
+    for (n = 0; n < size; n++)
+      if (n != m)
+        for (o = 0; o < size; o++)
+          if (o != n && o != m) {
+            tmp[0] = str[m];
+            tmp[1] = str[n];
+            tmp[2] = str[o];
+
+            printf ("%s\n", tmp);
+          }
+}
+
 
 int
 main ()
@@ -118,7 +139,7 @@ main ()
 
   heap_permute (&str, size, size);
 
-  printf (" \ndirect:\n \n");
+  printf ("\ndirect:\n");
 
   size = 4;
   tmp = "0123";
@@ -126,6 +147,9 @@ main ()
     str[c] = tmp[c];
 
   permute (str, size);
+
+  printf ("\niterative:\n");
+  permute_iterative_size_3 ("abc");
 
   return 0;
 }
