@@ -5,3 +5,4 @@ gcc -Wall -O0 -ggdb lattice_paths.c -o lattice_paths -Wall
 gcc -Wall -O0 -ggdb bucket_fill.c -o bucket_fill -Wall
 gcc -Wall -O0 -ggdb shortest_path_steps.c -o shortest_path_steps -Wall
 gcc -Wall -O0 -ggdb adjacency_matrix.c -o adjacency_matrix -Wall
+gcc -Wall -O0 -ggdb dijkstra.c -o dijkstra -Wall

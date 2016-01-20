@@ -145,6 +145,7 @@ data_structures/graph/lattice_paths
 data_structures/graph/bucket_fill
 data_structures/graph/shortest_path_steps
 data_structures/graph/adjacency_matrix
+data_structures/graph/dijkstra
 threads/array_powers_with_threads
 threads/array_powers_without_threads
 threads/create_threads
