@@ -2,6 +2,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
+
 
 typedef struct node
 {
@@ -203,6 +205,9 @@ void
 init_map (int w, int h, bool map[w][h])
 {
   int c, r;
+
+  /* use time as seed for pseud-randomness */
+  srand (time (NULL));
 
   for (r = 0; r < h; r++) {
     for (c = 0; c < w; c++) {
