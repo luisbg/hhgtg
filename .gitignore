@@ -108,6 +108,7 @@ data_structures/queues/queue
 data_structures/queues/array_implemented_queue
 data_structures/queues/random_queue
 data_structures/queues/priority_queue
+data_structures/queues/binomial_heap
 data_structures/strings/all_unique
 data_structures/strings/compression_repeated_characters
 data_structures/strings/contained
