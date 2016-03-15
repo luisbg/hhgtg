@@ -39,11 +39,13 @@ bh_t *bh_init ();
 void bh_push (bh_t * H, int k, char *label);
 bh_node_t *bh_min (bh_t * H);
 bh_node_t *bh_pop_min (bh_t * H);
+void bh_delete (bh_t * H, bh_node_t * x);
 
 void bn_link (bh_node_t * y, bh_node_t * z);
 bh_node_t *bh_merge (bh_t * H1, bh_t * H2);
 bh_node_t *bh_union (bh_t * H1, bh_t * H2);
 bh_node_t *bh_reverse (bh_node_t * x);
+void bh_decrease_key (bh_t * H, bh_node_t * x, int k);
 
 
 bh_t *
@@ -268,6 +270,37 @@ bh_reverse (bh_node_t * x)
   }
 
   return prev_x;
+}
+
+void
+bh_decrease_key (bh_t * H, bh_node_t * x, int k)
+{
+  bh_node_t *y;
+  bh_node_t *z;
+  int tmp;
+
+  if (k > x->key) {
+    printf ("Error! Value can't be bigger than current");
+  } else {
+    x->key = k;
+    y = x;
+    z = y->p;
+
+    while ((z != NULL) && (y->key < z->key)) {
+      tmp = y->key;
+      y->key = z->key;
+      z->key = tmp;
+      y = z;
+      z = y->p;
+    }
+  }
+}
+
+void
+bh_delete (bh_t * H, bh_node_t * x)
+{
+  bh_decrease_key (H, x, -2147483646);
+  bh_pop_min (H);
 }
 
 
