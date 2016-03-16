@@ -100,7 +100,7 @@ void
 permute_iterative_size_3 (char *str)
 {
   int size = 3;
-  char tmp[4];
+  char tmp[3];
   int m, n, o;
 
   for (m = 0; m < size; m++)
