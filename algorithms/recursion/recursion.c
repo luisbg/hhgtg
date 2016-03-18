@@ -54,5 +54,8 @@ main ()
 
   print_num_reverse (0);
   printf ("\n");
+
+  recurse (0);
+
   return 0;
 }
