@@ -18,7 +18,8 @@ void print_combo (int digits, int step[digits])
   printf("\n");
 }
 
-void generate_recurse (int digits, int step[digits], int range, int level)
+void generate_recurse (int digits, int step[digits], int set_size,
+                       int set[set_size], int level)
 {
   int i;
 
@@ -27,25 +28,33 @@ void generate_recurse (int digits, int step[digits], int range, int level)
     return;
   }
 
-  for (i = 0; i <= range; i++) {
-    step[level] = i;
-    generate_recurse (digits, step, range, level + 1);
+  for (i = 0; i < set_size; i++) {
+    step[level] = set[i];
+    generate_recurse (digits, step, set_size, set, level + 1);
   }
 }
 
-void generate_combinations (int digits, int step[digits], int range)
+void generate_combinations (int digits, int step[digits], int set_size,
+                            int set[set_size])
 {
-  generate_recurse (digits, step, range, 0);
+  generate_recurse (digits, step, set_size, set, 0);
 }
 
 int
 main ()
 {
-  int digits = 4;
+  int digits = 2;
   int step[digits];
-  int range = 3;
+  int set_size = 8;
+  int num_set[set_size];
+  int i;
 
-  generate_combinations (digits, step, range);
+  for (i = 0; i < set_size; i++) {
+    num_set[i] = i;
+  }
+
+  /* generate combination of octal numbers */
+  generate_combinations (digits, step, set_size, num_set);
 
   return 0;
 }
