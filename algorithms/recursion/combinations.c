@@ -13,7 +13,7 @@ void print_combo (int digits, int step[digits])
   int i;
 
   for (i = 0; i < digits; i++) {
-    printf("%d ", step[i]);
+    (step[i] < 10) ? printf("%d ", step[i]) : printf("%c ", step[i]);
   }
   printf("\n");
 }
@@ -55,6 +55,20 @@ main ()
 
   /* generate combination of octal numbers */
   generate_combinations (digits, step, set_size, num_set);
+
+  printf("\n");
+
+  /* generate padlock combinations when it is 4 wheels of A to C */
+  digits = 3;
+  set_size = 3;
+  int second_step[digits];
+  int letter_set[set_size];
+
+  for (i = 0; i < set_size; i++) {
+    letter_set[i] = 'A' + i;
+  }
+
+  generate_combinations (digits, second_step, set_size, letter_set);
 
   return 0;
 }
