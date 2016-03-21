@@ -1,4 +1,4 @@
-/* Non-unique combinations of X values in Y digits
+/* Non-unique combinations of X values in Y positions
  * Also known as Multisubsets
  * or k-combination with repetitions, or k-multicombination
  *
@@ -8,43 +8,46 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void print_combo (int digits, int step[digits])
+void
+print_combo (int positions, int combo[positions])
 {
   int i;
 
-  for (i = 0; i < digits; i++) {
-    (step[i] < 10) ? printf("%d ", step[i]) : printf("%c ", step[i]);
+  for (i = 0; i < positions; i++) {
+    (combo[i] < 10) ? printf ("%d ", combo[i]) : printf ("%c ", combo[i]);
   }
-  printf("\n");
+  printf ("\n");
 }
 
-void generate_recurse (int digits, int step[digits], int set_size,
-                       int set[set_size], int level)
+void
+generate_recurse (int positions, int combo[positions], int set_size,
+    int set[set_size], int level)
 {
   int i;
 
-  if (level == digits) {
-    print_combo (digits, step);
+  if (level == positions) {
+    print_combo (positions, combo);
     return;
   }
 
   for (i = 0; i < set_size; i++) {
-    step[level] = set[i];
-    generate_recurse (digits, step, set_size, set, level + 1);
+    combo[level] = set[i];
+    generate_recurse (positions, combo, set_size, set, level + 1);
   }
 }
 
-void generate_combinations (int digits, int step[digits], int set_size,
-                            int set[set_size])
+void
+generate_combinations (int positions, int combo[positions], int set_size,
+    int set[set_size])
 {
-  generate_recurse (digits, step, set_size, set, 0);
+  generate_recurse (positions, combo, set_size, set, 0);
 }
 
 int
 main ()
 {
-  int digits = 2;
-  int step[digits];
+  int positions = 2;
+  int combo[positions];
   int set_size = 8;
   int num_set[set_size];
   int i;
@@ -54,21 +57,21 @@ main ()
   }
 
   /* generate combination of octal numbers */
-  generate_combinations (digits, step, set_size, num_set);
+  generate_combinations (positions, combo, set_size, num_set);
 
-  printf("\n");
+  printf ("\n");
 
   /* generate padlock combinations when it is 4 wheels of A to C */
-  digits = 3;
+  positions = 3;
   set_size = 3;
-  int second_step[digits];
+  int second_combo[positions];
   int letter_set[set_size];
 
   for (i = 0; i < set_size; i++) {
     letter_set[i] = 'A' + i;
   }
 
-  generate_combinations (digits, second_step, set_size, letter_set);
+  generate_combinations (positions, second_combo, set_size, letter_set);
 
   return 0;
 }
