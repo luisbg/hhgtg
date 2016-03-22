@@ -56,12 +56,12 @@ main ()
     num_set[i] = i;
   }
 
-  /* generate combination of octal numbers */
+  printf("generate combination of octal numbers\n");
   generate_combinations (positions, combo, set_size, num_set);
 
   printf ("\n");
 
-  /* generate padlock combinations when it is 4 wheels of A to C */
+  printf("generate padlock combinations when it is 4 wheels of A to C\n");
   positions = 3;
   set_size = 3;
   int second_combo[positions];
