@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 void
 print_combo (int positions, int combo[positions])
@@ -43,6 +44,29 @@ generate_combinations (int positions, int combo[positions], int set_size,
   generate_recurse (positions, combo, set_size, set, 0);
 }
 
+/* only supports combinations of 3 positions */
+void
+iterative_combinations (int set_size, int set[set_size])
+{
+  int n;
+  int pos_0 = 0, pos_1 = 0, pos_2 = 0;
+
+  for (n = 0; n < pow (set_size, 3); n++) {
+    printf ("%c %c %c\n", set[pos_0], set[pos_1], set[pos_2]);
+
+    pos_2++;
+    if (pos_2 == 3) {
+      pos_2 = 0;
+
+      pos_1++;
+      if (pos_1 == 3) {
+        pos_1 = 0;
+        pos_0++;
+      }
+    }
+  }
+}
+
 int
 main ()
 {
@@ -56,12 +80,9 @@ main ()
     num_set[i] = i;
   }
 
-  printf("generate combination of octal numbers\n");
+  printf ("generate combination of octal numbers\n");
   generate_combinations (positions, combo, set_size, num_set);
 
-  printf ("\n");
-
-  printf("generate padlock combinations when it is 4 wheels of A to C\n");
   positions = 3;
   set_size = 3;
   int second_combo[positions];
@@ -71,7 +92,15 @@ main ()
     letter_set[i] = 'A' + i;
   }
 
+  printf ("\ngenerate padlock combinations when it is 4 wheels of A to C\n");
   generate_combinations (positions, second_combo, set_size, letter_set);
+
+  for (i = 0; i < set_size; i++) {
+    letter_set[i] = 'X' + i;
+  }
+
+  printf ("\ngenerate padlock combinations iteratively\n");
+  iterative_combinations (set_size, letter_set);
 
   return 0;
 }

@@ -5,4 +5,4 @@ gcc -Wall -O0 -ggdb permutations.c -o permutations
 gcc -Wall -O0 -ggdb telephone_words.c -o telephone_words
 gcc -Wall -O0 -ggdb max_by_divide_and_conquer.c -o max_by_divide_and_conquer
 gcc -Wall -O0 -ggdb max_pyramid_run.c -o max_pyramid_run
-gcc -Wall -O0 -ggdb combinations.c -o combinations
+gcc -Wall -O0 -ggdb combinations.c -o combinations -lm
