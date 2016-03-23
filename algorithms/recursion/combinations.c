@@ -44,51 +44,33 @@ generate_combinations (int positions, int combo[positions], int set_size,
   generate_recurse (positions, combo, set_size, set, 0);
 }
 
-/* only supports combinations of 3 positions */
 void
 iterative_combinations (int set_size, int set[set_size], int positions)
 {
-  int n;
-  int val[3];
-  int c[3];
-  int pos;
+  int n, i;
+  int val[positions];
+  int c[positions];
 
   /* init c[] */
-  for (n = 0; n < set_size; ++n) {
+  for (n = 0; n < positions; ++n) {
     c[n] = 0;
     val[n] = 0;
   }
 
   /* generate combinations */
   for (n = 0; n < pow (set_size, positions); n++) {
-    printf ("%c %c %c\n", set[val[0]], set[val[1]], set[val[2]]);
+    for (i = 0; i < positions; i++) {
+      printf ("%c ", set[val[i]]);
 
-    pos = 0;
-    c[2]++;
-    if (c[2] == pow (set_size, pos)) {
-      c[2] = 0;
-      val[2]++;
-      if (val[2] == set_size)
-        val[2] = 0;
+      c[i]++;
+      if (c[i] == pow (set_size, (positions - 1 - i))) {
+        c[i] = 0;
+        val[i]++;
+        if (val[i] == set_size)
+          val[i] = 0;
+      }
     }
-
-    pos++;
-    c[1]++;
-    if (c[1] == pow (set_size, pos)) {
-      c[1] = 0;
-      val[1]++;
-      if (val[1] == set_size)
-        val[1] = 0;
-    }
-
-    pos++;
-    c[0]++;
-    if (c[0] == pow (set_size, pos)) {
-      c[0] = 0;
-      val[0]++;
-      if (val[0] == set_size)
-        val[0] = 0;
-    }
+    printf ("\n");
   }
 }
 
@@ -109,7 +91,7 @@ main ()
   generate_combinations (positions, combo, set_size, num_set);
 
   positions = 3;
-  set_size = 3;
+  set_size = 4;
   int second_combo[positions];
   int letter_set[set_size];
 
@@ -121,7 +103,7 @@ main ()
   generate_combinations (positions, second_combo, set_size, letter_set);
 
   for (i = 0; i < set_size; i++) {
-    letter_set[i] = 'X' + i;
+    letter_set[i] = 'Q' + i;
   }
 
   printf ("\ngenerate padlock combinations iteratively\n");
