@@ -20,10 +20,7 @@ balanced (char *str)
     c++;
   }
 
-  if (balance == 0)
-    return 1;
-  else
-    return 0;
+  return balance == 0;
 }
 
 
