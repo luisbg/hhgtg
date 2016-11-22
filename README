@@ -3,3 +3,18 @@ HipHacker's Guide To The Galaxy
 
 A collection of Computer Science fundamental Algorithms, Data Structures,
 and Concepts.
+
+To build and play with HHGTG,
+first install the Meson Build System
+# apt-get install meson
+
+then build the sources
+$ meson build
+$ cd build/
+$ ninja
+
+(now you can run any executable in the build directory, for example:)
+$ ./algorithms/dynamic_programming/lakes
+
+(to rebuild from source folder)
+$ ninja -C build/

@@ -80,6 +80,7 @@ bit_manipulation/count_ones
 bit_manipulation/power_of_2
 bit_manipulation/palindromes
 bit_manipulation/swap_odd_even_bits
+build/
 data_structures/arrays/dynamic_array
 data_structures/arrays/rotate_90_degrees
 data_structures/arrays/zero_out
