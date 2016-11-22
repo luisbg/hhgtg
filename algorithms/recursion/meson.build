@@ -1,0 +1,11 @@
+cc = meson.get_compiler('c')
+m_dep = cc.find_library('m', require : false)
+
+executable('binary_search', 'binary_search.c')
+executable('combinations', 'combinations.c', dependencies : m_dep)
+executable('hanoi_towers', 'hanoi_towers.c')
+executable('max_by_divide_and_conquer', 'max_by_divide_and_conquer.c')
+executable('max_pyramid_run', 'max_pyramid_run.c')
+executable('permutations', 'permutations.c')
+executable('recursion', 'recursion.c')
+executable('telephone_words', 'telephone_words.c')

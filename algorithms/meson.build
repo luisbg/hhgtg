@@ -1,2 +1,6 @@
 subdir('dynamic_programming')
 subdir('math')
+subdir('other')
+subdir('recursion')
+subdir('search')
+subdir('sorting')
