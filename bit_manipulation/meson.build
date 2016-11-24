@@ -1,0 +1,7 @@
+executable('bit_manipulation', 'bit_manipulation.c')
+executable('contain_m_n', 'contain_m_n.c')
+executable('count_ones', 'count_ones.c')
+executable('bit_palindromes', 'palindromes.c')
+executable('power_of_2', 'power_of_2.c')
+executable('sign', 'sign.c')
+executable('swap_odd_even_bits', 'swap_odd_even_bits.c')

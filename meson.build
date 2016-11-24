@@ -4,3 +4,4 @@ project('hhgtg', 'c', 'cpp',
   default_options : ['warning_level=1'])
 
 subdir('algorithms')
+subdir('bit_manipulation')
