@@ -96,7 +96,7 @@ int main ()
     if (is_palindrome_n (n)) {
       binary = in_binary (n, binary);
       if (is_palindrome_bin (binary)) {
-        printf ("%d: ", n);      
+        printf ("%d: ", n);
         print_binary (binary);
         sum += n;
       }
