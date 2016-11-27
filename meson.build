@@ -6,3 +6,4 @@ project('hhgtg', 'c', 'cpp',
 subdir('algorithms')
 subdir('bit_manipulation')
 subdir('C')
+subdir('C++')

@@ -1,0 +1,4 @@
+executable('class_and_inheritance', 'class_and_inheritance.cpp')
+executable('operator_overloading', 'operator_overloading.cpp')
+executable('templates', 'templates.cpp')
+executable('virtual_functions', 'virtual_functions.cpp')
