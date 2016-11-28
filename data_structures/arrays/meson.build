@@ -1,0 +1,7 @@
+executable('bit_vector', 'bit_vector.c')
+executable('business_tasks', 'business_tasks.c')
+executable('dynamic_array', 'dynamic_array.c')
+executable('number_spiral', 'number_spiral.c')
+executable('rotate_90_degrees', 'rotate_90_degrees.c')
+executable('rotate_array', 'rotate_array.c')
+executable('zero_out', 'zero_out.c')

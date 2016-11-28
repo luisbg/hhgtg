@@ -1,0 +1,8 @@
+subdir('arrays')
+subdir('graph')
+subdir('hash_table')
+subdir('linked_lists')
+subdir('queues')
+subdir('stacks')
+subdir('strings')
+subdir('trees')

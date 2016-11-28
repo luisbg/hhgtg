@@ -1,0 +1,5 @@
+executable('array_implemented_queue', 'array_implemented_queue.c')
+executable('binomial_heap', 'binomial_heap.c')
+executable('priority_queue', 'priority_queue.c')
+executable('queue', 'queue.c')
+executable('random_queue', 'random_queue.c')

@@ -1,0 +1,8 @@
+executable('adjacency_list', 'adjacency_list.c')
+executable('adjacency_list_connected_nodes', 'adjacency_list_connected_nodes.c')
+executable('adjacency_list_search', 'adjacency_list_search.c')
+executable('adjacency_matrix', 'adjacency_matrix.c')
+executable('bucket_fill', 'bucket_fill.c')
+executable('dijkstra', 'dijkstra.c')
+executable('lattice_paths', 'lattice_paths.c')
+executable('shortest_path_steps', 'shortest_path_steps.c')

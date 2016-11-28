@@ -1,0 +1,6 @@
+executable('infix_postfix_calculations', 'infix_postfix_calculations.c')
+executable('several_stacks', 'several_stacks.c')
+executable('sorting_with_two_stacks', 'sorting_with_two_stacks.c')
+executable('split_array_stack', 'split_array_stack.c')
+executable('stack', 'stack.c')
+executable('stack_min', 'stack_min.c')
