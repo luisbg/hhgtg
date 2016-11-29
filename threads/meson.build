@@ -1,0 +1,12 @@
+pthread = cc.find_library('pthread', required : false)
+glib_dep = dependency('glib-2.0')
+
+executable('array_powers_with_threads', 'array_powers_with_threads.c', dependencies : pthread)
+executable('array_powers_without_threads', 'array_powers_without_threads.c', dependencies : pthread)
+executable('buffer_sharing', 'buffer_sharing.c', dependencies : pthread)
+executable('condition', 'condition.c', dependencies : pthread)
+executable('create_threads', 'create_threads.c', dependencies : pthread)
+executable('glib_threads', 'glib_threads.c', dependencies : glib_dep)
+executable('join', 'join.c', dependencies : pthread)
+executable('mutex', 'mutex.c', dependencies : pthread)
+executable('semaphore', 'semaphore.c', dependencies : pthread)
