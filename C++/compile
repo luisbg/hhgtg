@@ -1,4 +1,0 @@
-g++ class_and_inheritance.c -o class_and_inheritance
-g++ virtual_functions.c -o virtual_functions
-g++ operator_overloading.c -o operator_overloading
-g++ templates.c -o templates

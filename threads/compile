@@ -1,9 +1,0 @@
-gcc array_powers_without_threads.c -o array_powers_without_threads -Wall -lpthread
-gcc array_powers_with_threads.c -o array_powers_with_threads -Wall -lpthread
-gcc create_threads.c -o create_threads -Wall -lpthread
-gcc mutex.c -o mutex -Wall -lpthread
-gcc join.c -o join -Wall -lpthread
-gcc condition.c -o condition -Wall -lpthread
-gcc -O0 -ggdb `pkg-config --libs --cflags glib-2.0` glib_threads.c -o glib_threads
-gcc -O0 -ggdb buffer_sharing.c -o buffer_sharing -Wall -lpthread
-gcc -O0 -ggdb semaphore.c -o semaphore -Wall -lpthread
