@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 
 void
@@ -65,11 +66,13 @@ array_volume (int *elevations, int *volumes, int size)
 int
 main ()
 {
-  int size = 10000;
+  int size = 20;
   int *elevations = (int *) malloc (size * sizeof (int));
   int *volumes = (int *) malloc (size * sizeof (int));
 
   int i, sum_volumes;
+
+  srand(time(NULL));
 
   for (i = 0; i < size; i++) {  // populate elevations and init volumes
     elevations[i] = rand () % 10;
