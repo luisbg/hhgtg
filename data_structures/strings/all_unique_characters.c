@@ -37,9 +37,9 @@ all_unique_characters_using_memory (char *str)
   int *seen = (int *) calloc (ASCII_SIZE, sizeof (int));
 
   for (c = 0; str[c] != '\0'; c++) {
-    if(seen[str[c]])
+    if(seen[(int) str[c]])
       return FALSE;
-    seen[str[c]] = 1;
+    seen[(int) str[c]] = 1;
   }
 
   return TRUE;

@@ -17,16 +17,17 @@ compress_string (char *str, int len)
 {
   int chars[ASCII_SIZE] = { 0 };
 
-  int c;
+  int c, ascii_code;
   int nss = 0;
   for (c = 0; c < len; c++) {
-    if (chars[str[c]] == 0) {   /* a new character */
+    ascii_code = str[c];
+    if (chars[ascii_code] == 0) {   /* a new character */
       nss += 2;                 /* needs to spaces in the compressed str */
     }
 
-    chars[str[c]]++;
+    chars[ascii_code]++;
 
-    if (chars[str[c]] >= 10)    /* one more if a two digit number */
+    if (chars[ascii_code] >= 10)    /* one more if a two digit number */
       nss++;
   }
 
