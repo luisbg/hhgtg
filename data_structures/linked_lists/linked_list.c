@@ -305,22 +305,19 @@ remove_nth_from_end (node * head, int n)
 }
 
 /* Reverse the order of the list */
-bool
-reverse_order (node ** l)
+node *
+reverse_order (node * l)
 {
-  node *tmp;
   node *new_head = NULL;        // set new_head to NULL in case list is emtpy
 
-  while (*l) {
-    tmp = *l;
-    *l = (*l)->next;
+  while (l) {
+    node *tmp = l;
+    l = l->next;
     tmp->next = new_head;
     new_head = tmp;
   }
 
-  *l = new_head;
-
-  return TRUE;
+  return new_head;
 }
 
 /* return the number of elements in the list */
@@ -370,7 +367,7 @@ main ()
 
   // reverse order of list
   printf ("reverse order of list\n");
-  reverse_order (&list);
+  list = reverse_order (list);
   travel (list);
 
   printf ("remove item with value 3\n");
