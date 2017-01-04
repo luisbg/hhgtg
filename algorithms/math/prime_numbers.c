@@ -46,6 +46,7 @@ generate_primes_window (int start, int end, bool * primes)
 
   if (start < 3) {
     printf ("Use regular eratosthenes if you want to start from 1 or 2\n");
+    free (primes);
     return;
   }
 
