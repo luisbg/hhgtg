@@ -16,7 +16,8 @@ write (char *file_path)
 {
   FILE *fp;
   example_struct data[10];
-  int i, w;
+  int i;
+  // int w;
 
   fp = fopen (file_path, "w+b");
   if (fp == NULL) {
@@ -31,9 +32,9 @@ write (char *file_path)
     data[i].n = i * 20;
 
     /* write data */
-    w = fwrite (&data[i], sizeof (example_struct), 1, fp);
-    // printf ("wrote %d\n", w);
-    printf ("position %d\n", ftell (fp));
+    fwrite (&data[i], sizeof (example_struct), 1, fp);
+    // printf ("wrote %d\n", w);  // w is the return of fwrite(), amount written
+    printf ("position %ld\n", ftell (fp));
   }
 
   fclose (fp);
@@ -57,7 +58,7 @@ read (char *file_path)
     fread (&data, sizeof (example_struct), 1, fp);
 
     printf ("%d: %s :: %d\n", i, data.txt, data.m);
-    printf ("position %d\n", ftell (fp));
+    printf ("position %ld\n", ftell (fp));
   }
 
   fclose (fp);
@@ -81,7 +82,7 @@ read_backwards (char *file_path)
     fread (&data, sizeof (example_struct), 1, fp);
 
     printf ("%d: %s :: %d\n", i, data.txt, data.m);
-    printf ("position %d\n", ftell (fp));
+    printf ("position %ld\n", ftell (fp));
   }
 
   fclose (fp);
