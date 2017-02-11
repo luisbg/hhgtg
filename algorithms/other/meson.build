@@ -9,3 +9,4 @@ executable('mapreduce_word_frequency', 'mapreduce_word_frequency.c',
 executable('months_starting_on_weekday', 'months_starting_on_weekday.c')
 executable('shuffle_cards', 'shuffle_cards.c')
 executable('subsets', 'subsets.c')
+executable('neighbour_areas', 'neighbour_areas.c')
