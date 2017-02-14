@@ -159,3 +159,4 @@ threads/glib_threads
 threads/buffer_sharing
 threads/semaphore
 *~
+*swp
