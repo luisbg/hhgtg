@@ -20,6 +20,24 @@ void rotate_left(int arraylist[], int sz, int k){
     }
 }
 
+int find_min_element_rotated (int arrayList[], int sz) {
+  int beg = 0;
+  int end = sz - 1;
+  int mid;
+
+  while (beg < end - 1) {
+    mid = (beg + end) / 2;
+
+    if (arrayList[mid] > arrayList[end]) {
+      beg = mid;
+    } else {
+      end = mid;
+    }
+  }
+
+  return end;
+}
+
 void print_array (int arrayList[], int sz)
 {
   int i;
@@ -55,6 +73,9 @@ int main ()
   printf ("list rotated by %d:\n", k);
   rotate_left (array, sz, k);
   print_array (array, sz);
+
+  k = find_min_element_rotated (array, sz);
+  printf ("\nsmallest item is: %d\nat position %d\n", array[k], k);
 
   return 0;
 }
