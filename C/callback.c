@@ -20,6 +20,16 @@ generate_key (void)
   return (rand () % 89999) + 10000;
 }
 
+/* Callback with parameters */
+int
+sum (int a, int b)
+{
+  return a + b;
+}
+
+/* Prototype declaration */
+int (*callback_with_args) (int, int);
+
 /* Here we call print_a_number() with two different callbacks. */
 int
 main (void)
@@ -31,6 +41,9 @@ main (void)
 
   printf ("5 digit key: ");
   print_a_number (&generate_key);
+
+  callback_with_args = &sum;
+  printf ("Sum of %d and %d: %d\n", 1, 2, callback_with_args (1, 2));
 
   return 0;
 }
