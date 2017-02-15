@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /* trim: remove trailing blanks, tabs, newlines */
@@ -17,9 +18,14 @@ trim (char s[])
 int
 main ()
 {
-  char s[11] = "test\n \n ";
+  // char s[11] = "test\n \n ";
+  char *s = (char *) malloc (42 * sizeof (char));
+
+  printf ("Enter a text to trim (max 42 char long): ");
+  scanf ("%42s", s);
+
   trim (s);
-  printf ("%s.\n", s);
+  printf ("Trimmed: %s\n", s);
 
   return 0;
 }
