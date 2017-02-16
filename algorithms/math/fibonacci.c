@@ -15,8 +15,7 @@ fibonacci_recursive (int i)     // O(n^2)
 }
 
 unsigned long long
-fibonacci_dynamic (unsigned long long i, int size,
-    unsigned long long fib[size])       // O(n)
+fibonacci_dynamic (unsigned long long i, unsigned long long fib[])      // O(n)
 {
   if (i < 0)
     return -1;
@@ -29,8 +28,7 @@ fibonacci_dynamic (unsigned long long i, int size,
     return fib[i];
 
   // cache result
-  fib[i] = fibonacci_dynamic (i - 1, size, fib) +
-      fibonacci_dynamic (i - 2, size, fib);
+  fib[i] = fibonacci_dynamic (i - 1, fib) + fibonacci_dynamic (i - 2, fib);
   return fib[i];
 }
 
@@ -44,7 +42,7 @@ main ()
     unsigned long long *fib = (unsigned long long *) calloc (seq[c] + 1,
         sizeof (unsigned long long));
     printf ("fibonnaci number %d: %lld\n", seq[c],
-        fibonacci_dynamic (seq[c], seq[c], fib));
+        fibonacci_dynamic (seq[c], fib));
     free (fib);
   }
 }
