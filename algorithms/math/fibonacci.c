@@ -32,6 +32,26 @@ fibonacci_dynamic (unsigned long long i, unsigned long long fib[])      // O(n)
   return fib[i];
 }
 
+unsigned long long
+fibonacci_iterative (int i)
+{
+  if (i < 0)
+    return -1;
+
+  if (i == 0)
+    return 0;
+
+  unsigned long long a = 0, b = 1, tmp;
+
+  for (int c = 1; c < i; c++) {
+    tmp = a;
+    a = b;
+    b = tmp + b;
+  }
+
+  return b;
+}
+
 int
 main ()
 {
@@ -44,5 +64,7 @@ main ()
     printf ("fibonnaci number %d: %lld\n", seq[c],
         fibonacci_dynamic (seq[c], fib));
     free (fib);
+
+    // printf("%lld\n", fibonacci_iterative (seq[c]));
   }
 }
