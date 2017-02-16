@@ -5,10 +5,11 @@
 int
 fibonacci_recursive (int i)     // O(n^2)
 {
-  if (i == 0)
-    return 0;
-  if (i == 1)
-    return 1;
+  if (i < 0)
+    return -1;
+
+  if (i == 0 || i == 1)
+    return i;
 
   return fibonacci_recursive (i - 1) + fibonacci_recursive (i - 2);
 }
@@ -17,10 +18,11 @@ unsigned long long
 fibonacci_dynamic (unsigned long long i, int size,
     unsigned long long fib[size])       // O(n)
 {
-  if (i == 0)
-    return 0;
-  if (i == 1)
-    return 1;
+  if (i < 0)
+    return -1;
+
+  if (i == 0 || i == 1)
+    return i;
 
   // return cache
   if (fib[i] != 0)
