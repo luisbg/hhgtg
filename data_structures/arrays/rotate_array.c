@@ -51,9 +51,12 @@ void print_array (int arrayList[], int sz)
 void generate_list (int arrayList[], int sz)
 {
   int i;
+  int val = rand () % sz;
 
-  for (i = 0; i < sz; i++)
-    arrayList[i] = i;
+  for (i = 0; i < sz; i++) {
+    arrayList[i] = val;
+    val += rand () % sz;
+  }
 }
 
 int main ()
