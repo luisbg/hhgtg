@@ -8,16 +8,13 @@ typedef enum
 } bool;
 
 
-bool is_it_prime (int n)
+bool
+is_it_prime (int n)
 {
-  int c;  // counter
-  int sqr;  // square root of n
-
   if (n < 2)
     return FALSE;
 
-  sqr = (int) sqrt(n);  // assuming it is in int range since square root of an int
-  for (c = 2; c <= sqr; c++) {
+  for (int c = 2; c * c <= n; c++) {
     if (n % c == 0)
       return FALSE;
   }
@@ -34,7 +31,6 @@ bool is_it_prime_eratosthenes (int n)
   int c, d; // counters
   if (n < 2)
     return FALSE;
-
 
   int sqr = (int) sqrt(n); // square root of n
   bool *primes = (bool *) malloc (n * sizeof (bool));
