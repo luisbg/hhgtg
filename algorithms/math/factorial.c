@@ -1,42 +1,51 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-unsigned long
+uint64_t
 factorial (int n)
 {
+  if (n < 0 || n > 20)
+    return -1;
+
   if (n == 0)
     return 1;
 
   return n * factorial (n - 1);
 }
 
-unsigned long
-do_all_factorials (int n, unsigned long *results, int level)
+uint64_t
+do_all_factorials (int n, uint64_t *results, int level)
 {
   if (n > 1)                    // recursive case
     results[level] = n * do_all_factorials (n - 1, results, level + 1);
-  else {
+  else
     results[level] = 1;
-    return 1;
-  }
+
+  return results[level];
 }
 
-unsigned long *
+uint64_t *
 all_factorials (int n)
 {
-  unsigned long *results = (unsigned long *) malloc (n *
-      sizeof (unsigned long));
+  if (n < 0 || n > 20)
+    return NULL;
+
+  uint64_t *results = (uint64_t *) malloc (n *
+      sizeof (uint64_t));
   do_all_factorials (n, results, 0);
+
   return results;
 }
 
-unsigned long
+uint64_t
 factorial_iterative (int n)
 {
-  int c;
-  unsigned long ret = 1;
-  for (c = n; c > 1; c--)       // 0 or 1 fall through
+  uint64_t ret = 1;
+
+  for (int c = n; c > 1; c--)       // 0 or 1 fall through
     ret *= c;
+
   return ret;
 }
 
@@ -44,9 +53,8 @@ int
 main ()
 {
   int set[10] = { 1, 2, 3, 5, 8, 10, 12, 15, 18, 20 };
-  int c;
 
-  for (c = 0; c < 10; c++) {
+  for (int c = 0; c < 10; c++) {
     if (c % 2 == 0)
       printf ("factorial of %d: %ld\n", set[c], factorial (set[c]));
     else
@@ -55,10 +63,10 @@ main ()
 
   int n = 20;
   int lvl;
-  unsigned long *results = (unsigned long *) malloc (n *
-      sizeof (unsigned long));
+  uint64_t *results = (uint64_t *) malloc (n *
+      sizeof (uint64_t));
   results = all_factorials (n);
-  for (c = 0; c < 20; c++) {
+  for (int c = 0; c < 20; c++) {
     lvl = (n - c) % n;
     if (!lvl)
       lvl = 20;
