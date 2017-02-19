@@ -1,5 +1,6 @@
 import random
 
+
 class Person:
     """Person class"""
 
@@ -12,7 +13,7 @@ class Person:
         self.id = random.randint(0, 10000)
 
     def about_me(self):
-        print "I am a person," + str(self.age) + " years old."
+        print "I am a person, {} years old".format(self.age)
 
     def get_age(self):
         return self.age
@@ -20,14 +21,15 @@ class Person:
     def get_id(self):
         return self.id
 
+
 class Student(Person):
     def __init__(self, age, course):
         Person.__init__(self, age)
         self.course = course
 
     def about_me(self):
-        print "I am a astudent in grade " + str(self.course) + " with age " + \
-                str(self.get_age())
+        print "I am a student in grade {} with age {}".format(self.course,
+                                                              self.get_age())
 
     def set_course(self, c):
         self.course = c
@@ -36,9 +38,11 @@ class Student(Person):
 if __name__ == '__main__':
     p = Person(33)
     p.about_me()
-    print "id: " + str(p.get_id())
+    print "id: {}".format(p.get_id())
 
     s = Student(33, 11)
     s.set_course(10)
     s.about_me()
-    print "id: " + str(s.get_id())
+    # old style print format
+    print "id: %d" % s.get_id()
+
