@@ -20,7 +20,25 @@ class Person:
     def get_id(self):
         return self.id
 
+class Student(Person):
+    def __init__(self, age, course):
+        Person.__init__(self, age)
+        self.course = course
+
+    def about_me(self):
+        print "I am a astudent in grade " + str(self.course) + " with age " + \
+                str(self.get_age())
+
+    def set_course(self, c):
+        self.course = c
+
+
 if __name__ == '__main__':
     p = Person(33)
     p.about_me()
     print "id: " + str(p.get_id())
+
+    s = Student(33, 11)
+    s.set_course(10)
+    s.about_me()
+    print "id: " + str(s.get_id())
