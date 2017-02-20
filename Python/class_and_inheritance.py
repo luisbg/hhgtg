@@ -10,7 +10,8 @@ class Person:
     def __init__(self, age):
         # specific to each instance
         self.age = age
-        self.id = random.randint(0, 10000)
+        # underscores are the convention for private variables
+        self.__id = random.randint(0, 10000)
 
     def about_me(self):
         print "I am a person, {} years old".format(self.age)
@@ -19,7 +20,7 @@ class Person:
         return self.age
 
     def get_id(self):
-        return self.id
+        return self.__id
 
 
 class Student(Person):
