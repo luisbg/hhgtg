@@ -44,9 +44,10 @@ bool is_it_prime_eratosthenes (int n)
 
   for (c = 2; c <= sqr; c++) { // run through primes and multiples of them.
     if (primes[c]) {           // mark the multiples as not primes.
-      if (n % c == 0)
+      if (n % c == 0) {
+        free (primes);
         return FALSE;
-      else {
+      } else {
         for (d = 2; (d * c) < sqr; d++) {
           primes[d*c] = FALSE;
         }
