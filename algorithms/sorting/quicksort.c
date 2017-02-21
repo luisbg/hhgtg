@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 
 typedef struct node
@@ -16,7 +17,7 @@ typedef struct stack
 
 void quicksort (int *l, int low, int high);
 void quicksort_non_recursive (int *l, int low, int high);
-static void swap (int *a, int *b);
+static void swap (int arr[], int a, int b);
 // static int get_middle_pivot (int low, int high);
 static int get_best_of_three_pivot (int *l, int low, int high);
 static int partition (int *l, int low, int high);
@@ -74,39 +75,39 @@ quicksort_non_recursive (int *l, int low, int high)
 
 /* partition values smaller than k to the left and bigger than k to the right */
 static int
-partition (int *l, int low, int high)
+partition (int *arr, int low, int high)
 {
   int c;
   int middle;
 
-  int k = get_best_of_three_pivot (l, low, high);
-  int pivot = l[k];
-  swap (&l[low], &l[k]);        // move pivot out of array to order
+  int k = get_best_of_three_pivot (arr, low, high);
+  int pivot = arr[k];
+  swap (arr, low, k);           // move pivot out of array to order
 
   c = low + 1;
   middle = high;
   while (c <= middle)           // run the array
   {
-    while ((c <= high) && (l[c] <= pivot))      // before pivot
+    while ((c <= high) && (arr[c] <= pivot))    // before pivot
       c++;
-    while ((middle >= low) && (l[middle] > pivot))      // after pivot
+    while ((middle >= low) && (arr[middle] > pivot))    // after pivot
       middle--;
     if (c < middle)
-      swap (&l[c], &l[middle]);
+      swap (arr, c, middle);
   }
 
-  swap (&l[low], &l[middle]);   // bring the pivot to its place
+  swap (arr, low, middle);      // bring the pivot to its place
 
   return middle;
 }
 
 /* swap values with auxiliary memory */
 static void
-swap (int *a, int *b)
+swap (int arr[], int a, int b)
 {
-  int tmp = *a;
-  *a = *b;
-  *b = tmp;
+  int tmp = arr[a];
+  arr[a] = arr[b];
+  arr[b] = tmp;
 }
 
 /* push data to stack for iterative quicksort */
@@ -206,6 +207,9 @@ main ()
   int l[50];
   int size = 50;
   int c;
+
+  srand (time (NULL));
+
   for (c = 0; c < size; c++)
     l[c] = rand () % 100;
 
