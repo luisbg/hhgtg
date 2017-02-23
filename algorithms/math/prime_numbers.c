@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h> /* needed for sqrt() */
 
 typedef enum
 {
@@ -26,37 +25,28 @@ is_it_prime (int n)
 // memory issues.
 // Specially suited when a cache needs to be generated to check if a series of
 // numbers are prime.
-bool is_it_prime_eratosthenes (int n)
+void
+generate_eratosthenes (int max, bool * primes)
 {
-  int c, d; // counters
-  if (n < 2)
-    return FALSE;
-
-  int sqr = (int) sqrt(n); // square root of n
-  bool *primes = (bool *) malloc (n * sizeof (bool));
-
-  for (c = 0; c < n; c++)  // array of primes n might be divisible by
+  primes[0] = FALSE;
+  primes[1] = FALSE;
+  for (int c = 2; c < max; c++) // init all to prime
     primes[c] = TRUE;
 
-  for (c = 4; c < sqr; c += 2) { // set all odd numbers past 2 as non-prime
-    primes[c] = FALSE;
-  }
-
-  for (c = 2; c <= sqr; c++) { // run through primes and multiples of them.
-    if (primes[c]) {           // mark the multiples as not primes.
-      if (n % c == 0)
-        return FALSE;
-      else {
-        for (d = 2; (d * c) < sqr; d++) {
-          primes[d*c] = FALSE;
-        }
+  for (int c = 2; c * c < max; c++) {   // run through primes and multiples of them.
+    if (primes[c]) {            // mark the multiples as not primes.
+      for (int d = c + c; d < max; d += c) {
+        primes[d] = FALSE;
       }
     }
   }
 
-  free (primes);
+}
 
-  return TRUE;
+bool
+is_it_prime_eratosthenes (int n, bool * primes)
+{
+  return primes[n];
 }
 
 int main ()
@@ -65,14 +55,17 @@ int main ()
   int max = 1000; // speed test with 1 thousand
   int found = 0;
 
+  bool *primes = (bool *) malloc (max * 8 * sizeof (bool));
+  generate_eratosthenes (max * 8, primes);
+
   printf ("list %d first primes:\n", max);
   for (n = 1; found < max; n++) {
-    if (is_it_prime (n)) {
-    // if (is_it_prime_eratosthenes (n)) {
+    if (is_it_prime_eratosthenes (n, primes)) {
       printf ("%d ", n);
       found++;
     }
   }
 
-  printf ("\n");
+  free (primes);
+  return 0;
 }
