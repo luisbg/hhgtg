@@ -38,6 +38,35 @@ generate_eratosthenes (int max, bool * primes)
 
 }
 
+void
+generate_primes_window (int start, int end, bool * primes)
+{
+  if (start >= end)
+    return;
+
+  if (start < 3) {
+    printf ("Use regular eratosthenes if you want to start from 1 or 2\n");
+    return;
+  }
+
+  for (int c = 0; c < (end - start); c++) {
+    primes[c] = true;
+  }
+
+  for (int c = 2; (c * c) <= end; c++) {
+    for (int d = start; d < end; d++) {
+      if (primes[d - start] && (d % c == 0)) {
+        while (d < end) {
+          primes[d - start] = false;
+          d += c;
+        }
+
+        break;
+      }
+    }
+  }
+}
+
 bool
 is_it_prime_eratosthenes (int n, bool * primes)
 {
@@ -48,6 +77,7 @@ int
 main ()
 {
   int n;
+  int start = 100, end = 200;
   int max = 1000;               // speed test with 1 thousand
   int found = 0;
 
@@ -60,6 +90,16 @@ main ()
       printf ("%d ", n);
       found++;
     }
+  }
+  printf ("\n");
+
+  bool *window = (bool *) malloc ((end - start) * sizeof (bool));
+  generate_primes_window (start, end, window);
+
+  printf ("The window %d to %d has the following primes:\n", start, end);
+  for (int i = start; i < end; i++) {
+    if (window[i - start])
+      printf ("%d ", i);
   }
   printf ("\n");
 
