@@ -306,18 +306,19 @@ remove_nth_from_end (node * head, int n)
 
 /* Reverse the order of the list */
 node *
-reverse_order (node * l)
+reverse_order (node * curr)
 {
-  node *new_head = NULL;        // set new_head to NULL in case list is emtpy
+  node *prev = NULL;            // set prev to NULL in case list is emtpy
+  node *next_tmp;
 
-  while (l) {
-    node *tmp = l;
-    l = l->next;
-    tmp->next = new_head;
-    new_head = tmp;
+  while (curr) {
+    next_tmp = curr->next;
+    curr->next = prev;
+    prev = curr;
+    curr = next_tmp;
   }
 
-  return new_head;
+  return prev;
 }
 
 /* return the number of elements in the list */
