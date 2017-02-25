@@ -27,9 +27,9 @@ create_graph (int vertices)
   graph_t *graph = (graph_t *) malloc (sizeof (graph_t));;
   graph->num_vertices = vertices;
 
-  //int graph[V][V];
+  //int graph[verties][vertices];
   graph->adj = malloc (vertices * sizeof (bool *));
-  for (i = 0; i < V; i++)
+  for (i = 0; i < vertices; i++)
     graph->adj[i] = calloc (vertices, sizeof (bool));
 
   // All vertixes are connected with themselves
