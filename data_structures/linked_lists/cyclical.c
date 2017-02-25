@@ -141,25 +141,20 @@ make_circular (node ** l)
 bool
 find_cyclical (node * head)
 {
-  node *slower, *faster;
-  slower = head;
-  faster = head->next;          // start faster one node ahead
+  node *faster = head;
 
   while (TRUE) {
     // if the faster pointer encounters a NULL element
     if (!faster || !faster->next)
       return FALSE;
 
-    // if faster pointer ever equals slower or faster's next
-    // pointer is ever equal to slow then it's a circular list
-    else if (faster == slower || faster->next == slower)
-      return TRUE;
+    // advance the pointers
+    head = head->next;
+    faster = faster->next->next;
 
-    else {
-      // advance the pointers
-      slower = slower->next;
-      faster = faster->next->next;
-    }
+    // if faster pointer ever equals slower then it's a circular list
+    if (faster == head)
+      return TRUE;
   }
 }
 
