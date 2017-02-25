@@ -15,19 +15,17 @@ char
 first_non_repeat (char *in)
 {
   int *charcount = (int *) calloc (sizeof (char) << 8, sizeof (int));
-  int len;
-  int i;
+  int len, i;
 
   // count the occurrences of each char
   for (i = 0; in[i]; i++) {
-    charcount[in[i]]++;
+    charcount[(int) in[i]]++;
   }
 
-
   // find the first char in the string with one ocurrence
-  len = i - 1;
+  len = i;
   for (i = 0; i < len; i++)
-    if (charcount[in[i]] == 1) {
+    if (charcount[(int) in[i]] == 1) {
       free (charcount);
       return in[i];
     }
@@ -48,12 +46,12 @@ first_non_repeat_long (char *in)
 
   // run through character type range checking if seen and repeated
   for (i = 0; in[i]; i++) {
-    if (!rep_count[in[i]].repeated) {
-      if (!rep_count[in[i]].seen) {
-        rep_count[in[i]].seen = true;
-        rep_count[in[i]].pos = i;
+    if (!rep_count[(int) in[i]].repeated) {
+      if (!rep_count[(int) in[i]].seen) {
+        rep_count[(int) in[i]].seen = true;
+        rep_count[(int) in[i]].pos = i;
       } else
-        rep_count[in[i]].repeated = true;
+        rep_count[(int) in[i]].repeated = true;
     }
   }
 
@@ -82,5 +80,10 @@ main ()
   str = "this is a much longer string that might be longer than two hundred fifty six characters";
   printf ("the first non-repeating character of: %s\nis: %c\n",
       str, first_non_repeat_long (str));
+
+  str = "should be last character .boud. x";
+  printf ("the first non-repeating character of: %s\nis: %c\n",
+      str, first_non_repeat (str));
+
   return 0;
 }
