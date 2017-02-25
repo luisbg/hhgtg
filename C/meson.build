@@ -1,3 +1,5 @@
+subdir('GLib')
+
 executable('atoi', 'atoi.c')
 executable('C_binary_search', 'binary_search.c')
 executable('character_counting', 'character_counting.c')
