@@ -74,7 +74,8 @@ get_intersecting_node (ListNode * headA, ListNode * headB)
 }
 
 bool
-insert_append (ListNode ** l, int val)
+append_node_intersecting (ListNode ** list_a, ListNode ** list_b, int val,
+    bool intersect)
 {
   ListNode *run;
   ListNode *new_node = (ListNode *) malloc (sizeof (ListNode));
@@ -84,31 +85,6 @@ insert_append (ListNode ** l, int val)
   new_node->val = val;
   new_node->next = NULL;
 
-  if (*l) {
-    run = *l;
-    while (run->next)           // go to last node
-      run = run->next;
-
-    run->next = new_node;       // append new_node as next of last
-  } else {
-    *l = new_node;
-  }
-
-  return true;
-}
-
-bool
-create_intersecting_node (ListNode ** list_a, ListNode ** list_b, int val)
-{
-  ListNode *run;
-  ListNode *new_node = (ListNode *) malloc (sizeof (ListNode));
-  if (!new_node)
-    return false;
-
-  new_node->val = val;
-  new_node->next = NULL;
-
-  // a
   if (*list_a) {
     run = *list_a;
     while (run->next)
@@ -119,15 +95,16 @@ create_intersecting_node (ListNode ** list_a, ListNode ** list_b, int val)
     *list_a = new_node;
   }
 
-  // b
-  if (*list_b) {
-    run = *list_b;
-    while (run->next)
-      run = run->next;
+  if (intersect) {              // if intersecting same as above for b
+    if (*list_b) {
+      run = *list_b;
+      while (run->next)
+        run = run->next;
 
-    run->next = new_node;
-  } else {
-    *list_b = new_node;
+      run->next = new_node;
+    } else {
+      *list_b = new_node;
+    }
   }
 
   return true;
@@ -149,9 +126,9 @@ main ()
 
   printf ("appending 0..2 in first list, and 5..10 in the second\n");
   for (int i = 0; i < 3; i++)
-    insert_append (&list_a, i);
+    append_node_intersecting (&list_a, NULL, i, false);
   for (int i = 5; i < 11; i++)
-    insert_append (&list_b, i);
+    append_node_intersecting (&list_b, NULL, i, false);
 
   intersect = get_intersecting_node (list_a, list_b);
   if (intersect)
@@ -160,7 +137,7 @@ main ()
     printf ("no intersection node\n\n");
 
   printf ("creating an insterting node with value 42\n");
-  create_intersecting_node (&list_a, &list_b, 42);
+  append_node_intersecting (&list_a, &list_b, 42, true);
 
   intersect = get_intersecting_node (list_a, list_b);
   if (intersect)
@@ -170,7 +147,7 @@ main ()
 
   printf ("appending 21..23 to the first list\n");
   for (int i = 21; i < 24; i++)
-    insert_append (&list_a, i);
+    append_node_intersecting (&list_a, NULL, i, false);
 
   intersect = get_intersecting_node (list_a, list_b);
   if (intersect)
