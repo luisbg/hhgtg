@@ -18,20 +18,24 @@ typedef struct stack_min
   node *min;    // minimum element linked list
 } stack_min;
 
-void push (stack_min * s, int data);
-int pop (stack_min * s);
-int peek (stack_min s);
-int min (stack_min s);
+void stack_min_push (stack_min * s, int data);
+int stack_min_pop (stack_min * s);
+int stack_min_peek_top (stack_min s);
+int stack_min_get_min (stack_min s);
 
 // three regular stack functions: push, pop, free
-void stack_push (node ** stack, int data) {
+void
+stack_push (node ** stack, int data)
+{
   node *new_node = (node *) malloc (sizeof (node));
   new_node->data = data;
   new_node->next = *stack;
   *stack = new_node;
 }
 
-int stack_pop (node ** stack) {
+int
+stack_pop (node ** stack)
+{
   int val;
 
   node *tmp = (*stack)->next;
@@ -42,7 +46,9 @@ int stack_pop (node ** stack) {
   return val;
 }
 
-void stack_free (node * head) {
+void
+stack_free (node * head)
+{
   node *tmp;
 
   while (head) {
@@ -56,28 +62,27 @@ void stack_free (node * head) {
 
 /* push data to the top of the min stack */
 void
-push (stack_min * s, int data)
+stack_min_push (stack_min * s, int data)
 {
   stack_push (&(s->top), data);
 
   // Only need to store if new minimum, the rest will never be minimum later on
-  if (data < min (*s)) {
-     stack_push (&(s->min), data);
+  if (data < stack_min_get_min (*s)) {
+    stack_push (&(s->min), data);
   }
 }
 
 /* get element from top of the min stack */
 int
-pop (stack_min * s)
+stack_min_pop (stack_min * s)
 {
   int value = -1;
 
   if (s->top) {
     value = stack_pop (&(s->top));
   }
-
   // if value is the minimum, next minimum in stack->min is minimum now
-  if (value == min (*s)) {
+  if (value == stack_min_get_min (*s)) {
     stack_pop (&(s->min));
   }
 
@@ -86,7 +91,7 @@ pop (stack_min * s)
 
 /* peek at the smallest element contained in the min stack */
 int
-min (stack_min s)
+stack_min_get_min (stack_min s)
 {
   if (!s.min) {
     return MAX;
@@ -97,7 +102,7 @@ min (stack_min s)
 
 /* peek at top of the min stack */
 int
-peek (stack_min s)
+stack_min_peek_top (stack_min s)
 {
   if (s.top)
     return s.top->data;
@@ -105,13 +110,16 @@ peek (stack_min s)
     return -1;
 }
 
-void stack_min_free (stack_min *s)
+void
+stack_min_free (stack_min * s)
 {
   stack_free (s->top);
   stack_free (s->min);
 }
 
-stack_min stack_min_init () {
+stack_min
+stack_min_init ()
+{
   stack_min s;
   s.top = NULL;
   s.min = NULL;
@@ -122,31 +130,32 @@ stack_min stack_min_init () {
 int
 main ()
 {
-  stack_min s = stack_min_init();
+  stack_min s = stack_min_init ();
 
   printf ("push: %d\n", 2);
-  push (&s, 2);
+  stack_min_push (&s, 2);
   printf ("push: %d\n", 3);
-  push (&s, 3);
+  stack_min_push (&s, 3);
   printf ("push: %d\n", 1);
-  push (&s, 1);
+  stack_min_push (&s, 1);
   printf ("\n");
 
-  printf ("min: %d\n", min (s));
-  printf ("pop: %d\n", pop (&s));
-  printf ("min: %d\n", min (s));
-  printf ("pop: %d\n", pop (&s));
-  printf ("min: %d\n", min (s));
+  printf ("min: %d\n", stack_min_get_min (s));
+  printf ("pop: %d\n", stack_min_pop (&s));
+  printf ("min: %d\n", stack_min_get_min (s));
+  printf ("peek top: %d\n", stack_min_peek_top (s));
+  printf ("pop: %d\n", stack_min_pop (&s));
+  printf ("min: %d\n", stack_min_get_min (s));
   printf ("\n");
 
   printf ("push: %d\n", 4);
-  push (&s, 4);
+  stack_min_push (&s, 4);
   printf ("push: %d\n", 5);
-  push (&s, 5);
+  stack_min_push (&s, 5);
   printf ("\n");
 
-  printf ("pop: %d\n", pop (&s));
-  printf ("min: %d\n", min (s));
+  printf ("pop: %d\n", stack_min_pop (&s));
+  printf ("min: %d\n", stack_min_get_min (s));
 
   stack_min_free (&s);
 
