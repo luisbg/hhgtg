@@ -68,9 +68,6 @@ MergeLists (Node * headA, Node * headB)
   Node *head = NULL;
   Node *tmp = NULL;
 
-  if (!headA || !headB)
-    return NULL;
-
   while (headA && headB) {      // run through both lists until one is empty
     if (headA->data < headB->data) {    // appending the smallest new head
       tmp = RemoveHead (&headA);
