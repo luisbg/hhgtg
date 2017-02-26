@@ -10,6 +10,8 @@ typedef struct ListNode
   struct ListNode *next;
 } ListNode;
 
+
+// unused but keeping it for future reference
 bool
 check_if_lists_intersect (ListNode * headA, ListNode * headB)
 {
@@ -44,11 +46,11 @@ get_intersecting_node (ListNode * headA, ListNode * headB)
   ListNode *run_a = headA;
   ListNode *run_b = headB;
 
-  if (check_if_lists_intersect (headA, headB) == false)
-    return NULL;
-
   int len_a = get_list_length (headA);
   int len_b = get_list_length (headB);
+
+  if (len_a == 0 || len_b == 0)
+    return NULL;
 
   while (len_a != len_b) {
     if (len_a > len_b) {
@@ -63,6 +65,9 @@ get_intersecting_node (ListNode * headA, ListNode * headB)
   while (run_a != run_b) {
     run_a = run_a->next;
     run_b = run_b->next;
+
+    if (!run_a || !run_b)
+      return NULL;
   }
 
   return run_a;
