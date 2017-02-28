@@ -48,13 +48,40 @@ two_sum (int *numbers, int numbers_size, int target)
   return NULL;
 }
 
+int *
+two_sum_direct (int *numbers, int numbers_size, int target)
+{
+  int start = 0;
+  int end = numbers_size - 1;
+  int tmp;
+
+  while (start < end) {
+    // printf ("s %d  e %d\n", start, end);
+    tmp = numbers[start] + numbers[end];
+    if (tmp == target) {
+      int *ret = (int *) malloc (2 * sizeof (int));
+      ret[0] = start;
+      ret[1] = end;
+
+      return ret;
+    }
+
+    else if (tmp < target)
+      start++;
+    else
+      end--;
+  }
+
+  return NULL;
+}
+
 
 int
 main ()
 {
   int nums[7] = { 2, 1, 11, 15, 17, 20, 23 };
 
-  int *ts = two_sum (nums, 7, 31);
+  int *ts = two_sum_direct (nums, 7, 31);
   printf ("indices that sum 31 in the following array:\n");
   for (int i = 0; i < 7; i++)
     printf ("%d ", nums[i]);
