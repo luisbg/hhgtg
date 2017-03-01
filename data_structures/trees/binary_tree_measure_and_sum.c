@@ -99,13 +99,10 @@ get_height (struct node *leaf)
   if (!leaf)
     return 0;
 
-  int lefth = get_height (leaf->left);
-  int righth = get_height (leaf->right);
+  int lefth = get_height (leaf->left) + 1;
+  int righth = get_height (leaf->right) + 1;
 
-  if (lefth < righth)
-    return righth + 1;
-  else
-    return lefth + 1;
+  return (lefth < righth) ? righth : lefth;
 }
 
 /* get the amount of nodes in the tree */
