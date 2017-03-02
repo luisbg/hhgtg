@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 
 char
 get_char_key (int telephoneKey, int place)
@@ -80,9 +82,9 @@ print_telephone_words (char *number, char *word, int level, int size)
 
   // copy word so far to them
   for (n = 0; n < level; n++) {
-    a[n] = word[n];
-    b[n] = word[n];
-    c[n] = word[n];
+    strcpy (a, word);
+    strcpy (b, word);
+    strcpy (c, word);
   }
 
   // if 0 or 1, just one word
@@ -123,6 +125,7 @@ main ()
 {
   char *number = "67012";
   // char *number = "8662665";
+
   char *tmp = (char *) malloc (7 * sizeof (char));
   print_telephone_words (number, tmp, 0, 5);
 
