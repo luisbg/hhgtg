@@ -5,6 +5,7 @@
 
 
 #include <glib.h>
+#include <glib/gprintf.h>
 #include <stdio.h>
 
 
@@ -61,6 +62,7 @@ main (int argc, char *argv[])
 
   g_thread_join (thread1);
   g_thread_join (thread2);
+  g_thread_join (thread3);
 
   return 0;
 }
