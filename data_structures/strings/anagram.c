@@ -70,12 +70,12 @@ anagram_by_count (char *first, char *second)
     return FALSE;
 
   for (i = 0; i < len; i++) {
-    count[first[i]]++;
-    count[second[i]]--;
+    count[(int) first[i]]++;
+    count[(int) second[i]]--;
   }
 
   for (i = 0; i < len; i++) {
-    if (count[first[i]])
+    if (count[(int) first[i]])
       return FALSE;
   }
 

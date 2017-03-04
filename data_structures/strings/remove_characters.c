@@ -26,13 +26,13 @@ bool set_char_map (char *remove, bool ** map);
 void
 remove_chars (char **str, char *remove)
 {
-  int c, r, pos;
+  int c, pos;
   bool *map;
   set_char_map (remove, &map);
 
   pos = 0;
   for (c = 0; (*str)[c] != '\0'; c++) {
-    if (!map[(*str)[c]]) {
+    if (!map[(int) (*str)[c]]) {
       if (pos != c) {
         (*str)[pos] = (*str)[c];
       }
@@ -59,7 +59,7 @@ set_char_map (char *remove, bool ** map)
   }
 
   for (c = 0; remove[c] != '\0'; c++) {
-    tmp[remove[c]] = TRUE;
+    tmp[(int) remove[c]] = TRUE;
   }
 
   *map = tmp;
