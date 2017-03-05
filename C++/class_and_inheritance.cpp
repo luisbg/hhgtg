@@ -55,7 +55,7 @@ public:
     return course;
   }
 
-  int set_course (int c)
+  void set_course (int c)
   {
     course = c;
   }
