@@ -55,9 +55,9 @@ direct_trailing_zeros (int n)
 int
 main ()
 {
-  unsigned long f;
   unsigned int n = 26;
-  int z;
+  // unsigned long f;
+  // int z;
 
   // f = factorial ((unsigned long) n);
   // z = trailing_zeros (f);
