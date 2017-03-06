@@ -42,9 +42,9 @@ main ()
   int steps[10] = { 1, 2, 3, 4, 8, 10, 20, 25, 32, 36 };
   unsigned long map[37] = { 0 };
   int n;
-  int c;
+
   for (n = 0; n < 10; n++) {
     // printf ("%d: %d\n", steps[n], running_stairs (steps[n]));
-    printf ("%ld: %d\n", steps[n], running_dynamic (steps[n], map));
+    printf ("%d: %ld\n", steps[n], running_dynamic (steps[n], map));
   }
 }
