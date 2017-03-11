@@ -16,7 +16,6 @@ is_palindrome (int num)
 {
   int num_digits;
   int tmp = num;
-  int th;
   int i;
 
   for (num_digits = 0; tmp > 0; num_digits++) {
