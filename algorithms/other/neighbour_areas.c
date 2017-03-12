@@ -79,21 +79,26 @@ generate_area (int x, int y, int map_size, int map[map_size][map_size],
     int visited[map_size][map_size], section areas[map_size][map_size],
     int area_num)
 {
+  // check we are inside the boundaries
+  if (x < 0 || x >= map_size || y < 0 || y >= map_size)
+    return;
+
+  // if not visited already, add neighbors with same value
   if (!visited[x][y]) {
     visited[x][y] = 1;
     areas[x][y].number = area_num;
     areas[x][y].product = map[x][y];
 
-    if (x != 0 && map[x][y] == map[x - 1][y])
+    if (map[x - 1][y] == map[x][y])
       generate_area (x - 1, y, map_size, map, visited, areas, area_num);
 
-    if (x != (map_size - 1) && map[x][y] == map[x + 1][y])
+    if (map[x + 1][y] == map[x][y])
       generate_area (x + 1, y, map_size, map, visited, areas, area_num);
 
-    if (y != 0 && map[x][y] == map[x][y - 1])
+    if (map[x][y - 1] == map[x][y])
       generate_area (x, y - 1, map_size, map, visited, areas, area_num);
 
-    if (y != (map_size - 1) && map[x][y] == map[x][y + 1])
+    if (map[x][y + 1] == map[x][y])
       generate_area (x, y + 1, map_size, map, visited, areas, area_num);
   }
 }
