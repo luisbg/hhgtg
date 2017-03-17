@@ -89,79 +89,75 @@ add (node * a, node * b, node ** sum)
   number_to_list (sum, sum_a + sum_b);
 }
 
-/* Sum two linked lists into one */
 void
-add_with_lists (node * a, node * b, node ** sum)
+add_node (node ** res, node ** prev, node * new_node)
 {
-  node *runa, *runb;
-  int lena = 0,
-    lenb = 0,
-    carry_over = 0,
-    tmp, i;
+  if (*res && *prev)
+    (*prev)->next = new_node;
+  else
+    *res = new_node;
+  *prev = new_node;
+}
 
-  runa = a;
-  runb = b;
-  while (runa->next) {    // get number of digits in a
-    runa = runa->next;
-    lena++;
+int
+loop_remaining_side (node ** res, node ** prev, node * lr, int carry)
+{
+  while (lr) {
+    node *res_node = (node *) calloc (1, sizeof (node));
+    res_node->d = lr->d + carry;
+
+    if (res_node->d >= 10) {
+      carry = 1;
+      res_node->d -= 10;
+    } else
+      carry = 0;
+
+    add_node (res, prev, res_node);
+    lr = lr->next;
   }
 
-  while (runb->next) {    // get number of digits in b
-    runb = runb->next;
-    lenb++;
-  }
+  return carry;
+}
 
-  while (lena >= 0 && lenb >= 0) {
-    tmp = runa->d + runb->d;    // add elements from the tail back from both lists
-    if (tmp < 10) {                         // if sum above 10, carry over
-      prepend (sum, tmp + carry_over);
-      carry_over = 0;
+/* Sum two linked lists into one */
+node *
+add_with_lists (node * a, node * b)
+{
+  int tmp;
+  int carry = 0;
+  node *res = NULL;
+  node *prev = NULL;
+
+  //  add both lists until one finishes
+  while (a && b) {
+    node *res_node = (node *) calloc (1, sizeof (node));
+
+    tmp = a->d + b->d + carry;
+    if (tmp >= 10) {
+      res_node->d = tmp - 10;
+      carry = 1;
     } else {
-      prepend (sum, (tmp - 10) + carry_over);
-      carry_over = 1;
+      res_node->d = tmp;
+      carry = 0;
     }
 
-    i = --lena;
-    runa = a;
-    while (i > 0) {           // decrement len to go to cycle to previous node
-      runa = runa->next;
-      i--;
-    }
-
-    i = --lenb;
-    runb = b;
-    while (i > 0) {
-      runb = runb->next;
-      i--;
-    }
+    add_node (&res, &prev, res_node);
+    a = a->next;
+    b = b->next;
   }
 
-  runa = a;                   // one of the lists might still have more digits
-  while (lena >= 0) {         // prepend them along
-    i = --lena;
-    runa = a;
-    while (i > 0) {
-      runa = runa->next;
-      i--;
-    }
-    prepend (sum, runa->d + carry_over);
-    carry_over = 0;
+  // one list might be longer than the other, add it to the sum
+  carry = loop_remaining_side (&res, &prev, a, carry);
+  carry = loop_remaining_side (&res, &prev, b, carry);
+
+  // we might need one more digit (ex, 1 + 99)
+  if (carry) {
+    node *res_node = (node *) calloc (1, sizeof (node));
+    res_node->d = 1;
+    add_node (&res, &prev, res_node);
   }
 
-  runb = b;
-  while (lenb >= 0) {
-    i = --lenb;
-    runb = b;
-    while (i > 0) {
-      runb = runb->next;
-      i--;
-    }
-    prepend (sum, runb->d + carry_over);
-    carry_over = 0;
-  }
-
-  if (carry_over)           // we might still have a carry over if the two
-    prepend (sum, 1);       // lists have same amount of digits in MSB add > 10
+  return res;
 }
 
 
@@ -197,8 +193,7 @@ main ()
   travel (b);
   travel (c);
 
-  // todo: add function to free memory to reuse first sum list
-  add_with_lists (b, c, &second_sum);
+  second_sum = add_with_lists (b, c);
   travel (second_sum);
 
   return 0;
