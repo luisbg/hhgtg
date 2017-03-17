@@ -8,7 +8,7 @@
 
 typedef struct node
 {
-  int d;
+  int val;
   struct node *next;
 } node;
 
@@ -18,7 +18,7 @@ static void
 travel (node * l)
 {
   while (l) {
-    printf ("%d ", l->d);
+    printf ("%d ", l->val);
     l = l->next;
   }
   printf ("\n");
@@ -29,7 +29,7 @@ static void
 prepend (node ** l, int d)
 {
   node *new = (node *) malloc (sizeof (node));
-  new->d = d;
+  new->val = d;
   new->next = *l;
   *l = new;
 }
@@ -41,7 +41,7 @@ append (node ** l, int d)
   node *new = (node *) malloc (sizeof (node));
   node *head = *l;
 
-  new->d = d;
+  new->val = d;
 
   if (!head)
     *l = new;
@@ -60,7 +60,7 @@ list_to_number (node * l)
   int base = 1;
   int sum = 0;
   while (l) {
-    sum += l->d * base;
+    sum += l->val * base;
     l = l->next;
     base *= 10;
   }
@@ -100,17 +100,30 @@ add_node (node ** res, node ** prev, node * new_node)
 }
 
 int
+check_carry (node ** res_node, int tmp)
+{
+  int carry;
+
+  if (tmp >= 10) {
+    tmp -= 10;
+    carry = 1;
+  } else {
+    carry = 0;
+  }
+
+  (*res_node)->val = tmp;
+  return carry;
+}
+
+int
 loop_remaining_side (node ** res, node ** prev, node * lr, int carry)
 {
+  int tmp;
+
   while (lr) {
     node *res_node = (node *) calloc (1, sizeof (node));
-    res_node->d = lr->d + carry;
-
-    if (res_node->d >= 10) {
-      carry = 1;
-      res_node->d -= 10;
-    } else
-      carry = 0;
+    tmp = lr->val + carry;
+    carry = check_carry (&res_node, tmp);
 
     add_node (res, prev, res_node);
     lr = lr->next;
@@ -131,15 +144,8 @@ add_with_lists (node * a, node * b)
   //  add both lists until one finishes
   while (a && b) {
     node *res_node = (node *) calloc (1, sizeof (node));
-
-    tmp = a->d + b->d + carry;
-    if (tmp >= 10) {
-      res_node->d = tmp - 10;
-      carry = 1;
-    } else {
-      res_node->d = tmp;
-      carry = 0;
-    }
+    tmp = a->val + b->val + carry;
+    carry = check_carry (&res_node, tmp);
 
     add_node (&res, &prev, res_node);
     a = a->next;
@@ -153,7 +159,7 @@ add_with_lists (node * a, node * b)
   // we might need one more digit (ex, 1 + 99)
   if (carry) {
     node *res_node = (node *) calloc (1, sizeof (node));
-    res_node->d = 1;
+    res_node->val = 1;
     add_node (&res, &prev, res_node);
   }
 
@@ -186,9 +192,9 @@ main ()
 
   printf ("\n");
 
-  prepend (&c, 3);
+  prepend (&c, 7);
+  prepend (&c, 0);
   prepend (&c, 5);
-  prepend (&c, 8);
 
   travel (b);
   travel (c);
