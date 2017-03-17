@@ -39,3 +39,5 @@ if __name__ == '__main__':
     print "one by one: "
     for k, v in dict.items():
          print(k, v)
+    if 'a' in dict:
+        print "a is in the dictionary"
