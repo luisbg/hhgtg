@@ -62,6 +62,27 @@ lowest_common_ancestor (tree * t, int val_a, int val_b, tree ** ancestor)
   return TRUE;
 }
 
+/* recursive and faster solution */
+tree *
+lowest_common_ancestor_recursive (tree * t, int p, int q)
+{
+  if (!t || t->value == p || t->value == q)
+    return t;
+
+  tree *left = lowest_common_ancestor_recursive (t->left, p, q);
+  tree *right = lowest_common_ancestor_recursive (t->right, p, q);
+  tree *anc = NULL;
+
+  if (!left)
+    anc = right;
+  else if (!right)
+    anc = left;
+  else
+    anc = t;
+
+  return anc;
+}
+
 /* find the lowest common ancestor of two values in a binary search tree */
 bool
 lowest_common_ancestor_bts (tree * t, int val_a, int val_b, tree ** ancestor)
@@ -134,21 +155,19 @@ main ()
 
   a = 5;
   b = 14;
-  if (lowest_common_ancestor (t, 5, 14, &anc_f))
+  if (lowest_common_ancestor (t, a, b, &anc_f))
     printf ("lowest common ancestor of %d and %d: %d\n", a, b, anc_f->value);
   else
     printf ("values not found\n");
 
   a = 15;
   b = 12;
-  if (lowest_common_ancestor (t, 15, 12, &anc_f))
-    printf ("lowest common ancestor of %d and %d: %d\n", a, b, anc_f->value);
-  else
-    printf ("values not found\n");
+  anc_f = lowest_common_ancestor_recursive (t, a, b);
+  printf ("lowest common ancestor of %d and %d: %d\n", a, b, anc_f->value);
 
   a = 5;
   b = 30;
-  if (lowest_common_ancestor_bts (t, 5, 30, &anc_s))
+  if (lowest_common_ancestor_bts (t, a, b, &anc_s))
     printf ("lowest common ancestor of %d and %d: %d\n", a, b, anc_s->value);
   else
     printf ("values not found\n");
