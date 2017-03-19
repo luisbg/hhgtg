@@ -13,63 +13,52 @@ typedef struct tree
   int value;
 } tree;
 
-typedef struct queue_t
-{
-  struct queue_t *next;
-  struct tree *data;
-} queue_t;
-
 typedef enum
 {
   FALSE, TRUE
 } bool;
 
 
+bool has_node (tree * root, int value);
 bool lowest_common_ancestor (tree * t, int val_a, int val_b, tree ** ancestor);
 void add_to_tree (tree ** t, int value);
-static bool common_path (queue_t * pa, queue_t * pb, tree ** common);
-static bool enqueue (queue_t ** t, tree * node);
-static bool dequeue (queue_t ** t, tree ** node);
-static void print_queue (queue_t * t);
 
+
+/* check if this node has val in the children tree */
+bool
+has_node (tree * root, int value)
+{
+  if (root == NULL)
+    return FALSE;
+
+  if (root->value == value)
+    return TRUE;
+
+  bool left = has_node (root->left, value);
+  bool right = has_node (root->right, value);
+
+  return (left || right);
+}
 
 /* find the lowest common ancestor of two values in a binary search tree */
 bool
 lowest_common_ancestor (tree * t, int val_a, int val_b, tree ** ancestor)
 {
-  queue_t *path_to_a = NULL;  // path list to a
-  queue_t *path_to_b = NULL;  // path list to b
-  tree *run = t;
+  if (t == NULL)
+    return FALSE;
 
-  while (run) {               // populate path to a
-    enqueue (&path_to_a, run);
-
-    if (run->value == val_a)
+  tree *runner = t;
+  while (runner) {
+    if (has_node (runner->left, val_a) && has_node (runner->left, val_b))
+      runner = runner->left;
+    else if (has_node (runner->right, val_a) && has_node (runner->right, val_b))
+      runner = runner->right;
+    else {
+      *ancestor = runner;
       break;
-
-    if (val_a < run->value)
-      run = run->left;
-    else
-      run = run->right;
+    }
   }
 
-  run = t;
-  while (run) {               // populate path to b
-    enqueue (&path_to_b, run);
-
-    if (run->value == val_b)
-      break;
-
-    if (val_b < run->value)
-      run = run->left;
-    else
-      run = run->right;
-  }
-
-  print_queue (path_to_a);
-  print_queue (path_to_b);
-
-  common_path (path_to_a, path_to_b, ancestor);  // compare paths
   return TRUE;
 }
 
@@ -79,7 +68,7 @@ lowest_common_ancestor_bts (tree * t, int val_a, int val_b, tree ** ancestor)
 {
   int tree_val;
 
-  while (t) {               // loop until tree_val is split between < a and > b
+  while (t) {                   // loop until tree_val is split between < a and > b
     tree_val = t->value;
 
     if (tree_val > val_a && tree_val > val_b) {
@@ -93,76 +82,6 @@ lowest_common_ancestor_bts (tree * t, int val_a, int val_b, tree ** ancestor)
   }
 
   return FALSE;
-}
-
-/* compare two paths to find the last common parent */
-static bool
-common_path (queue_t * pa, queue_t * pb, tree ** common)
-{
-  tree *tmp_a, *tmp_b;
-  *common = NULL;
-
-  dequeue (&pa, &tmp_a);
-  dequeue (&pb, &tmp_b);
-
-  while (tmp_a->value == tmp_b->value) {
-    *common = tmp_a;
-
-    dequeue (&pa, &tmp_a);
-    dequeue (&pb, &tmp_b);
-  }
-
-  return TRUE;
-}
-
-/* add a node of the tree to the queue list */
-static bool
-enqueue (queue_t ** t, tree * node)
-{
-  // printf ("enq: %d\n", node->value);
-
-  queue_t *run = *t;
-  queue_t *new_element = (queue_t *) malloc (sizeof (queue_t));
-  new_element->data = node;
-  new_element->next = NULL;
-
-  if (!*t) {
-    *t = new_element;
-    return TRUE;
-  }
-
-  while (run->next)
-    run = run->next;
-
-  run->next = new_element;;
-  return TRUE;
-}
-
-/* get a node of the tree from the queue list */
-static bool
-dequeue (queue_t ** t, tree ** node)
-{
-  if (!*t)
-    return FALSE;
-
-  *node = (*t)->data;
-  *t = (*t)->next;
-
-  // printf ("deq: %d\n", (*node)->value);
-  return TRUE;
-}
-
-/* print the values in the queue list */
-static void
-print_queue (queue_t * t)
-{
-  printf ("print queue: ");
-
-  while (t) {
-    printf ("%d: ", t->data->value);
-    t = t->next;
-  }
-  printf ("\n");
 }
 
 /* add a value to the binary search tree */
@@ -216,6 +135,13 @@ main ()
   a = 5;
   b = 14;
   if (lowest_common_ancestor (t, 5, 14, &anc_f))
+    printf ("lowest common ancestor of %d and %d: %d\n", a, b, anc_f->value);
+  else
+    printf ("values not found\n");
+
+  a = 15;
+  b = 12;
+  if (lowest_common_ancestor (t, 15, 12, &anc_f))
     printf ("lowest common ancestor of %d and %d: %d\n", a, b, anc_f->value);
   else
     printf ("values not found\n");
