@@ -51,11 +51,36 @@ get_row (int rowIndex, int *returnSize)
   return ret;
 }
 
+int
+pasc_position (int row, int column)
+{
+  if (column == 0)
+    return 1;
+
+  if (row == 0)
+    return 0;
+
+  return pasc_position (row - 1, column - 1) + pasc_position (row - 1, column);
+}
+
+int *
+get_row_recursive (int rowIndex, int *returnSize)
+{
+  int pasc_size = rowIndex + 1;
+  int *row = (int *) malloc (pasc_size * sizeof (int));
+
+  for (int c = 0; c < pasc_size; c++)
+    row[c] = pasc_position (rowIndex, c);
+
+  *returnSize = pasc_size;
+  return row;
+}
+
 void
 print_pascal_row (int r)
 {
   int size;
-  int *row = get_row (r, &size);
+  int *row = get_row_recursive (r, &size);
 
   for (int c = 0; c < size; c++) {
     printf ("%d ", row[c]);
@@ -66,14 +91,9 @@ print_pascal_row (int r)
 int
 main ()
 {
-  printf ("Third row of Pascal's triangle:\n");
-  print_pascal_row (3);
-
-  printf ("Fifth row of Pascal's triangle:\n");
-  print_pascal_row (5);
-
-  printf ("Tenth row of Pascal's triangle:\n");
-  print_pascal_row (10);
+  for (int c = 1; c <= 12; c++) {
+    print_pascal_row (c);
+  }
 
   return 0;
 }
