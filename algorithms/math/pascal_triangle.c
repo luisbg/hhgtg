@@ -76,16 +76,38 @@ get_row_recursive (int rowIndex, int *returnSize)
   return row;
 }
 
+int *
+get_row_direct (int rowIndex, int *returnSize)
+{
+  int pasc_size = rowIndex + 1;
+  int *row = (int *) calloc (pasc_size, sizeof (int));
+
+  row[0] = 1;
+  for (int c = 1; c < pasc_size; c++)
+    for (int d = c; d >= 1; d--)
+      row[d] += row[d - 1];
+
+  *returnSize = pasc_size;
+  return row;
+}
+
 void
 print_pascal_row (int r)
 {
   int size;
-  int *row = get_row_recursive (r, &size);
+  int *row;
+
+  if (r % 2 == 0)
+    row = get_row_recursive (r, &size);
+  else
+    row = get_row_direct (r, &size);
 
   for (int c = 0; c < size; c++) {
     printf ("%d ", row[c]);
   }
   printf ("\n");
+
+  free (row);
 }
 
 int
