@@ -236,21 +236,25 @@ traverse_in_postorder (struct node * leaf)
 
 /* check the tree is a valid binary tree */
 bool
+validate_tree_helper (struct node *leaf, struct node *prev)
+{
+  if (leaf == NULL)
+    return TRUE;
+
+  if (!validate_tree_helper (leaf->left, prev))
+    return FALSE;
+  if (prev != NULL && prev->key >= leaf->key)
+    return FALSE;
+
+  prev = leaf;
+  return validate_tree_helper (leaf->right, prev);
+}
+
+bool
 validate_tree (struct node * leaf)
 {
-  if (leaf) {
-    if (leaf->left && leaf->key < leaf->left->key)
-      return FALSE;
-    if (leaf->right && leaf->key > leaf->right->key)
-      return FALSE;
-
-    if (!validate_tree (leaf->left))
-      return FALSE;
-    if (!validate_tree (leaf->right))
-      return FALSE;
-  }
-
-  return TRUE;
+  struct node *prev = NULL;
+  return validate_tree_helper (leaf, prev);
 }
 
 /* print the value and direction of the node based on the parent */
