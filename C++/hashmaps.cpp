@@ -10,7 +10,7 @@ main ()
   capitals = { {"Canada", "Ottawa"},
 	  {"Germany", "Berlin"},
 	  {"Ireland", "Dublin"},
-	  {"Spain", "Madrid"},
+	  {"Spain", "Sevilla"},
 	  {"UK", "London"},
 	  {"USA", "Washington DC"} };
 
@@ -36,10 +36,15 @@ main ()
   cout << "insert South Korea" << endl;
   capitals.insert ( {"South Korea", "Seoul"} );
 
+  cout << "update the capital of Spain" << endl;
+  capitals["Spain"] = "Madrid";
+
   cout << endl << "capitals now contains:" << endl;
   for (auto it = capitals.begin (); it != capitals.end (); ++it)
     std::cout << " " << it->first << ":" << it->second << endl;
   cout << endl;
+
+  cout << "Spain is listed " << capitals.count("Spain") << " times " << endl;
 
   return 0;
 }
