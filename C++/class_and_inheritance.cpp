@@ -18,15 +18,8 @@ public:
     cout << "I am a person, " << age << " years old.\n";
   }
 
-  int get_age ()
-  {
-    return age;
-  }
-
-  int get_id ()
-  {
-    return id;
-  }
+  int get_id ();
+  int get_age ();
 
   ~Person () {
     delete name;                // free any memory allocated within the class
@@ -60,6 +53,16 @@ public:
     course = c;
   }
 };
+
+int Person::get_id ()
+{
+  return id;
+}
+
+int Person:: get_age ()
+{
+  return age;
+}
 
 
 int
