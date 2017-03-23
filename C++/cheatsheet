@@ -1,0 +1,44 @@
+class ClassName {
+  int priv_member;  // private by default
+protected:
+  int protect_member;
+public:
+  ClassName() // constructor
+  int get_priv_mem();  // just prototype of func
+  virtual ~ClassName() {} // destructor
+};
+
+int ClassName::get_priv_mem() {  // define via scope
+  return priv_member;
+}
+
+class ChildName : public ClassName, public CanDoMult {
+public:
+  ChildName() {
+    protect_member = 0;
+  } ...
+};
+
+class Square {
+  friend class Rectangle; ... // can access private members
+};
+
+
+Containers: container_type<int>
+list -> linked list
+  front(), back(), begin(), end(), {push/pop}_{front/back}(), insert(), erase()
+deque -> double ended queue
+  [], {push/pop}_{front/back}(), insert(), erase(), front(), back(), begin()
+queue/stack -> adaptors over deque
+  push(), pop(), size(), empty()
+  front(), back() <- queue
+  top() <- stack
+unordered_map -> hashtable
+  [], at(), begin(), end(), insert(), erase(), count(), empty(), size()
+vector -> dynamic array
+  [], at(), front(), back(), {push/pop}_back, insert(), erase(), size()
+map -> tree
+  [], at(), insert(), erase(), begin(), end(), size(), empty(), find(), count()
+
+unordered_set -> hashtable just keys
+set -> tree just keys
