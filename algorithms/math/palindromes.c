@@ -79,7 +79,7 @@ main ()
       is_palindrome (1331) ? "yes" : "no");
   printf ("is %d a palindrome? %s\n", 1, is_palindrome (1) ? "yes" : "no");
 
-  printf ("largest palindrome of two digit numbers: %d\n",
+  printf ("largest palindrome of two digit numbers: %lu\n",
       biggest_palindrome (999));
 
   return 0;
