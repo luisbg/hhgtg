@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #define XX 5
 #define YY 5
@@ -92,19 +93,33 @@ static void
 add_point_to_path (Path_t * path, Point * p)
 {
   int pos = path->num_points++;
-  path->p[pos];
+  path->p[pos].x = p->x;
+  path->p[pos].y = p->y;
 
   return;
 }
-    
+
+void
+show_path (Path_t * path)
+{
+  for (int pos = 0; pos < path->num_points; pos++) {
+    printf ("(%d,%d)\n", path->p[pos].y, path->p[pos].x);
+  }
+}
 
 int main ()
 {
   bool grid[XX][YY];
   int x, y;
+
+  srand (time (NULL));
+
   for (x = 0; x < XX; x++) {
     for (y = 0; y < YY; y++) {
+      if (rand () % 3 > 0)
         grid[x][y] = TRUE;
+      else
+        grid[x][y] = FALSE;
     }
   }
 
@@ -128,7 +143,9 @@ int main ()
   path->num_points = 0;
 
   get_path (grid, XX - 1, YY - 1, path, cache);
-  printf ("\nnumber of paths: %d", path->num_points);
+  printf ("\npoints in path: %d\n", path->num_points);
+
+  show_path (path);
 
   return 0;
 }
