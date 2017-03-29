@@ -15,6 +15,8 @@ int biggest_common_divisor (int num, int den)
     if (num % i == 0 && den % i == 0)
         return i;
   }
+
+  return -1;
 }
 
 fraction lowest_common_terms (int num, int den)
