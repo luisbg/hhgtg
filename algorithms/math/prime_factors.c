@@ -85,7 +85,7 @@ main ()
 
   num = 111475139;
   prime_list (num, &primes);
-  printf ("prime factors of %ld: ", num);
+  printf ("prime factors of %d: ", num);
   prime_factors (num, primes);
 
   return 0;
