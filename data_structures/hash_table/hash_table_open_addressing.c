@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef enum
-{ FALSE, TRUE } bool;
+#include <stdbool.h>
 
 typedef struct hash_table
 {                               /* has collision by wrapping around to */
@@ -37,7 +35,7 @@ init_hash_table (int size)
   for (i = 0; i < size; i++) {
     t->key[i] = -1;
     t->content[i] = -1;
-    t->used[i] = FALSE;
+    t->used[i] = false;
   }
 
   return t;
@@ -63,7 +61,7 @@ insert (hash_table * t, int key, int cont)
 
   t->key[p] = key;
   t->content[p] = cont;
-  t->used[p] = TRUE;
+  t->used[p] = true;
   t->elements++;
 }
 

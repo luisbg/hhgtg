@@ -2,11 +2,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -69,7 +65,7 @@ search_parent (struct node **root, int num, struct node **parent, struct
     /* if the node to be deleted is found */
     if (curr->key == num) {
       *x = curr;
-      return TRUE;
+      return true;
     }
 
     *parent = curr;
@@ -80,7 +76,7 @@ search_parent (struct node **root, int num, struct node **parent, struct
       curr = curr->right;
   }
 
-  return FALSE;
+  return false;
 }
 
 /* delete the specified node from the binary tree */
@@ -239,12 +235,12 @@ bool
 validate_tree_helper (struct node *leaf, struct node *prev)
 {
   if (leaf == NULL)
-    return TRUE;
+    return true;
 
   if (!validate_tree_helper (leaf->left, prev))
-    return FALSE;
+    return false;
   if (prev != NULL && prev->key >= leaf->key)
-    return FALSE;
+    return false;
 
   prev = leaf;
   return validate_tree_helper (leaf->right, prev);

@@ -8,11 +8,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef enum
-{
-  FALSE, TRUE
-} bool;
-
 void reverse_order_words (char *phrase);
 static void reverse_string (char *phrase, int start, int end);
 

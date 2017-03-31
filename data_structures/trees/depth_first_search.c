@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -8,10 +9,6 @@ typedef struct node
   struct node *right;
 } node;
 
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 bool visit[10] = { 0 };
 
@@ -67,17 +64,17 @@ bool
 depth_first_search (node * leaf, int key)
 {
   if (!leaf)
-    return FALSE;
+    return false;
 
   if (leaf->key == key)
-    return TRUE;
+    return true;
 
   if (key < leaf->key)
     depth_first_search (leaf->left, key);
   else
     depth_first_search (leaf->right, key);
 
-  return FALSE;
+  return false;
 }
 
 
@@ -88,7 +85,7 @@ main ()
 
   int c;
   for (c = 0; c < 10; c++) {
-    visit[c] = FALSE;
+    visit[c] = false;
   }
 
   insert (&root, 5);

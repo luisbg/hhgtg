@@ -1,10 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 typedef enum
 {
@@ -83,7 +80,7 @@ create_graph (int num, graph_direction_type direction)
   //graph->visited = (int *) malloc (sizeof (int));
   for (c = 0; c < num; c++) {
     graph->list[c].head = NULL;
-    graph->list[c].visited = FALSE;
+    graph->list[c].visited = false;
   }
 
   return graph;
@@ -130,7 +127,7 @@ adj_node_t *
 depth_first_search (graph_t * graph, adj_node_t * curr, int v, int s)
 {
   printf ("visited: %d\n", v);
-  graph->list[v].visited = TRUE;      // mark the node visited to avoid infinite loops
+  graph->list[v].visited = true;      // mark the node visited to avoid infinite loops
 
   while (curr) {    // search all adjacent nodes
     if (!graph->list[curr->vertex].visited) {
@@ -166,7 +163,7 @@ breadth_first_search (graph_t * graph, int s)
     curr = dequeue_node (&tmp_q);
 
     printf ("visited: %d\n", curr->vertex);
-    graph->list[curr->vertex].visited = TRUE;      // mark the node visited to avoid infinite loops
+    graph->list[curr->vertex].visited = true;      // mark the node visited to avoid infinite loops
 
     if (curr->vertex == s)           // found it!
       return curr;
@@ -189,7 +186,7 @@ unset_visited (graph_t * graph)
 {
   int c;
   for (c = 0; c < graph->num_vertices; c++) {
-    graph->list[c].visited = FALSE;
+    graph->list[c].visited = false;
   }
 }
 

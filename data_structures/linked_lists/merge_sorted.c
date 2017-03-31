@@ -15,10 +15,6 @@ typedef struct Node
   struct Node *next;
 } Node;
 
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 Node *
 RemoveHead (Node ** l)

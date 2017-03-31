@@ -3,13 +3,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
 #define ASCII_SIZE 256
 
 static int count;
 
-typedef enum
-{ FALSE, TRUE } bool;
 
 void
 string_sort (char *s, int length)
@@ -41,7 +40,7 @@ anagram_by_sort (char *first, char *second)
   int len_second = c;
 
   if (len != len_second)
-    return FALSE;
+    return false;
 
   char *sorted_first = (char *) malloc (len * sizeof (char));
   strcpy (sorted_first, first);
@@ -53,10 +52,10 @@ anagram_by_sort (char *first, char *second)
 
   for (c = 0; c < len; c++) {
     if (sorted_first[c] != sorted_second[c])
-      return FALSE;
+      return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 bool
@@ -67,7 +66,7 @@ anagram_by_count (char *first, char *second)
   int len = strlen (first);
 
   if (len != strlen (second))
-    return FALSE;
+    return false;
 
   for (i = 0; i < len; i++) {
     count[(int) first[i]]++;
@@ -76,12 +75,12 @@ anagram_by_count (char *first, char *second)
 
   for (i = 0; i < len; i++) {
     if (count[(int) first[i]])
-      return FALSE;
+      return false;
   }
 
   free (count);
 
-  return TRUE;
+  return true;
 }
 
 bool

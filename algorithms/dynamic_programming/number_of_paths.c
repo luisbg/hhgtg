@@ -1,13 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <stdbool.h>
 
 #define XX 5
 #define YY 5
-
-typedef enum {
-  FALSE, TRUE
-} bool;
 
 typedef struct Point
 {
@@ -42,10 +39,10 @@ get_path (bool grid[XX][YY], int x, int y, Path_t * path, Path_t cache[XX][YY])
   }
 
   if (x == 0 && y == 0) {
-    return TRUE;    // found a path (base case)
+    return true;    // found a path (base case)
   }
 
-  bool success = FALSE;
+  bool success = false;
 
   if (grid[x - 1][y] && x >= 1) {    // Try Left
     printf ("try point (%d,%d)\n", x - 1, y);
@@ -117,9 +114,9 @@ int main ()
   for (x = 0; x < XX; x++) {
     for (y = 0; y < YY; y++) {
       if (rand () % 3 > 0)
-        grid[x][y] = TRUE;
+        grid[x][y] = true;
       else
-        grid[x][y] = FALSE;
+        grid[x][y] = false;
     }
   }
 

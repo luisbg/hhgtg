@@ -3,9 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef enum
-{ FALSE, TRUE } bool;
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -143,10 +141,10 @@ find_cyclical (node * head)
 {
   node *faster = head;
 
-  while (TRUE) {
+  while (true) {
     // if the faster pointer encounters a NULL element
     if (!faster || !faster->next)
-      return FALSE;
+      return false;
 
     // advance the pointers
     head = head->next;
@@ -154,7 +152,7 @@ find_cyclical (node * head)
 
     // if faster pointer ever equals slower then it's a circular list
     if (faster == head)
-      return TRUE;
+      return true;
   }
 }
 

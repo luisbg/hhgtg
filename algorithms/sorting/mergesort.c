@@ -1,10 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 typedef struct queue
 {
@@ -132,9 +129,9 @@ static bool
 empty_queue (queue * q)
 {
   if (!q)
-    return TRUE;
+    return true;
   else
-    return FALSE;
+    return false;
 }
 
 /* print the list of values */

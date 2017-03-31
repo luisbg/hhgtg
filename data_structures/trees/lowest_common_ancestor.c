@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct tree
 {
@@ -12,11 +13,6 @@ typedef struct tree
   struct tree *right;
   int value;
 } tree;
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 
 bool has_node (tree * root, int value);
@@ -29,10 +25,10 @@ bool
 has_node (tree * root, int value)
 {
   if (root == NULL)
-    return FALSE;
+    return false;
 
   if (root->value == value)
-    return TRUE;
+    return true;
 
   bool left = has_node (root->left, value);
   bool right = has_node (root->right, value);
@@ -45,7 +41,7 @@ bool
 lowest_common_ancestor (tree * t, int val_a, int val_b, tree ** ancestor)
 {
   if (t == NULL)
-    return FALSE;
+    return false;
 
   tree *runner = t;
   while (runner) {
@@ -59,7 +55,7 @@ lowest_common_ancestor (tree * t, int val_a, int val_b, tree ** ancestor)
     }
   }
 
-  return TRUE;
+  return true;
 }
 
 /* recursive and faster solution */
@@ -98,11 +94,11 @@ lowest_common_ancestor_bts (tree * t, int val_a, int val_b, tree ** ancestor)
       t = t->right;
     } else {
       *ancestor = t;
-      return TRUE;
+      return true;
     }
   }
 
-  return FALSE;
+  return false;
 }
 
 /* add a value to the binary search tree */

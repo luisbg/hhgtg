@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <stdbool.h>
 
 
 typedef struct node
@@ -24,11 +25,6 @@ typedef struct queue
   queue_node *head;
   queue_node *last;
 } queue;
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 
 node *min_steps (int w, int h, bool grid[w][h], int start_x, int start_y,
@@ -54,7 +50,7 @@ min_steps (int w, int h, bool grid[w][h], int start_x, int start_y,
   // mark all nodes as unvisited
   for (r = 0; r < h; r++) {
     for (c = 0; c < w; c++) {
-      visited[c][r] = FALSE;
+      visited[c][r] = false;
     }
   }
 
@@ -84,7 +80,7 @@ min_steps (int w, int h, bool grid[w][h], int start_x, int start_y,
     // Check if already visited
     if (visited[top->x][top->y])
       continue;
-    visited[top->x][top->y] = TRUE;
+    visited[top->x][top->y] = true;
 
     // Generate all of the transitions between nodes
     // Generate the following deltas: (-1,-1), (-1,0), (-1,1), (0,-1), (0,0),
@@ -212,10 +208,10 @@ init_map (int w, int h, bool map[w][h])
   for (r = 0; r < h; r++) {
     for (c = 0; c < w; c++) {
       if (rand () % 10 > 2) {
-        map[c][r] = TRUE;
+        map[c][r] = true;
         printf (". ");
       } else {
-        map[c][r] = FALSE;
+        map[c][r] = false;
         printf ("X ");
       }
     }

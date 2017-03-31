@@ -5,11 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdbool.h>
 
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 bool
 is_palindrome (int num)
@@ -34,7 +31,7 @@ is_palindrome (int num)
   while (i < tmp) {
     if (digits[i] != digits[tmp]) {
       free (digits);
-      return FALSE;
+      return false;
     }
 
     i++;
@@ -43,7 +40,7 @@ is_palindrome (int num)
 
   free (digits);
 
-  return TRUE;
+  return true;
 }
 
 unsigned long

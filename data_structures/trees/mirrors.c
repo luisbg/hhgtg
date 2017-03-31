@@ -1,10 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
+#include <stdbool.h>
 
 typedef struct node
 {

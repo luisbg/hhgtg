@@ -1,15 +1,13 @@
 /* Check if a string is contained in an other.                                */
 
 #include <stdio.h>
-
-typedef enum
-{ FALSE, TRUE } bool;
+#include <stdbool.h>
 
 bool
 contained (char *first, char *second)
 {
   if (!first || !second)
-    return FALSE;
+    return false;
 
   int len_first = 0;
   int len_second = 0;
@@ -22,7 +20,7 @@ contained (char *first, char *second)
   }
 
   if (len_first == 0 || len_first > len_second)
-    return FALSE;
+    return false;
 
   int f;
   int s;
@@ -32,11 +30,11 @@ contained (char *first, char *second)
     }
 
     if (!first[f]) {
-      return TRUE;
+      return true;
     }
   }
 
-  return FALSE;
+  return false;
 }
 
 

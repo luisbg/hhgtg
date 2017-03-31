@@ -1,9 +1,8 @@
 /* Use a single array to implement three stacks */
 
 #include <stdio.h>
+#include <stdbool.h>
 
-typedef enum
-{ FALSE, TRUE } bool;
 
 int stackSize = 100;
 int buffer[300];                // stackSize * 3

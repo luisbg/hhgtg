@@ -1,9 +1,6 @@
 #include <stdio.h>
+#include <stdbool.h>
 
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 // get the bit in position i
 bool

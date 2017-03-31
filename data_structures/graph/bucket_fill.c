@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define COLUMNS 30
 #define ROWS 20
@@ -18,11 +19,6 @@ typedef struct stack
 {
   node *top;
 } stack;
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 
 int paint_region (int col, int row, int bitmap[col][row], int x, int y,
@@ -69,8 +65,8 @@ do_fill_map (int col, int row, int bitmap[col][row], bool fill[col][row], int x,
   // mark all pixels as unfilled and unvisited
   for (r = 0; r < row; r++) {
     for (c = 0; c < col; c++) {
-      fill[c][r] = FALSE;
-      visited[c][r] = FALSE;
+      fill[c][r] = false;
+      visited[c][r] = false;
     }
   }
 
@@ -93,10 +89,10 @@ do_fill_map (int col, int row, int bitmap[col][row], bool fill[col][row], int x,
     if (visited[top->x][top->y])
       continue;
 
-    visited[top->x][top->y] = TRUE;     // Save this position as visited
+    visited[top->x][top->y] = true;     // Save this position as visited
     if (bitmap[top->x][top->y] == color) {
       // this pixel has the same color and is connected, add it to results
-      fill[top->x][top->y] = TRUE;
+      fill[top->x][top->y] = true;
       result++;
 
       // visit every node adjacent to this node.
@@ -143,9 +139,9 @@ static bool
 empty (stack s)
 {
   if (s.top)
-    return FALSE;
+    return false;
   else
-    return TRUE;
+    return true;
 }
 
 // display the bitmap

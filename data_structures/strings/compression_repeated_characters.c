@@ -9,8 +9,6 @@
 
 #define ASCII_SIZE 256
 
-typedef enum
-{ FALSE, TRUE } bool;
 
 char *
 compress_string (char *str, int len)

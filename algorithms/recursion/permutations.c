@@ -9,11 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
+#include <stdbool.h>
 
 
 void
@@ -74,11 +70,11 @@ void do_permute (char * orig, char * out, int size, bool used[size], int level)
 
     // add unused character in current level and recurse one level up
     out[level] = orig[i];
-    used[i] = TRUE;
+    used[i] = true;
     do_permute (orig, out, size, used, level + 1);
 
     // set to unused for the next iteration
-    used[i] = FALSE;
+    used[i] = false;
   }
 }
 
@@ -90,7 +86,7 @@ void permute (char * str, int size)
 
   int i;
   for (i = 0; i < size; i++)
-    used[i] = FALSE;
+    used[i] = false;
 
   do_permute (str, out, size, used, 0);
 }

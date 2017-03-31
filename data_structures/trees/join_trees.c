@@ -2,11 +2,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -91,17 +87,17 @@ validate_tree (struct node * leaf)
 {
   if (leaf) {
     if (leaf->left && leaf->key < leaf->left->key)
-        return FALSE;
+        return false;
     if (leaf->right && leaf->key > leaf->right->key)
-        return FALSE;
+        return false;
 
     if (!validate_tree (leaf->left))
-      return FALSE;
+      return false;
     if (!validate_tree (leaf->right))
-      return FALSE;
+      return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 /* print the data at the node */

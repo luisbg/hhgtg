@@ -8,7 +8,7 @@
 typedef enum
 {
   UNUSED, USED
-} bool;
+} use;
 
 typedef struct queue
 {
@@ -28,7 +28,7 @@ queue_init (int max_num)
   q->num_elements = 0;
   q->size = max_num;
   q->elements = malloc (max_num * sizeof (int));
-  q->used = malloc (max_num * sizeof (bool));
+  q->used = malloc (max_num * sizeof (use));
 
   return q;
 }

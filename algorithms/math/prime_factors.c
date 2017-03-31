@@ -3,19 +3,14 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
-
+#include <stdbool.h>
 
 bool
 prime_list (int n, bool ** primes)
 {
   int c, d;                     // counters
   if (n < 2)
-    return FALSE;
+    return false;
 
   if (!primes)
     *primes = (bool *) malloc (n * sizeof (bool));
@@ -25,25 +20,25 @@ prime_list (int n, bool ** primes)
   int sqr = (int) sqrt (n);     // square root of n
 
   for (c = 0; c < n; c++)       // array of primes n might be divisible by
-    (*primes)[c] = TRUE;
+    (*primes)[c] = true;
 
   for (c = 4; c < sqr; c += 2) {        // set all odd numbers past 2 as non-prime
-    (*primes)[c] = FALSE;
+    (*primes)[c] = false;
   }
 
   for (c = 2; c <= sqr; c++) {
     if ((*primes)[c]) {
       if (n % c == 0)
-        return FALSE;
+        return false;
       else {
         for (d = 2; (d * c) < sqr; d++) {
-          (*primes)[d * c] = FALSE;
+          (*primes)[d * c] = false;
         }
       }
     }
   }
 
-  return TRUE;
+  return true;
 }
 
 int

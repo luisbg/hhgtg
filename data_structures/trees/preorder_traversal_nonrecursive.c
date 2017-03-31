@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 typedef struct tree
 {
@@ -14,11 +15,6 @@ typedef struct stack
   struct tree *data;
 } stack;
 
-typedef enum
-{
-  FALSE, TRUE
-} bool;
-
 
 void insert (tree ** leaf, int key);
 bool preorder_traverse (tree *t);
@@ -29,7 +25,7 @@ static void pop (stack **q, tree **node);
 /* traverse in preorder using a stack */
 bool preorder_traverse (tree *t) {
   if (!t)
-    return TRUE;
+    return true;
   
   stack *q = (stack *) malloc (sizeof (stack));
   tree *tmp = NULL;
@@ -51,7 +47,7 @@ bool preorder_traverse (tree *t) {
 
   printf ("\n"); 
  
-  return TRUE;
+  return true;
 }
 
 /* push node to the top of the stack */
@@ -59,7 +55,7 @@ static bool push (stack **t, tree *node)
 {
   stack *new_element = (stack *) malloc (sizeof (stack));
   if (!new_element)
-    return FALSE;
+    return false;
 
   new_element->data = node;
   new_element->next = NULL;
@@ -68,7 +64,7 @@ static bool push (stack **t, tree *node)
     new_element->next = *t;
 
   *t = new_element;
-  return TRUE;
+  return true;
 }
 
 /* get element from the top of teh stack */

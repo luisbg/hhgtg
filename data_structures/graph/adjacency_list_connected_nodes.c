@@ -1,10 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 typedef enum
 {
@@ -58,7 +55,7 @@ create_graph (int num, graph_direction_type direction)
   //graph->visited = (int *) malloc (sizeof (int));
   for (c = 0; c < num; c++) {
     graph->list[c].head = NULL;
-    graph->list[c].visited = FALSE;
+    graph->list[c].visited = false;
   }
 
   return graph;
@@ -106,7 +103,7 @@ unset_visited (graph_t * graph)
 {
   int c;
   for (c = 0; c < graph->num_vertices; c++) {
-    graph->list[c].visited = FALSE;
+    graph->list[c].visited = false;
   }
 }
 
@@ -117,7 +114,7 @@ depth_first_search (graph_t * graph, adj_node_t * curr, int v)
   printf ("visited: %d\n", v);
 
   if (curr) {
-    graph->list[v].visited = TRUE;      // mark the node visited to avoid infinite loops
+    graph->list[v].visited = true;      // mark the node visited to avoid infinite loops
 
     while (curr) {      // search all adjacent nodes
       if (!graph->list[curr->vertex].visited) {
@@ -138,7 +135,7 @@ vertices_connected (graph_t * graph, adj_node_t * curr, int *v, int dest)
   printf (":: %d %d\n", *v, dest);
     // run through all paths depth first checking if vertex is dest
   if (curr && *v != dest) {
-    graph->list[*v].visited = TRUE;
+    graph->list[*v].visited = true;
 
     while (curr) {
       *v = curr->vertex;

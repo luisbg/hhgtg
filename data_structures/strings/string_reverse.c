@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef enum
-{ FALSE, TRUE } bool;
-
 char *
 reverse (char *str)
 {

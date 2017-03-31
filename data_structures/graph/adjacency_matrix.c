@@ -6,15 +6,16 @@
 
 #define V 7
 
+
 typedef enum
 {
   DISCONNECTED, CONNECTED
-} bool;
+} connection;
 
 typedef struct graph
 {
   int num_vertices;             // number of vertices
-  bool **adj;                   // adjacency matrix
+  connection **adj;                   // adjacency matrix
 } graph_t;
 
 
@@ -28,9 +29,9 @@ create_graph (int vertices)
   graph->num_vertices = vertices;
 
   //int graph[verties][vertices];
-  graph->adj = malloc (vertices * sizeof (bool *));
+  graph->adj = malloc (vertices * sizeof (connection *));
   for (i = 0; i < vertices; i++)
-    graph->adj[i] = calloc (vertices, sizeof (bool));
+    graph->adj[i] = calloc (vertices, sizeof (connection));
 
   // All vertixes are connected with themselves
   for (i = 0; i < vertices; i++)

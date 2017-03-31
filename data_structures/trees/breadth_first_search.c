@@ -1,11 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef enum
-{
-  FALSE, TRUE
-} bool;
-
 typedef struct tree_node
 {
   int key;

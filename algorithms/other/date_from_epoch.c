@@ -1,6 +1,7 @@
 /* Calendar date from the seconds elapsed since epoch */
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #define DAYSLEAPYEAR 366
 #define DAYSNORMYEAR 365
@@ -17,10 +18,6 @@ typedef struct Date_T
   unsigned int yday;            // year day [0-365]
 } Date_T;
 
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 bool
 is_leap_year (int y)

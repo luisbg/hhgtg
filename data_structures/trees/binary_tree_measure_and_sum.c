@@ -1,10 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -150,11 +146,11 @@ bool
 is_balanced_recursive (struct node * leaf)
 {
   if (!leaf)
-    return TRUE;                // Base case
+    return true;                // Base case
 
   int height_diff = get_height (leaf->left) - get_height (leaf->right);
   if (height_diff > 1 || height_diff < -1)
-    return FALSE;
+    return false;
   else
     return is_balanced_recursive (leaf->left)
         && is_balanced_recursive (leaf->right);
@@ -165,9 +161,9 @@ bool
 is_balanced (struct node * leaf)
 {
   if (check_balanced_height (leaf) != -1)
-    return TRUE;
+    return true;
   else
-    return FALSE;
+    return false;
 }
 
 

@@ -3,11 +3,7 @@
  */
 
 #include <stdio.h>
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
+#include <stdbool.h>
 
 typedef enum
 {
@@ -24,9 +20,9 @@ static bool
 is_leap_year (int year)
 {
   if (!(year % 4) && ((year % 100) || !(year % 400)))
-    return TRUE;
+    return true;
   else
-    return FALSE;
+    return false;
 }
 
 static int

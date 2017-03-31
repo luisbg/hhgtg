@@ -2,17 +2,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct node
 {
   struct node *next;
   int n;
 } node;
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 
 /* Insert at the head of the list */
@@ -23,13 +19,13 @@ insert_prepend (node ** l, int n)
 
   node *new_node = (node *) malloc (sizeof (node));
   if (!new_node)
-    return FALSE;
+    return false;
 
   new_node->n = n;
   new_node->next = *l;
   *l = new_node;
 
-  return TRUE;
+  return true;
 }
 
 /* Insert at the tail of the list */
@@ -41,7 +37,7 @@ insert_append (node ** l, int n)
   node *run;
   node *new_node = (node *) malloc (sizeof (node));
   if (!new_node)
-    return FALSE;
+    return false;
 
   new_node->n = n;
   new_node->next = NULL;
@@ -56,7 +52,7 @@ insert_append (node ** l, int n)
     *l = new_node;
   }
 
-  return TRUE;
+  return true;
 }
 
 /* Insert after a certain element */
@@ -68,7 +64,7 @@ insert_after (node ** l, int b, int n)
   node *run;
   node *new_node = (node *) malloc (sizeof (node));
   if (!new_node)
-    return FALSE;
+    return false;
 
   new_node->n = n;
   new_node->next = NULL;
@@ -79,15 +75,15 @@ insert_after (node ** l, int b, int n)
       run = run->next;
 
     if (!run)
-      return FALSE;
+      return false;
 
     new_node->next = run->next;
     run->next = new_node;
   } else {
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 /* Insert at position */
@@ -141,10 +137,10 @@ dequeue (node ** l, int *value)
     *l = tmp->next;
     free (tmp);
 
-    return TRUE;
+    return true;
   } else {
     printf ("list is empty\n");
-    return FALSE;
+    return false;
   }
 }
 
@@ -156,7 +152,7 @@ pop (node ** l, int *value)
 
   if (!*l) {
     printf ("list is empty\n");
-    return FALSE;
+    return false;
   }
 
   run = *l;
@@ -175,7 +171,7 @@ pop (node ** l, int *value)
     run->next = NULL;
   }
 
-  return TRUE;
+  return true;
 }
 
 /* Travel through list printing the elements */
@@ -192,7 +188,7 @@ travel (node * l)
   }
   printf ("\n\n");
 
-  return TRUE;
+  return true;
 }
 
 /* Remove the node with the value n */
@@ -210,7 +206,7 @@ remove_node (node ** l, int n)
     } else {
       while (run->next->n != n) {       // find node
         if (!run->next->next)   // node isn't in the list
-          return FALSE;
+          return false;
 
         run = run->next;
       }
@@ -221,7 +217,7 @@ remove_node (node ** l, int n)
     }
   }
 
-  return TRUE;
+  return true;
 }
 
 /* remove the nth node */
@@ -240,7 +236,7 @@ remove_node_at_position (node ** l, int n)
     } else {
       while (c < n) {           // find node
         if (!run->next)         // node isn't in the list
-          return FALSE;
+          return false;
 
         run = run->next;
         c++;
@@ -252,7 +248,7 @@ remove_node_at_position (node ** l, int n)
     }
   }
 
-  return TRUE;
+  return true;
 }
 
 /* remove the nth node from the end of the list */

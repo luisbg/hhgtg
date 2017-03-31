@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 typedef struct node
@@ -12,12 +13,6 @@ typedef struct stack
 {
   node *top;
 } stack;
-
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
 
 
 static stack *stack_init ();

@@ -3,10 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef enum
-{ FALSE, TRUE }
-bool;
+#include <stdbool.h>
 
 
 /* zero out the rows and columns with a 0 in them */
@@ -20,7 +17,7 @@ zero_out (int m, int n, int matrix[m][n])
   for (x = 0; x < m; x++)
     for (y = 0; y < n; y++)
         if (matrix[x][y] == 0)
-          row_zero[y] = col_zero[x] = TRUE;
+          row_zero[y] = col_zero[x] = true;
 
   for (x = 0; x < m; x++)
     for (y = 0; y < n; y++)

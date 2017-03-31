@@ -19,11 +19,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-
-typedef enum {
-  FALSE, TRUE
-} bool;
+#include <stdbool.h>
 
 
 /* cycle through the circular list to the next available element */
@@ -50,14 +46,14 @@ char * select_task (char * tasks[], int size, int steps) {
   bool used[size];
 
   for (i = 0; i < size; i++)  /* set all to used */
-    used[i] = TRUE;
+    used[i] = true;
 
   while (tasks_left > 1) {
     for (i = 1; i < steps; i++) {
       curr = cycle_next (size, used, curr);
     }
 
-    used[curr] = FALSE;
+    used[curr] = false;
     printf ("drop %s\n", tasks[curr]);
     tasks_left--;
     curr = cycle_next (size, used, curr);

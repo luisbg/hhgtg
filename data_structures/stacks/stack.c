@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -11,9 +12,6 @@ typedef struct stack
 {
   node *top;
 } stack;
-
-typedef enum
-{ FALSE, TRUE } bool;
 
 
 int pop (stack * s);
@@ -76,9 +74,9 @@ bool
 is_empty (stack s)
 {
   if (s.top)
-    return FALSE;
+    return false;
   else
-    return TRUE;
+    return true;
 }
 
 

@@ -12,11 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef enum
-{
-  FALSE, TRUE
-} bool;
+#include <stdbool.h>
 
 
 void remove_chars (char **str, char *remove);
@@ -51,20 +47,20 @@ set_char_map (char *remove, bool ** map)
 {
   bool *tmp = (bool *) malloc (256 * sizeof (bool));
   if (!tmp)
-    return FALSE;
+    return false;
   int c;
 
   for (c = 0; c < 256; c++) {
-    tmp[c] = FALSE;
+    tmp[c] = false;
   }
 
   for (c = 0; remove[c] != '\0'; c++) {
-    tmp[(int) remove[c]] = TRUE;
+    tmp[(int) remove[c]] = true;
   }
 
   *map = tmp;
 
-  return TRUE;
+  return true;
 }
 
 

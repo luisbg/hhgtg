@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef enum
-{ FALSE, TRUE } bool;
+#include <stdbool.h>
 
 typedef struct
 {
@@ -63,7 +61,7 @@ bool
 stack_pop (dyn_arr * da, int *ret)
 {
   if (da->len == 0)
-    return FALSE;
+    return false;
 
   *ret = da->array[da->len - 1];
   da->array[da->len - 1] = 0;
@@ -75,7 +73,7 @@ stack_pop (dyn_arr * da, int *ret)
     da->array = (int *) realloc (da->array, da->size * sizeof (int));
   }
 
-  return TRUE;
+  return true;
 }
 
 /* free the memory used by the array */

@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -9,9 +10,6 @@ typedef struct node
   struct node *next;
   struct node *prev;
 } node;
-
-typedef enum
-{ FALSE, TRUE } bool;
 
 
 /* Sort the linked list */
@@ -99,7 +97,7 @@ have_we_seen_it_before (node ** l, int n)
 
   while (curr) {    // check if we have seen it
     if (curr->n == n)
-      return TRUE;
+      return true;
 
     curr = curr->next;
   }
@@ -116,7 +114,7 @@ have_we_seen_it_before (node ** l, int n)
     *l = new;
   }
 
-  return FALSE;
+  return false;
 }
 
 /* remove the duplicates by saving a buffer with seen values */

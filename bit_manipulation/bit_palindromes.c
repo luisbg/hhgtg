@@ -5,12 +5,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #define BIN_SIZE 32
-
-typedef enum
-  { FALSE, TRUE }
-bool;
 
 
 bool * in_binary(int n, bool * binary) {
@@ -32,14 +29,14 @@ bool is_palindrome_bin (bool * binary) {
   j = BIN_SIZE - 1;
   while (i < j) {
     if (binary[i] != binary[j]) {
-      return FALSE;
+      return false;
     }
 
     i++;
     j--;
   }
 
-  return TRUE;
+  return true;
 }
 
 void print_binary (bool binary[BIN_SIZE]) {
@@ -67,7 +64,7 @@ bool is_palindrome_n (int n) {
 
   if (num_digits == 1) {
     free(digits);
-    return TRUE;
+    return true;
   }
 
   i = 0;
@@ -75,7 +72,7 @@ bool is_palindrome_n (int n) {
   while (i < j) {
     if (digits[i] != digits[j]) {
       free(digits);
-      return FALSE;
+      return false;
     }
 
     i++;
@@ -83,7 +80,7 @@ bool is_palindrome_n (int n) {
   }
 
   free(digits);
-  return TRUE;
+  return true;
 }
 
 

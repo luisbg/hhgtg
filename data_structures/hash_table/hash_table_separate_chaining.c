@@ -16,9 +16,6 @@ typedef struct hash_table
   linked_list_t *buckets;
 } hash_table_t;
 
-typedef enum
-{ FALSE, TRUE } bool;
-
 
 /* simple hash to predict collisions */
 int
