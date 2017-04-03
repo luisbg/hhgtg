@@ -9,14 +9,14 @@ main ()
   FILE *fp;
   char filename[20];
 
-  printf ("Enter the name of the file: ");
-  scanf ("%s", filename);
-  fp = fopen (filename, "rb");
+  printf ("Enter the name of the file: ");      // Display prompt for input file
+  scanf ("%s", filename);       // Read the user's response
+  fp = fopen (filename, "rb");  // Open the file for input
 
-  while (fread (&c, sizeof (char), 1, fp) != 0)
-    fwrite (&c, 1, 1, stdout);
+  while (fread (&c, sizeof (char), 1, fp) != 0) // While there are chars to read
+    fwrite (&c, 1, 1, stdout);  // Read a char from the file and print to screen
 
-  fclose (fp);
+  fclose (fp);                  // Close the input file
 
   return 0;
 }
