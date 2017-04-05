@@ -1,3 +1,13 @@
+/* Force the fields into predictable lengths, then we can pull them back out of
+ * the file simply by counting our way to the end of the field.
+ * One obvious disadvantage of this approach is that adding all the padding
+ * required to bring the fields up to a fixed length makes the file much
+ * larger.
+ * We can also encounter problems with data that is too long to fit into the
+ * allocated amount of space.
+ * This methd is only good for data with little variability in size.
+ */
+
 #include <stdio.h>
 #include <string.h>
 
